@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20+ Professional Resume Templates - Free Resume Templates Gallery</title>
+<meta name="description" content="Browse 22 professional resume and CV templates. Preview, customize, and download as PDF, DOCX, or JPG. Modern, creative, and classic designs for every career.">
+<link rel="stylesheet" href="../css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8427860023135459" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+.template-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;padding:20px 0}
+.template-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .3s}
+.template-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+.template-preview{height:300px;background:#fff;margin:16px;border-radius:8px;overflow:hidden;position:relative;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+.template-preview .inner{transform:scale(0.45);transform-origin:top left;width:220%;height:220%;position:absolute;top:0;left:0}
+.template-info{padding:0 16px 16px}
+.template-name{font-size:1.1rem;font-weight:700;margin-bottom:4px}
+.template-desc{font-size:.85rem;color:var(--muted);margin-bottom:12px}
+.template-tags{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.template-tag{font-size:.7rem;padding:3px 8px;border-radius:50px;background:rgba(108,92,231,0.15);color:var(--accent)}
+.template-tag.pro{background:rgba(0,184,148,0.12);color:var(--green)}
+.template-tag.modern{background:rgba(0,123,255,0.12);color:#007bff}
+.template-tag.creative{background:rgba(255,107,107,0.12);color:#ff6b6b}
+.template-tag.classic{background:rgba(255,165,0,0.12);color:#ffa500}
+.template-tag.tech{background:rgba(0,206,209,0.12);color:#00ced1}
+.template-actions{display:flex;gap:8px}
+.template-actions .btn{flex:1;padding:10px;font-size:.85rem;justify-content:center}
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;padding:10px 0}
+.filter-btn{padding:6px 16px;border-radius:50px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;font-size:.8rem;font-weight:500;transition:all .2s}
+.filter-btn:hover,.filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.search-box{width:100%;padding:10px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.9rem;margin-bottom:16px;box-sizing:border-box}
+.search-box:focus{outline:none;border-color:var(--accent)}
+@media(max-width:768px){.template-grid{grid-template-columns:1fr}.template-preview{height:260px}.template-actions .btn{padding:8px 6px;font-size:.78rem}}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="container"><a href="../" class="logo"><div class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><span>FreeOnlineTools</span></a><div class="nav-links"><a href="../#pdf" style="color:var(--accent3)">PDF</a><a href="resume-builder.html" style="color:var(--green)">Resume</a><a href="resume-templates.html">Templates</a></div><button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('active')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div></nav>
+
+<a href="../" class="back-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to Home</a>
+
+<section class="hero" style="padding:50px 20px 30px">
+  <h1>20+ <span style="background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Resume Templates</span></h1>
+  <p style="color:var(--muted);max-width:600px;margin:0 auto 20px">Choose a professional template, fill in your details, and download as PDF, DOCX, or JPG.</p>
+</section>
+
+<div class="container">
+  <input type="text" class="search-box" placeholder="Search templates by name or category..." id="searchInput" oninput="filterTemplates()">
+
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+    <button class="filter-btn" onclick="setFilter('Professional',this)">Professional</button>
+    <button class="filter-btn" onclick="setFilter('Modern',this)">Modern</button>
+    <button class="filter-btn" onclick="setFilter('Creative',this)">Creative</button>
+    <button class="filter-btn" onclick="setFilter('Classic',this)">Classic</button>
+    <button class="filter-btn" onclick="setFilter('Tech',this)">Tech</button>
+    <button class="filter-btn" onclick="setFilter('Executive',this)">Executive</button>
+  </div>
+
+  <div class="template-grid" id="templateGrid"></div>
+</div>
+
+<div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> <span id="toastMsg">Done!</span></div>
+
+<footer class="footer"><div class="footer-bottom"><p>&copy; 2026 FreeOnlineTools. All tools run in your browser.</p></div></footer>
+
+<script>
+function getTemplates(){
+  return {
+    "classic-professional": {
+      name: "Classic Professional",
+      description: "Traditional black & white design with serif fonts and clean horizontal lines. Perfect for corporate and formal industries.",
+      category: ["Professional","Classic"],
+      fontFamily: "'Merriweather', Georgia, serif",
+      headerStyle: "font-size:18pt;font-weight:700;color:#1a1a1a;text-align:center;letter-spacing:1px;padding-bottom:6px;border-bottom:2px solid #000;margin-bottom:4px",
+      titleStyle: "font-size:8pt;color:#555;text-align:center;margin-bottom:4px;letter-spacing:2px;text-transform:uppercase",
+      contactStyle: "font-size:6.5pt;color:#666;text-align:center;margin-bottom:6px",
+      sectionStyle: "font-size:8pt;font-weight:700;text-transform:uppercase;letter-spacing:2px;border-bottom:1.5px solid #000;padding-bottom:2px;margin:6px 0 4px;color:#1a1a1a",
+      itemStyle: "font-size:7pt;color:#222;margin-bottom:2px",
+      subStyle: "font-size:6.5pt;color:#555;font-style:italic;margin-bottom:2px",
+      textStyle: "font-size:6.5pt;color:#333;line-height:1.5;margin-bottom:4px",
+      hrStyle: "border:none;border-top:1px solid #ddd;margin:4px 0",
+      textColor: "#1a1a1a",
+      sampleName: "JAMES WILSON",
+      sampleTitle: "SENIOR PROJECT MANAGER",
+      sampleContact: "james.wilson@email.com | (555) 123-4567 | New York, NY | linkedin.com/in/jameswilson",
+      sampleJob: "Senior Project Manager",
+      sampleCompany: "Deloitte Consulting, New York, NY  |  2020 - Present",
+      sampleDesc: "Led cross-functional teams of 15+ members, delivering projects 20% under budget. Managed $5M+ portfolios and implemented agile methodologies across 3 departments.",
+      sampleDegree: "MBA, Project Management",
+      sampleSchool: "Columbia University, 2018",
+      sampleSkills: "Agile, Scrum, PMP, Risk Management, Stakeholder Communication, Budget Planning, JIRA, MS Project"
+    },
+    "modern-minimal": {
+      name: "Modern Minimal",
+      description: "Ultra-clean sans-serif layout with subtle gray accents and generous whitespace. Ideal for tech and design roles.",
+      category: ["Modern","Professional"],
+      fontFamily: "'Inter', 'Roboto', sans-serif",
+      headerStyle: "font-size:20pt;font-weight:800;color:#222;margin-bottom:2px;letter-spacing:-0.5px",
+      titleStyle: "font-size:8pt;color:#007bff;margin-bottom:4px;font-weight:600",
+      contactStyle: "font-size:6.5pt;color:#888;margin-bottom:8px;display:flex;gap:12px;flex-wrap:wrap",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#007bff;margin:8px 0 4px;padding-bottom:2px;border-bottom:1px solid #eee",
+      itemStyle: "font-size:7pt;color:#333;font-weight:600;margin-bottom:1px",
+      subStyle: "font-size:6.5pt;color:#999;margin-bottom:2px",
+      textStyle: "font-size:6.5pt;color:#555;line-height:1.6;margin-bottom:3px",
+      hrStyle: "border:none;margin:0",
+      textColor: "#333",
+      sampleName: "Sarah Chen",
+      sampleTitle: "UX Designer",
+      sampleContact: "sarah@design.co  |  (415) 987-6543  |  San Francisco  |  sarahchen.design",
+      sampleJob: "Lead UX Designer",
+      sampleCompany: "Figma  |  San Francisco, CA  |  2021 - Present",
+      sampleDesc: "Redesigning core collaboration features used by 4M+ designers. Conducted 50+ user research sessions and improved task completion rates by 32%.",
+      sampleDegree: "BFA Interaction Design",
+      sampleSchool: "California College of the Arts, 2019",
+      sampleSkills: "Figma, Sketch, Prototyping, User Research, Design Systems, HTML/CSS, React basics"
+    },
+    "creative-bold": {
+      name: "Creative Bold",
+      description: "Eye-catching design with a colorful header and unique section markers. Great for creative and marketing roles.",
+      category: ["Creative","Modern"],
+      fontFamily: "'Inter', sans-serif",
+      headerStyle: "background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:16px;font-size:16pt;font-weight:800;border-radius:6px;margin-bottom:6px",
+      titleStyle: "font-size:8pt;color:rgba(255,255,255,0.9);font-weight:500;margin-top:4px",
+      contactStyle: "font-size:6.5pt;color:rgba(255,255,255,0.75);margin-top:4px",
+      sectionStyle: "font-size:8pt;font-weight:700;color:#764ba2;margin:6px 0 3px;display:flex;align-items:center;gap:6px",
+      itemStyle: "font-size:7pt;color:#333;font-weight:600;margin-bottom:1px",
+      subStyle: "font-size:6.5pt;color:#888;margin-bottom:2px",
+      textStyle: "font-size:6.5pt;color:#555;line-height:1.5;margin-bottom:3px",
+      hrStyle: "border:none;margin:0",
+      textColor: "#333",
+      sampleName: "ALEX RIVERA",
+      sampleTitle: "Creative Director",
+      sampleContact: "alex@creative.io  |  (310) 456-7890  |  Los Angeles  |  alexrivera.portfolio.com",
+      sampleJob: "Creative Director",
+      sampleCompany: "Wieden+Kennedy, LA  |  2019 - Present",
+      sampleDesc: "Directed brand campaigns for Fortune 500 clients generating $12M+ revenue. Led a team of 8 designers and 4 copywriters across multiple channels.",
+      sampleDegree: "BFA Graphic Design",
+      sampleSchool: "ArtCenter College of Design, 2017",
+      sampleSkills: "Brand Strategy, Art Direction, After Effects, Cinema 4D, Team Leadership, Client Relations"
+    },
+    "executive-elite": {
+      name: "Executive Elite",
+      description: "Distinguished dark navy header with gold accents. Designed for C-suite executives and senior leadership.",
+      category: ["Executive","Professional"],
+      fontFamily: "'Playfair Display', 'Merriweather', serif",
+      headerStyle: "background:#1a2744;color:#d4a942;padding:14px 16px;font-size:17pt;font-weight:700;text-align:center;border-left:4px solid #d4a942;margin-bottom:6px",
+      titleStyle: "font-size:8pt;color:#8899b0;letter-spacing:3px;text-transform:uppercase;font-weight:400;margin-top:4px",
+      contactStyle: "font-size:6.5pt;color:#8899b0;margin-top:4px",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#1a2744;margin:6px 0 3px;padding-bottom:2px;border-bottom:1px solid #d4a942",
+      itemStyle: "font-size:7pt;color:#222;font-weight:700;margin-bottom:1px",
+      subStyle: "font-size:6.5pt;color:#666;margin-bottom:2px;font-style:italic",
+      textStyle: "font-size:6.5pt;color:#444;line-height:1.5;margin-bottom:3px",
+      hrStyle: "border:none;margin:0",
+      textColor: "#222",
+      sampleName: "VICTORIA HARRINGTON",
+      sampleTitle: "CHIEF OPERATING OFFICER",
+      sampleContact: "v.harrington@corp.com  |  (212) 555-0199  |  New York  |  linkedin.com/in/vharrington",
+      sampleJob: "Chief Operating Officer",
+      sampleCompany: "Goldman Sachs, New York  |  2018 - Present",
+      sampleDesc: "Oversee $2B+ operations across 12 global offices. Reduced operational costs by 18% while improving employee satisfaction scores by 25%.",
+      sampleDegree: "MBA, Harvard Business School",
+      sampleSchool: "Harvard University, 2012",
+      sampleSkills: "Strategic Planning, P&L Management, Digital Transformation, Team Building, M&A Integration, Board Reporting"
+    },
+    "tech-resume": {
+      name: "Tech Resume",
+      description: "Monospace accents with green/blue tech colors and skill progress bars. Built for software engineers and IT professionals.",
+      category: ["Tech","Modern"],
+      fontFamily: "'JetBrains Mono', 'Inter', monospace",
+      headerStyle: "font-family:'Inter',sans-serif;font-size:16pt;font-weight:800;color:#0d1117;border-bottom:3px solid #00bcd4;padding-bottom:6px;margin-bottom:4px",
+      titleStyle: "font-size:8pt;color:#00bcd4;font-family:'JetBrains Mono',monospace;margin-bottom:4px",
+      contactStyle: "font-size:6.5pt;color:#8b949e;font-family:'JetBrains Mono',monospace;margin-bottom:6px",
+      sectionStyle: "font-size:7.5pt;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#0d1117;background:#e6ffec;padding:3px 8px;border-left:3px solid #238636;margin:6px 0 4px",
+      itemStyle: "font-size:7pt;color:#222;font-weight:600;margin-bottom:1px",
+      subStyle: "font-size:6.5pt;color:#666;margin-bottom:2px",
+      textStyle: "font-size:6.5pt;color:#444;line-height:1.5;margin-bottom:3px;font-family:'JetBrains Mono',monospace",
+      hrStyle: "border:none;margin:0",
+      textColor: "#222",
+      sampleName: "ALEX PARK",
+      sampleTitle: "FULL-STACK ENGINEER",
+      sampleContact: "alex@dev.io  |  github.com/alexpark  |  (650) 111-2222  |  Seattle, WA",
+      sampleJob: "Senior Software Engineer",
+      sampleCompany: "Stripe, Seattle  |  2021 - Present",
+      sampleDesc: "Built payment processing APIs serving 1M+ requests/day. Reduced latency by 40% through Redis caching and query optimization.",
+      sampleDegree: "BS Computer Science",
+      sampleSchool: "University of Washington, 2019",
+      sampleSkills: "TypeScript, React, Node.js, Go, PostgreSQL, AWS, Docker, Kubernetes, gRPC"
+    },
+    "elegant-serif": {
+      name: "Elegant Serif",
+      description: "Refined design using Playfair Display with thin borders and sophisticated spacing. Ideal for law, consulting, and finance.",
+      category: ["Classic","Professional"],
+      fontFamily: "'Playfair Display', Georgia, serif",
+      headerStyle: "font-size:19pt;font-weight:700;color:#2c2c2c;text-align:center;letter-spacing:2px;border-bottom:0.5px solid #bbb;padding-bottom:6px;margin-bottom:4px",
+      titleStyle: "font-size:7.5pt;color:#8b7355;text-align:center;letter-spacing:4px;text-transform:uppercase;margin-bottom:4px",
+      contactStyle: "font-size:6pt;color:#999;text-align:center;margin-bottom:6px",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#8b7355;text-align:center;margin:6px 0 4px",
+      itemStyle: "font-size:7pt;color:#2c2c2c;font-weight:700;margin-bottom:1px",
+      subStyle: "font-size:6.5pt;color:#888;margin-bottom:2px;font-style:italic",
+      textStyle: "font-size:6.5pt;color:#555;line-height:1.6;margin-bottom:3px",
+      hrStyle: "border:none;border-top:0.5px solid #ddd;margin:4px auto;width:40%",
+      textColor: "#2c2c2c",
+      sampleName: "Catherine Beaumont",
+      sampleTitle: "Senior Legal Counsel",
+      sampleContact: "c.beaumont@law.com  |  (202) 888-9999  |  Washington, D.C.",
+      sampleJob: "Senior Legal Counsel",
+      sampleCompany: "Baker McKenzie, D.C.  |  2019 - Present",
+      sampleDesc: "Managed $500M+ M&A transactions and international regulatory compliance across 8 jurisdictions. Reduced contract review time by 35%.",
+      sampleDegree: "JD, Georgetown Law",
+      sampleSchool: "Georgetown University, 2015",
+      sampleSkills: "Mergers & Acquisitions, Contract Law, GDPR Compliance, Legal Writing, Arbitration, Due Diligence"
+    },
+    "infographic": {
+      name: "Infographic",
+      description: "Visual skill bars, icon placeholders, and colorful sections. A data-driven approach to showcasing abilities.",
+      category: ["Creative","Modern"],
+      fontFamily: "'Inter', sans-serif",
+      headerStyle: "background:linear-gradient(135deg,#f093fb,#f5576c);color:#fff;padding:14px 16px;border-radius:6px;font-size:15pt;font-weight:800",
+      titleStyle: "font-size:8pt;color:rgba(255,255,255,0.9);margin-top:2px;font-weight:500",
+      contactStyle: "font-size:6.5pt;color:rgba(255,255,255,0.75);margin-top:3px",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#f5576c;margin:6px 0 3px",
+      itemStyle: "font-size:7pt;color:#333;font-weight:600;margin-bottom:1px",
+      subStyle: "font-size:6.5pt;color:#888;margin-bottom:2px",
+      textStyle: "font-size:6.5pt;color:#555;line-height:1.5;margin-bottom:3px",
+      hrStyle: "border:none;margin:0",
+      textColor: "#333",
+      sampleName: "MAYA JOHNSON",
+      sampleTitle: "DATA SCIENTIST",
+      sampleContact: "maya@analytics.co  |  (424) 777-8888  |  Los Angeles",
+      sampleJob: "Lead Data Scientist",
+      sampleCompany: "Netflix, Los Angeles  |  2020 - Present",
+      sampleDesc: "Built recommendation models improving engagement by 28%. Managed petabyte-scale data pipelines and led a team of 5 ML engineers.",
+      sampleDegree: "MS Data Science",
+      sampleSchool: "Stanford University, 2018",
+      sampleSkills: "Python, TensorFlow, SQL, Spark, A/B Testing, Statistical Modeling, NLP, Computer Vision"
+    },
+    "simple-clean": {
+      name: "Simple Clean",
+      description: "Ultra-minimal design with just text and thin lines. Lets your content speak for itself.",
+      category: ["Professional","Classic"],
+      fontFamily: "'Inter', 'Roboto', sans-serif",
+      headerStyle: "font-size:17pt;font-weight:700;color:#111;margin-bottom:2px",
+      titleStyle: "font-size:8pt;color:#666;margin-bottom:4px",
+      contactStyle: "font-size:6.5pt;color:#999;margin-bottom:6px",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#111;margin:6px 0 3px;padding-bottom:2px;border-bottom:0.5px solid #ccc",
+      itemStyle: "font-size:7pt;color:#222;font-weight:600;margin-bottom:1px",
+      subStyle: "font-size:6.5pt;color:#888;margin-bottom:2px",
+      textStyle: "font-size:6.5pt;color:#555;line-height:1.5;margin-bottom:3px",
+      hrStyle: "border:none;margin:0",
+      textColor: "#333",
+      sampleName: "Daniel Kim",
+      sampleTitle: "Operations Manager",
+      sampleContact: "d.kim@email.com  |  (312) 456-7890  |  Chicago, IL",
+      sampleJob: "Operations Manager",
+      sampleCompany: "McKinsey & Company, Chicago  |  2020 - Present",
+      sampleDesc: "Streamlined supply chain processes reducing delivery times by 22%. Managed $8M annual budget with 15% year-over-year savings.",
+      sampleDegree: "MBA, Operations",
+      sampleSchool: "Northwestern Kellogg, 2018",
+      sampleSkills: "Process Optimization, Lean Six Sigma, ERP Systems, Vendor Management, Budget Planning, Team Leadership"
+    },
+    "corporate-blue": {
+      name: "Corporate Blue",
+      description: "Professional blue header with well-structured sections. A versatile template for most industries.",
+      category: ["Professional","Classic"],
+      fontFamily: "'Roboto', 'Inter', sans-serif",
+      headerStyle: "background:#1565c0;color:#fff;padding:12px 16px;font-size:16pt;font-weight:700;border-radius:4px",
+      titleStyle: "font-size:8pt;color:rgba(255,255,255,0.85);font-weight:400;letter-spacing:1px;margin-top:3px",
+      contactStyle: "font-size:6.5pt;color:rgba(255,255,255,0.7);margin-top:3px",
+      sectionStyle: "font-size:7.5pt;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#1565c0;margin:6px 0 3px;padding-bottom:2px;border-bottom:2px solid #1565c0",
+      itemStyle: "font-size:7pt;color:#222;font-weight:600;margin-bottom:1px",
+      subStyle: "font-size:6.5pt;color:#666;margin-bottom:2px",
+      textStyle: "font-size:6.5pt;color:#444;line-height:1.5;margin-bottom:3px",
+      hrStyle: "border:none;margin:0",
+      textColor: "#222",
+      sampleName: "ROBERT CHEN",
+      sampleTitle: "FINANCIAL ANALYST",
+      sampleContact: "r.chen@finance.com  |  (646) 234-5678  |  New York, NY",
+      sampleJob: "Senior Financial Analyst",
+      sampleCompany: "JPMorgan Chase, NYC  |  2019 - Present",
+      sampleDesc: "Built financial models forecasting $500M+ revenue streams. Identified cost savings of $3.2M through variance analysis and process improvements.",
+      sampleDegree: "MS Finance",
+      sampleSchool: "NYU Stern School of Business, 2017",
+      sampleSkills: "Financial Modeling, Excel/VBA, Bloomberg, SQL, Risk Assessment, P&L Analysis, Valuation"
+    },
+    "startup-modern": {
+      name: "Startup Modern",
+      description: "Casual-professional vibe with gradient accents and relaxed structure. Perfect for startups and tech companies.",
+      category: ["Modern","Creative"],
+      fontFamily: "'Inter', sans-serif",
+      headerStyle: "background:linear-gradient(135deg,#4facfe,#00f2fe);color:#fff;padding:14px 16px;border-radius:8px;font-size:16pt;font-weight:800",
+      titleStyle: "font-size:8pt;color:rgba(255,255,255,0.9);font-weight:500;margin-top:2px",
+      contactStyle: "font-size:6.5pt;color:rgba(255,255,255,0.75);margin-top:3px",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#4facfe;margin:6px 0 3px",
+      itemStyle: "font-size:7pt;color:#222;font-weight:600;margin-bottom:1px",
+      subStyle: "font-size:6.5pt;color:#888;margin-bottom:2px",
+      textStyle: "font-size:6.5pt;color:#555;line-height:1.5;margin-bottom:3px",
+      hrStyle: "border:none;margin:0",
+      textColor: "#333",
+      sampleName: "JESS MARTINEZ",
+      sampleTitle: "PRODUCT MANAGER",
+      sampleContact: "jess@startup.io  |  (415) 888-1234  |  San Francisco",
+      sampleJob: "Senior Product Manager",
+      sampleCompany: "Notion, San Francisco  |  2021 - Present",
+      sampleDesc: "Launched 3 major features reaching 5M+ users. Grew adoption by 150% through data-driven iteration and cross-team collaboration.",
+      sampleDegree: "BS Industrial Engineering",
+      sampleSchool: "UC Berkeley, 2018",
+      sampleSkills: "Product Strategy, User Research, A/B Testing, SQL, Figma, Roadmapping, Growth Hacking"
+    },
+    "academic-cv": {
+      name: "Academic CV",
+      description: "Dense, formal layout with dedicated sections for publications, research, and teaching. Built for academia.",
+      category: ["Classic","Professional"],
+      fontFamily: "'Merriweather', 'Times New Roman', serif",
+      headerStyle: "font-size:16pt;font-weight:700;color:#1a1a1a;text-align:center;border-bottom:2px solid #8b0000;padding-bottom:5px;margin-bottom:4px",
+      titleStyle: "font-size:7.5pt;color:#8b0000;text-align:center;letter-spacing:1px;margin-bottom:3px",
+      contactStyle: "font-size:6pt;color:#666;text-align:center;margin-bottom:5px",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#8b0000;margin:5px 0 3px;padding-bottom:2px;border-bottom:0.5px solid #ccc",
+      itemStyle: "font-size:6.5pt;color:#222;font-weight:700;margin-bottom:1px",
+      subStyle: "font-size:6pt;color:#666;font-style:italic;margin-bottom:2px",
+      textStyle: "font-size:6pt;color:#444;line-height:1.4;margin-bottom:2px",
+      hrStyle: "border:none;margin:0",
+      textColor: "#1a1a1a",
+      sampleName: "Dr. Eleanor Whitfield",
+      sampleTitle: "Associate Professor of Neuroscience",
+      sampleContact: "e.whitfield@university.edu  |  (617) 555-3456  |  Cambridge, MA",
+      sampleJob: "Assistant Professor",
+      sampleCompany: "MIT, Cambridge  |  2018 - Present",
+      sampleDesc: "Published 22 peer-reviewed papers in Nature, Science, and PNAS. PI on $3.2M NIH grant studying neural plasticity.",
+      sampleDegree: "PhD Neuroscience",
+      sampleSchool: "Harvard University, 2016",
+      sampleSkills: "Neural Imaging, CRISPR, Statistical Analysis, Grant Writing, Scientific Publishing, Lab Management"
+    },
+    "designer-portfolio": {
+      name: "Designer Portfolio",
+      description: "Creative layout with color blocks and an artistic sensibility. Showcase your design skills before they read a word.",
+      category: ["Creative","Modern"],
+      fontFamily: "'Inter', sans-serif",
+      headerStyle: "background:#2d2d2d;color:#fff;padding:14px 16px;font-size:16pt;font-weight:800;position:relative;overflow:hidden",
+      titleStyle: "font-size:8pt;color:#ff6b6b;font-weight:600;margin-top:3px",
+      contactStyle: "font-size:6.5pt;color:#aaa;margin-top:3px",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#ff6b6b;margin:6px 0 3px;display:flex;align-items:center;gap:6px",
+      itemStyle: "font-size:7pt;color:#222;font-weight:600;margin-bottom:1px",
+      subStyle: "font-size:6.5pt;color:#888;margin-bottom:2px",
+      textStyle: "font-size:6.5pt;color:#555;line-height:1.5;margin-bottom:3px",
+      hrStyle: "border:none;margin:0",
+      textColor: "#333",
+      sampleName: "SAM OKAFOR",
+      sampleTitle: "VISUAL DESIGNER",
+      sampleContact: "sam@design.studio  |  dribbble.com/samokafor  |  (773) 222-3333",
+      sampleJob: "Senior Visual Designer",
+      sampleCompany: "Airbnb, San Francisco  |  2020 - Present",
+      sampleDesc: "Designed visual identity for 4 product lines. Won 2 Webby Awards. Created design system used across 12 teams globally.",
+      sampleDegree: "BFA Visual Communication",
+      sampleSchool: "School of Visual Arts, NYC, 2017",
+      sampleSkills: "Illustration, Motion Design, Brand Identity, Figma, After Effects, Blender, Print Design"
+    },
+    "manager-pro": {
+      name: "Manager Pro",
+      description: "Leadership-focused layout with prominent achievement metrics. Designed for management and director-level roles.",
+      category: ["Executive","Professional"],
+      fontFamily: "'Roboto', 'Inter', sans-serif",
+      headerStyle: "font-size:17pt;font-weight:700;color:#1a237e;border-left:5px solid #1a237e;padding-left:12px;margin-bottom:4px",
+      titleStyle: "font-size:8pt;color:#5c6bc0;font-weight:500;letter-spacing:1px;margin-bottom:4px",
+      contactStyle: "font-size:6.5pt;color:#888;margin-bottom:6px",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#1a237e;margin:6px 0 3px;padding-bottom:2px;border-bottom:2px solid #e8eaf6",
+      itemStyle: "font-size:7pt;color:#222;font-weight:600;margin-bottom:1px",
+      subStyle: "font-size:6.5pt;color:#666;margin-bottom:2px",
+      textStyle: "font-size:6.5pt;color:#444;line-height:1.5;margin-bottom:3px",
+      hrStyle: "border:none;margin:0",
+      textColor: "#222",
+      sampleName: "PATRICIA NGUYEN",
+      sampleTitle: "VP OF OPERATIONS",
+      sampleContact: "p.nguyen@corp.com  |  (617) 444-5555  |  Boston, MA",
+      sampleJob: "VP of Operations",
+      sampleCompany: "HubSpot, Boston  |  2019 - Present",
+      sampleDesc: "Scaled operations from 200 to 800 employees. Improved retention by 35%. Led OKR implementation company-wide, boosting productivity 22%.",
+      sampleDegree: "MBA, Leadership",
+      sampleSchool: "MIT Sloan, 2014",
+      sampleSkills: "Change Management, OKRs, Cross-functional Leadership, P&L Ownership, Talent Development, Strategic Planning"
+    },
+    "fresh-graduate": {
+      name: "Fresh Graduate",
+      description: "Education-forward layout with prominent projects and coursework sections. Perfect for recent graduates.",
+      category: ["Modern","Professional"],
+      fontFamily: "'Inter', sans-serif",
+      headerStyle: "font-size:17pt;font-weight:800;color:#111;margin-bottom:2px",
+      titleStyle: "font-size:8pt;color:#00897b;font-weight:600;margin-bottom:3px",
+      contactStyle: "font-size:6.5pt;color:#999;margin-bottom:6px",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#00897b;margin:6px 0 3px;padding-bottom:2px;border-bottom:2px solid #b2dfdb",
+      itemStyle: "font-size:7pt;color:#222;font-weight:600;margin-bottom:1px",
+      subStyle: "font-size:6.5pt;color:#888;margin-bottom:2px",
+      textStyle: "font-size:6.5pt;color:#555;line-height:1.5;margin-bottom:3px",
+      hrStyle: "border:none;margin:0",
+      textColor: "#333",
+      sampleName: "TYLER JAMES",
+      sampleTitle: "JUNIOR SOFTWARE DEVELOPER",
+      sampleContact: "tyler.j@email.com  |  github.com/tylerjames  |  (512) 999-0000",
+      sampleJob: "Software Engineering Intern",
+      sampleCompany: "Google, Mountain View  |  Summer 2025",
+      sampleDesc: "Built a Chrome extension used by 10K+ internal users. Contributed to Android accessibility features reaching 500K+ users.",
+      sampleDegree: "BS Computer Science (GPA: 3.8)",
+      sampleSchool: "University of Texas at Austin, 2025",
+      sampleSkills: "Python, Java, React, Git, Data Structures, Algorithms, SQL, AWS basics, CI/CD"
+    },
+    "marketing-pro": {
+      name: "Marketing Pro",
+      description: "Bold colors and achievement metrics to showcase campaign results. Built for marketing and growth professionals.",
+      category: ["Creative","Modern"],
+      fontFamily: "'Inter', sans-serif",
+      headerStyle: "background:linear-gradient(135deg,#e91e63,#ff5722);color:#fff;padding:14px 16px;border-radius:6px;font-size:16pt;font-weight:800",
+      titleStyle: "font-size:8pt;color:rgba(255,255,255,0.9);font-weight:500;margin-top:3px",
+      contactStyle: "font-size:6.5pt;color:rgba(255,255,255,0.75);margin-top:3px",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#e91e63;margin:6px 0 3px",
+      itemStyle: "font-size:7pt;color:#222;font-weight:600;margin-bottom:1px",
+      subStyle: "font-size:6.5pt;color:#888;margin-bottom:2px",
+      textStyle: "font-size:6.5pt;color:#555;line-height:1.5;margin-bottom:3px",
+      hrStyle: "border:none;margin:0",
+      textColor: "#333",
+      sampleName: "OLIVIA TURNER",
+      sampleTitle: "HEAD OF MARKETING",
+      sampleContact: "olivia@brand.co  |  (323) 666-7777  |  Los Angeles",
+      sampleJob: "Head of Marketing",
+      sampleCompany: "Glossier, Los Angeles  |  2020 - Present",
+      sampleDesc: "Grew social following from 500K to 3.2M. Launched viral campaign generating 45M impressions. Drove $28M in attributed revenue.",
+      sampleDegree: "MS Marketing Analytics",
+      sampleSchool: "USC Marshall, 2017",
+      sampleSkills: "Digital Marketing, SEO/SEM, Social Media Strategy, Analytics, CRM, Content Marketing, Influencer Partnerships"
+    },
+    "engineering-clean": {
+      name: "Engineering Clean",
+      description: "Technical, precise layout with monospace accents and methodical structure. Designed for engineers and technical roles.",
+      category: ["Tech","Professional"],
+      fontFamily: "'JetBrains Mono', 'Inter', monospace",
+      headerStyle: "font-family:'Inter',sans-serif;font-size:16pt;font-weight:800;color:#0f172a;border-bottom:3px solid #334155;padding-bottom:5px;margin-bottom:4px",
+      titleStyle: "font-size:8pt;color:#334155;font-family:'JetBrains Mono',monospace;margin-bottom:4px",
+      contactStyle: "font-size:6pt;color:#94a3b8;font-family:'JetBrains Mono',monospace;margin-bottom:6px",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#0f172a;background:#f1f5f9;padding:3px 8px;margin:6px 0 4px",
+      itemStyle: "font-size:7pt;color:#1e293b;font-weight:600;margin-bottom:1px;font-family:'Inter',sans-serif",
+      subStyle: "font-size:6.5pt;color:#64748b;margin-bottom:2px",
+      textStyle: "font-size:6.5pt;color:#475569;line-height:1.5;margin-bottom:3px;font-family:'JetBrains Mono',monospace",
+      hrStyle: "border:none;margin:0",
+      textColor: "#1e293b",
+      sampleName: "KEVIN WRIGHT",
+      sampleTitle: "MECHANICAL ENGINEER",
+      sampleContact: "kevin.wright@eng.com  |  (303) 444-5555  |  Denver, CO",
+      sampleJob: "Senior Mechanical Engineer",
+      sampleCompany: "SpaceX, Hawthorne  |  2020 - Present",
+      sampleDesc: "Designed thermal protection systems for Starship. Reduced component weight by 18% using topology optimization. 3 patents pending.",
+      sampleDegree: "MS Mechanical Engineering",
+      sampleSchool: "Georgia Tech, 2018",
+      sampleSkills: "SolidWorks, ANSYS, FEA/CFD, GD&T, Python scripting, MATLAB, DFM/DFA, Composite Materials"
+    },
+    "healthcare-professional": {
+      name: "Healthcare Professional",
+      description: "Clean, clinical layout with certifications section. Perfect for doctors, nurses, and healthcare administrators.",
+      category: ["Professional","Classic"],
+      fontFamily: "'Roboto', sans-serif",
+      headerStyle: "font-size:17pt;font-weight:700;color:#004d40;border-bottom:3px solid #00897b;padding-bottom:5px;margin-bottom:4px",
+      titleStyle: "font-size:8pt;color:#00897b;font-weight:500;letter-spacing:1px;margin-bottom:3px",
+      contactStyle: "font-size:6.5pt;color:#78909c;margin-bottom:6px",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#004d40;margin:5px 0 3px;padding-bottom:2px;border-bottom:1px solid #b2dfdb",
+      itemStyle: "font-size:7pt;color:#222;font-weight:600;margin-bottom:1px",
+      subStyle: "font-size:6.5pt;color:#666;margin-bottom:2px",
+      textStyle: "font-size:6.5pt;color:#444;line-height:1.5;margin-bottom:3px",
+      hrStyle: "border:none;margin:0",
+      textColor: "#222",
+      sampleName: "DR. AMARA JOHNSON, MD",
+      sampleTitle: "CARDIOLOGIST",
+      sampleContact: "dr.johnson@hospital.org  |  (404) 888-2222  |  Atlanta, GA",
+      sampleJob: "Attending Cardiologist",
+      sampleCompany: "Emory University Hospital, Atlanta  |  2019 - Present",
+      sampleDesc: "Performed 500+ cardiac catheterizations. Led research trial on novel anticoagulant achieving FDA Fast Track designation. Published 15 papers.",
+      sampleDegree: "MD, Internal Medicine & Cardiology",
+      sampleSchool: "Emory University, 2013",
+      sampleSkills: "Echocardiography, Catheterization, Electrophysiology, Clinical Research, ACLS/BLS, Epic EMR, Quality Improvement"
+    },
+    "finance-expert": {
+      name: "Finance Expert",
+      description: "Conservative and professional design focused on quantitative achievements. Built for finance and banking roles.",
+      category: ["Professional","Executive"],
+      fontFamily: "'Roboto', 'Merriweather', serif",
+      headerStyle: "font-size:17pt;font-weight:700;color:#1b2631;text-align:center;letter-spacing:1px;border-bottom:2px solid #1b2631;padding-bottom:5px;margin-bottom:4px",
+      titleStyle: "font-size:8pt;color:#5d6d7e;text-align:center;letter-spacing:3px;text-transform:uppercase;margin-bottom:4px",
+      contactStyle: "font-size:6pt;color:#7f8c8d;text-align:center;margin-bottom:5px",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#1b2631;margin:5px 0 3px;padding-bottom:2px;border-bottom:1px solid #d5d8dc",
+      itemStyle: "font-size:7pt;color:#1b2631;font-weight:700;margin-bottom:1px",
+      subStyle: "font-size:6.5pt;color:#5d6d7e;margin-bottom:2px;font-style:italic",
+      textStyle: "font-size:6.5pt;color:#34495e;line-height:1.5;margin-bottom:3px",
+      hrStyle: "border:none;margin:0",
+      textColor: "#1b2631",
+      sampleName: "ANDREW BLACKWELL",
+      sampleTitle: "INVESTMENT BANKING ANALYST",
+      sampleContact: "a.blackwell@ibank.com  |  (212) 555-6789  |  New York",
+      sampleJob: "Vice President, M&A",
+      sampleCompany: "Morgan Stanley, NYC  |  2019 - Present",
+      sampleDesc: "Executed 8 transactions totaling $4.2B. Led due diligence processes and financial modeling for cross-border M&A deals.",
+      sampleDegree: "MS Financial Engineering",
+      sampleSchool: "Princeton University, 2016",
+      sampleSkills: "DCF/LBO Modeling, Valuation, Pitch Books, Financial Analysis, Bloomberg Terminal, Capital Markets"
+    },
+    "legal-professional": {
+      name: "Legal Professional",
+      description: "Formal and traditional design with serif fonts. A serious layout for attorneys and legal professionals.",
+      category: ["Classic","Professional"],
+      fontFamily: "'Merriweather', 'Times New Roman', serif",
+      headerStyle: "font-size:16pt;font-weight:700;color:#1a1a2e;text-align:center;border-bottom:3px double #1a1a2e;padding-bottom:5px;margin-bottom:4px",
+      titleStyle: "font-size:8pt;color:#1a1a2e;text-align:center;letter-spacing:2px;text-transform:uppercase;font-weight:400;margin-bottom:4px",
+      contactStyle: "font-size:6pt;color:#666;text-align:center;margin-bottom:5px",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#1a1a2e;margin:5px 0 3px;padding-bottom:2px;border-bottom:1px solid #1a1a2e",
+      itemStyle: "font-size:6.5pt;color:#222;font-weight:700;margin-bottom:1px",
+      subStyle: "font-size:6pt;color:#666;font-style:italic;margin-bottom:2px",
+      textStyle: "font-size:6pt;color:#444;line-height:1.4;margin-bottom:3px",
+      hrStyle: "border:none;margin:0",
+      textColor: "#1a1a2e",
+      sampleName: "MARGARET SULLIVAN, ESQ.",
+      sampleTitle: "SENIOR PARTNER",
+      sampleContact: "m.sullivan@lawfirm.com  |  (213) 999-0001  |  Los Angeles",
+      sampleJob: "Senior Partner, Litigation",
+      sampleCompany: "Latham & Watkins, LA  |  2017 - Present",
+      sampleDesc: "Won $180M class action verdict. Named Top 50 Women Lawyers in California 2024. Practice lead for Fortune 100 clients.",
+      sampleDegree: "JD, Summa Cum Laude",
+      sampleSchool: "Yale Law School, 2011",
+      sampleSkills: "Civil Litigation, Class Actions, Intellectual Property, Appellate Practice, Mediation, Legal Writing"
+    },
+    "creative-writer": {
+      name: "Creative Writer",
+      description: "Literary style with elegant typography and an editorial feel. Built for writers, editors, and content creators.",
+      category: ["Creative","Classic"],
+      fontFamily: "'Playfair Display', 'Merriweather', serif",
+      headerStyle: "font-size:18pt;font-weight:400;font-style:italic;color:#2c2c2c;text-align:center;margin-bottom:4px;font-family:'Playfair Display',serif",
+      titleStyle: "font-size:7.5pt;color:#8b7355;text-align:center;letter-spacing:4px;text-transform:uppercase;margin-bottom:4px",
+      contactStyle: "font-size:6pt;color:#999;text-align:center;margin-bottom:6px",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#5d4037;text-align:center;margin:6px 0 3px;font-family:'Inter',sans-serif",
+      itemStyle: "font-size:6.5pt;color:#2c2c2c;font-weight:700;margin-bottom:1px;font-family:'Playfair Display',serif",
+      subStyle: "font-size:6pt;color:#888;margin-bottom:2px;font-style:italic",
+      textStyle: "font-size:6pt;color:#555;line-height:1.6;margin-bottom:3px",
+      hrStyle: "border:none;border-top:0.5px solid #d4c5a9;margin:4px auto;width:30%",
+      textColor: "#2c2c2c",
+      sampleName: "Isabella Fontaine",
+      sampleTitle: "Author & Essayist",
+      sampleContact: "isabella@literaryink.com  |  (646) 777-8888  |  New York",
+      sampleJob: "Senior Editor",
+      sampleCompany: "The Paris Review, NYC  |  2020 - Present",
+      sampleDesc: "Edited 150+ literary works. Published 3 novels (NYT Bestseller). Contributing essayist to The Atlantic and Harper's Magazine.",
+      sampleDegree: "MFA Creative Writing",
+      sampleSchool: "Iowa Writers' Workshop, 2018",
+      sampleSkills: "Creative Nonfiction, Fiction, Poetry, Literary Criticism, Editorial Leadership, Workshop Facilitation"
+    },
+    "photographer": {
+      name: "Photographer",
+      description: "Image-focused layout with minimal text and large visual areas. Designed for visual professionals and photographers.",
+      category: ["Creative","Modern"],
+      fontFamily: "'Inter', sans-serif",
+      headerStyle: "background:#111;color:#fff;padding:16px;font-size:16pt;font-weight:800;letter-spacing:3px;text-transform:uppercase",
+      titleStyle: "font-size:8pt;color:#e74c3c;font-weight:600;letter-spacing:2px;margin-top:4px;text-transform:uppercase",
+      contactStyle: "font-size:6.5pt;color:#999;margin-top:4px",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#e74c3c;margin:6px 0 3px",
+      itemStyle: "font-size:7pt;color:#222;font-weight:600;margin-bottom:1px",
+      subStyle: "font-size:6.5pt;color:#888;margin-bottom:2px",
+      textStyle: "font-size:6.5pt;color:#555;line-height:1.5;margin-bottom:3px",
+      hrStyle: "border:none;margin:0",
+      textColor: "#333",
+      sampleName: "LUCA FERREIRA",
+      sampleTitle: "PHOTOGRAPHER",
+      sampleContact: "luca@photography.co  |  lucaferreira.com  |  (619) 333-4444",
+      sampleJob: "Freelance Photographer",
+      sampleCompany: "Self-Employed, San Diego  |  2018 - Present",
+      sampleDesc: "Published in National Geographic, Vogue, and TIME. 15+ solo exhibitions worldwide. Client roster includes Nike, Apple, and Porsche.",
+      sampleDegree: "BA Photography",
+      sampleSchool: "Parsons School of Design, 2016",
+      sampleSkills: "Portrait, Landscape, Commercial, Lightroom, Capture One, Studio Lighting, Post-Production, Drone Photography"
+    },
+    "student-cv": {
+      name: "Student CV",
+      description: "Education-focused, simple and clean layout. Highlight coursework, projects, and extracurriculars.",
+      category: ["Modern","Professional"],
+      fontFamily: "'Inter', 'Roboto', sans-serif",
+      headerStyle: "font-size:17pt;font-weight:800;color:#1565c0;margin-bottom:2px",
+      titleStyle: "font-size:8pt;color:#42a5f5;font-weight:600;margin-bottom:4px",
+      contactStyle: "font-size:6.5pt;color:#999;margin-bottom:6px",
+      sectionStyle: "font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#1565c0;margin:6px 0 3px;padding-bottom:2px;border-bottom:1.5px solid #bbdefb",
+      itemStyle: "font-size:7pt;color:#222;font-weight:600;margin-bottom:1px",
+      subStyle: "font-size:6.5pt;color:#888;margin-bottom:2px",
+      textStyle: "font-size:6.5pt;color:#555;line-height:1.5;margin-bottom:3px",
+      hrStyle: "border:none;margin:0",
+      textColor: "#333",
+      sampleName: "EMMA WATSON",
+      sampleTitle: "COMPUTER SCIENCE STUDENT",
+      sampleContact: "emma.w@university.edu  |  github.com/emmaw  |  (919) 222-1111",
+      sampleJob: "Undergraduate Research Assistant",
+      sampleCompany: "Duke University, Durham  |  2024 - Present",
+      sampleDesc: "Developed ML model for disease prediction achieving 92% accuracy. Presented findings at IEEE conference.",
+      sampleDegree: "BS Computer Science (Junior)",
+      sampleSchool: "Duke University, Expected 2027",
+      sampleSkills: "Python, JavaScript, React, Machine Learning, Data Analysis, Linear Algebra, Public Speaking"
+    }
+  };
+}
+
+let activeFilter = 'all';
+
+function renderAll(){
+  const templates = getTemplates();
+  const grid = document.getElementById('templateGrid');
+  grid.innerHTML = '';
+  const keys = Object.keys(templates);
+  keys.forEach(id => {
+    const t = templates[id];
+    const card = document.createElement('div');
+    card.className = 'template-card';
+    card.dataset.categories = t.category.join(',');
+    card.dataset.name = t.name.toLowerCase();
+    card.innerHTML = `
+      <div class="template-preview" id="preview-${id}"><div class="inner" id="inner-${id}"></div></div>
+      <div class="template-info">
+        <div class="template-name">${t.name}</div>
+        <div class="template-desc">${t.description}</div>
+        <div class="template-tags">${t.category.map(c => {
+          const cls = ['Creative','Creative'].includes(c)?'creative':['Modern','Modern'].includes(c)?'modern':['Classic','Classic'].includes(c)?'classic':['Tech'].includes(c)?'tech':['Executive'].includes(c)?'executive':'pro';
+          return `<span class="template-tag ${cls}">${c}</span>`;
+        }).join('')}</div>
+        <div class="template-actions">
+          <button class="btn" onclick="useTemplate('${id}')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Use Template
+          </button>
+          <button class="btn" onclick="downloadSamplePDF('${id}')" style="background:var(--green);color:#fff;border-color:var(--green)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PDF
+          </button>
+          <button class="btn" onclick="downloadSampleDOCX('${id}')" style="background:#2b579a;color:#fff;border-color:#2b579a">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            DOCX
+          </button>
+          <button class="btn" onclick="downloadSampleJPG('${id}')" style="background:#e67e22;color:#fff;border-color:#e67e22">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            JPG
+          </button>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+  keys.forEach(id => renderPreview('inner-'+id, id, templates));
+}
+
+function renderPreview(containerId, templateId, templates){
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  const t = templates[templateId];
+  container.innerHTML=`
+    <div style="padding:14px;font-family:${t.fontFamily};font-size:6pt;line-height:1.4;color:${t.textColor};min-height:500px">
+      <div style="${t.headerStyle}">${t.sampleName}</div>
+      <div style="${t.titleStyle}">${t.sampleTitle}</div>
+      <div style="${t.contactStyle}">${t.sampleContact}</div>
+      <hr style="${t.hrStyle}">
+      <div style="${t.sectionStyle}">EXPERIENCE</div>
+      <div style="${t.itemStyle}"><strong>${t.sampleJob}</strong></div>
+      <div style="${t.subStyle}">${t.sampleCompany}</div>
+      <div style="${t.textStyle}">${t.sampleDesc}</div>
+      <hr style="${t.hrStyle}">
+      <div style="${t.sectionStyle}">EDUCATION</div>
+      <div style="${t.itemStyle}"><strong>${t.sampleDegree}</strong></div>
+      <div style="${t.subStyle}">${t.sampleSchool}</div>
+      <hr style="${t.hrStyle}">
+      <div style="${t.sectionStyle}">SKILLS</div>
+      <div style="${t.textStyle}">${t.sampleSkills}</div>
+    </div>`;
+}
+
+function useTemplate(id){
+  window.location.href = 'resume-builder.html?template=' + id;
+}
+
+function downloadSamplePDF(templateId){
+  const el = document.getElementById('inner-'+templateId);
+  if(!el){showToast('Preview not ready');return;}
+  showToast('Generating PDF...');
+  const opt = {
+    margin:[8,8,8,8],
+    filename:templateId+'-resume-template.pdf',
+    image:{type:'jpeg',quality:0.98},
+    html2canvas:{scale:2,useCORS:true},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
+  };
+  html2pdf().set(opt).from(el).save().then(()=>{
+    showToast('Template PDF downloaded!');
+  }).catch(()=>showToast('Download complete'));
+}
+
+function downloadSampleDOCX(templateId){
+  const templates = getTemplates();
+  const t = templates[templateId];
+  const content = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+    body{font-family:${t.fontFamily};padding:40px;color:${t.textColor};font-size:11pt;line-height:1.5}
+    h1{${t.headerStyle.replace(/font-size:\d+pt/,'font-size:22pt')}}
+    .title{${t.titleStyle.replace(/font-size:\d+pt/,'font-size:11pt')}}
+    .contact{${t.contactStyle.replace(/font-size:\d+pt/,'font-size:9pt')}}
+    .section{${t.sectionStyle.replace(/font-size:\d+pt/,'font-size:11pt')}}
+    .item{${t.itemStyle.replace(/font-size:\d+pt/,'font-size:11pt')}}
+    .sub{${t.subStyle.replace(/font-size:\d+pt/,'font-size:10pt')}}
+    .text{${t.textStyle.replace(/font-size:\d+pt/,'font-size:10pt')}}
+    hr{${t.hrStyle}}
+  </style></head><body>
+    <h1>${t.sampleName}</h1>
+    <div class="title">${t.sampleTitle}</div>
+    <div class="contact">${t.sampleContact}</div>
+    <hr>
+    <div class="section">EXPERIENCE</div>
+    <div class="item"><strong>${t.sampleJob}</strong></div>
+    <div class="sub">${t.sampleCompany}</div>
+    <div class="text">${t.sampleDesc}</div>
+    <hr>
+    <div class="section">EDUCATION</div>
+    <div class="item"><strong>${t.sampleDegree}</strong></div>
+    <div class="sub">${t.sampleSchool}</div>
+    <hr>
+    <div class="section">SKILLS</div>
+    <div class="text">${t.sampleSkills}</div>
+  </body></html>`;
+  const blob = new Blob([content], {type:'application/msword'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = templateId+'-resume-template.doc';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('DOCX template downloaded!');
+}
+
+function downloadSampleJPG(templateId){
+  const el = document.getElementById('inner-'+templateId);
+  if(!el){showToast('Preview not ready');return;}
+  showToast('Generating JPG...');
+  html2canvas(el, {scale:2, useCORS:true, backgroundColor:'#ffffff'}).then(canvas => {
+    const link = document.createElement('a');
+    link.download = templateId+'-resume-template.jpg';
+    link.href = canvas.toDataURL('image/jpeg', 0.95);
+    link.click();
+    showToast('JPG template downloaded!');
+  }).catch(()=>showToast('Download complete'));
+}
+
+function setFilter(filter, btn){
+  activeFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterTemplates();
+}
+
+function filterTemplates(){
+  const query = document.getElementById('searchInput').value.toLowerCase();
+  const cards = document.querySelectorAll('.template-card');
+  cards.forEach(card => {
+    const name = card.dataset.name;
+    const cats = card.dataset.categories.toLowerCase();
+    const matchSearch = !query || name.includes(query) || cats.includes(query);
+    const matchFilter = activeFilter === 'all' || cats.includes(activeFilter.toLowerCase());
+    card.style.display = (matchSearch && matchFilter) ? '' : 'none';
+  });
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2500);
+}
+
+renderAll();
+</script>
+</body>
+</html>
