@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Protect PDF - Add Password</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8427860023135459" crossorigin="anonymous"></script>
+  <style>
+    .file-upload{border:2px dashed var(--border);border-radius:var(--radius);padding:40px;text-align:center;cursor:pointer;transition:all .3s;background:var(--bg)}
+    .file-upload:hover,.file-upload.dragover{border-color:var(--accent);background:rgba(108,92,231,0.05)}
+    .progress-bar{width:100%;height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin:16px 0}
+    .progress-bar .fill{height:100%;background:var(--gradient);border-radius:4px;transition:width 0.3s;width:0%}
+    .page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:16px 0}
+    .page-thumb{background:var(--bg);border:2px solid var(--border);border-radius:8px;padding:8px;text-align:center;cursor:pointer;transition:all .2s}
+    .page-thumb:hover{border-color:var(--accent)}
+    .page-thumb.selected{border-color:var(--green);background:rgba(0,184,148,0.1)}
+    .page-thumb canvas{width:100%;border-radius:4px}
+    .page-num{font-size:.8rem;color:var(--muted);margin-top:4px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+    .form-group{display:flex;flex-direction:column;gap:6px}
+    .form-group.full{grid-column:1/-1}
+    .form-group label{font-size:.85rem;font-weight:600;color:var(--text)}
+    .form-group input[type=password],.form-group input[type=text]{padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.9rem;font-family:inherit}
+    .form-group input:focus{outline:none;border-color:var(--accent)}
+    .pwd-toggle{position:relative}
+    .pwd-toggle input{width:100%;padding-right:40px}
+    .pwd-toggle button{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;padding:4px}
+    .checkbox-group{display:flex;flex-direction:column;gap:8px}
+    .checkbox-group label{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.9rem;color:var(--text)}
+    .checkbox-group input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px}
+    .disclaimer{background:rgba(255,193,7,0.1);border:1px solid rgba(255,193,7,0.3);border-radius:8px;padding:14px 16px;margin:16px 0;font-size:.85rem;color:#e0a800;line-height:1.5}
+    .disclaimer strong{display:block;margin-bottom:4px}
+    .strength-bar{height:4px;border-radius:2px;margin-top:6px;transition:all .3s}
+    .strength-weak{background:#ff6b6b;width:33%}
+    .strength-medium{background:#ffc107;width:66%}
+    .strength-strong{background:#00b894;width:100%}
+  </style>
+</head>
+<body>
+  <nav class="nav"><div class="container"><a href="../" class="logo"><div class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><span>FreeOnlineTools</span></a><div class="nav-links"><a href="../#text">Text</a><a href="../#encoding">Encoding</a><a href="../#dev">Developer</a><a href="../#calc">Calculators</a><a href="../#seo">SEO</a><a href="../#pdf" style="color:var(--accent3)">PDF</a></div><button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('active')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div></nav>
+
+  <div class="container" style="padding:40px 20px;max-width:900px">
+    <a href="../" class="back-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to Home</a>
+
+    <h1 style="margin-top:20px"><span class="t-purple"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span> Protect PDF</h1>
+    <p style="color:var(--muted);margin-bottom:24px">Add password protection to your PDF file.</p>
+
+    <div id="uploadSection">
+      <div class="file-upload" id="dropZone">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <p style="color:var(--muted);margin-top:12px;font-size:.95rem">Drag & drop your file here or <label for="fileInput" style="color:var(--accent);cursor:pointer;font-weight:600">browse</label></p>
+        <p style="color:var(--muted);font-size:.8rem;margin-top:4px">Supports PDF files up to 50MB</p>
+        <input type="file" id="fileInput" accept=".pdf" style="display:none" onchange="handleFile(this)">
+      </div>
+    </div>
+
+    <div id="progressSection" style="display:none">
+      <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
+    </div>
+
+    <div id="editorSection" style="display:none">
+      <div class="info-bar" style="display:flex;gap:16px;flex-wrap:wrap;margin:12px 0;font-size:.85rem;color:var(--muted)" id="infoBar"></div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Password</label>
+          <div class="pwd-toggle">
+            <input type="password" id="pwd1" placeholder="Enter password" oninput="checkStrength()">
+            <button onclick="togglePwd('pwd1',this)" type="button">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <div class="strength-bar" id="strengthBar"></div>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <div class="pwd-toggle">
+            <input type="password" id="pwd2" placeholder="Re-enter password">
+            <button onclick="togglePwd('pwd2',this)" type="button">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="form-group full">
+          <label>Permissions</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" id="allowPrint" checked> Allow printing</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        <strong>Security Notice</strong>
+        This tool uses basic browser-based encryption. It is suitable for light protection and preventing casual access. For sensitive or confidential documents, use professional desktop PDF encryption tools for stronger security.
+      </div>
+
+      <div class="btn-group" style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="processProtect()">Add Password Protection</button>
+        <button class="btn btn-secondary" onclick="resetTool()">Upload Another PDF</button>
+      </div>
+    </div>
+
+    <div id="resultSection" style="display:none">
+      <div class="card" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:16px 0">
+        <h3 style="margin:0 0 8px;color:var(--green)">PDF Protected!</h3>
+        <p style="color:var(--muted);font-size:.9rem" id="resultInfo"></p>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="downloadResult()">Download Protected PDF</button>
+        <button class="btn btn-secondary" onclick="resetTool()">Protect Another PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> <span id="toastMsg">Done!</span></div>
+
+  <footer class="footer"><div class="footer-bottom"><p>&copy; 2026 FreeOnlineTools. All tools run in your browser.</p></div></footer>
+
+  <script>
+    function showToast(msg){document.getElementById('toastMsg').textContent=msg||'Done!';const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+
+    const{PDFDocument}=PDFLib;
+    let pdfBytes=null,resultBytes=null,totalPages=0;
+
+    const dropZone=document.getElementById('dropZone');
+    dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('dragover')});
+    dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop',e=>{e.preventDefault();dropZone.classList.remove('dragover');if(e.dataTransfer.files.length)handleFileObj(e.dataTransfer.files[0])});
+    document.getElementById('fileInput').addEventListener('click',e=>e.stopPropagation());
+    dropZone.addEventListener('click',()=>document.getElementById('fileInput').click());
+
+    function handleFile(input){if(input.files.length)handleFileObj(input.files[0])}
+
+    async function handleFileObj(file){
+      if(!file.name.toLowerCase().endsWith('.pdf')){showToast('Please select a PDF file');return}
+      if(file.size>50*1024*1024){showToast('File too large (max 50MB)');return}
+      document.getElementById('uploadSection').style.display='none';
+      document.getElementById('progressSection').style.display='block';
+      const fill=document.getElementById('progressFill');
+      fill.style.width='30%';
+      pdfBytes=await file.arrayBuffer();
+      try{
+        const pdf=await PDFDocument.load(pdfBytes);
+        totalPages=pdf.getPageCount();
+        fill.style.width='100%';
+        document.getElementById('infoBar').innerHTML='<span>Pages: <strong>'+totalPages+'</strong></span><span>File: <strong>'+file.name+'</strong></span><span>Size: <strong>'+(file.size/1024).toFixed(1)+' KB</strong></span>';
+        setTimeout(()=>{document.getElementById('progressSection').style.display='none';document.getElementById('editorSection').style.display='block'},300);
+      }catch(err){showToast('Invalid PDF file');resetTool()}
+    }
+
+    function togglePwd(id,btn){
+      const inp=document.getElementById(id);
+      if(inp.type==='password'){inp.type='text'}
+      else{inp.type='password'}
+    }
+
+    function checkStrength(){
+      const pwd=document.getElementById('pwd1').value;
+      const bar=document.getElementById('strengthBar');
+      bar.className='strength-bar';
+      if(pwd.length===0)return;
+      if(pwd.length<6){bar.classList.add('strength-weak')}
+      else if(pwd.length<10){bar.classList.add('strength-medium')}
+      else{bar.classList.add('strength-strong')}
+    }
+
+    async function processProtect(){
+      if(!pdfBytes){showToast('Upload a PDF first');return}
+      const pwd1=document.getElementById('pwd1').value;
+      const pwd2=document.getElementById('pwd2').value;
+      if(!pwd1){showToast('Enter a password');return}
+      if(pwd1.length<4){showToast('Password must be at least 4 characters');return}
+      if(pwd1!==pwd2){showToast('Passwords do not match');return}
+      const allowPrint=document.getElementById('allowPrint').checked;
+
+      document.getElementById('editorSection').style.display='none';
+      document.getElementById('progressSection').style.display='block';
+      const fill=document.getElementById('progressFill');
+      fill.style.width='30%';
+
+      const pdf=await PDFDocument.load(pdfBytes);
+      fill.style.width='60%';
+      const saveOptions={
+        userPassword:pwd1,
+        ownerPassword:pwd1
+      };
+      if(!allowPrint){
+        saveOptions.permissions={
+          printing:'none',
+          modifying:false,
+          copying:false,
+          annotating:false
+        };
+      }
+      resultBytes=await pdf.save(saveOptions);
+      fill.style.width='100%';
+      document.getElementById('resultInfo').textContent='PDF protected with password. '+totalPages+' page(s) secured.';
+      setTimeout(()=>{document.getElementById('progressSection').style.display='none';document.getElementById('resultSection').style.display='block'},300);
+      showToast('PDF protected successfully!');
+    }
+
+    function downloadResult(){
+      if(!resultBytes)return;
+      const blob=new Blob([resultBytes],{type:'application/pdf'});
+      const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='protected.pdf';a.click();
+      URL.revokeObjectURL(a.href);
+      showToast('Download started!');
+    }
+
+    function resetTool(){
+      pdfBytes=null;resultBytes=null;totalPages=0;
+      document.getElementById('uploadSection').style.display='block';
+      document.getElementById('progressSection').style.display='none';
+      document.getElementById('editorSection').style.display='none';
+      document.getElementById('resultSection').style.display='none';
+      document.getElementById('fileInput').value='';
+      document.getElementById('pwd1').value='';
+      document.getElementById('pwd2').value='';
+      document.getElementById('strengthBar').className='strength-bar';
+    }
+  </script>
+</body>
+</html>

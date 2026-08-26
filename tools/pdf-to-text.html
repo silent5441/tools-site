@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF to Text - Extract Text from PDF</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8427860023135459" crossorigin="anonymous"></script>
+  <style>
+    .file-upload{border:2px dashed var(--border);border-radius:var(--radius);padding:40px;text-align:center;cursor:pointer;transition:all .3s;background:var(--bg)}
+    .file-upload:hover,.file-upload.dragover{border-color:var(--accent);background:rgba(108,92,231,0.05)}
+    .progress-bar{width:100%;height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin:16px 0}
+    .progress-bar .fill{height:100%;background:var(--gradient);border-radius:4px;transition:width 0.3s;width:0%}
+    .page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:16px 0}
+    .page-thumb{background:var(--bg);border:2px solid var(--border);border-radius:8px;padding:8px;text-align:center;cursor:pointer;transition:all .2s}
+    .page-thumb:hover{border-color:var(--accent)}
+    .page-thumb.selected{border-color:var(--green);background:rgba(0,184,148,0.1)}
+    .page-thumb canvas{width:100%;border-radius:4px}
+    .page-num{font-size:.8rem;color:var(--muted);margin-top:4px}
+    .text-result{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:16px 0;max-height:500px;overflow-y:auto;white-space:pre-wrap;font-family:'JetBrains Mono',monospace;font-size:.85rem;line-height:1.6;color:var(--text)}
+    .stats{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0}
+    .stat{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 16px;text-align:center;min-width:120px}
+    .stat-value{font-size:1.4rem;font-weight:700;color:var(--accent)}
+    .stat-label{font-size:.75rem;color:var(--muted);margin-top:2px}
+  </style>
+</head>
+<body>
+  <nav class="nav"><div class="container"><a href="../" class="logo"><div class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><span>FreeOnlineTools</span></a><div class="nav-links"><a href="../#text">Text</a><a href="../#encoding">Encoding</a><a href="../#dev">Developer</a><a href="../#calc">Calculators</a><a href="../#seo">SEO</a><a href="../#pdf" style="color:var(--accent3)">PDF</a></div><button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('active')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div></nav>
+
+  <div class="container" style="padding:40px 20px;max-width:900px">
+    <a href="../" class="back-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to Home</a>
+
+    <h1 style="margin-top:20px"><span class="t-green"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span> PDF to Text</h1>
+    <p style="color:var(--muted);margin-bottom:24px">Extract all text content from a PDF file. Copy or download the text.</p>
+
+    <div id="uploadSection">
+      <div class="file-upload" id="dropZone">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <p style="color:var(--muted);margin-top:12px;font-size:.95rem">Drag & drop your file here or <label for="fileInput" style="color:var(--accent);cursor:pointer;font-weight:600">browse</label></p>
+        <p style="color:var(--muted);font-size:.8rem;margin-top:4px">Supports PDF files up to 50MB</p>
+        <input type="file" id="fileInput" accept=".pdf" style="display:none" onchange="handleFile(this)">
+      </div>
+    </div>
+
+    <div id="progressSection" style="display:none">
+      <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
+      <p style="color:var(--muted);font-size:.85rem;text-align:center" id="progressText">Extracting text...</p>
+    </div>
+
+    <div id="resultSection" style="display:none">
+      <div class="stats" id="statsBar"></div>
+      <div class="text-result" id="textContent"></div>
+      <div class="btn-group" style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="copyText()">Copy to Clipboard</button>
+        <button class="btn btn-secondary" onclick="downloadTxt()">Download as .txt</button>
+        <button class="btn btn-secondary" onclick="resetTool()">Extract Another PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> <span id="toastMsg">Done!</span></div>
+
+  <footer class="footer"><div class="footer-bottom"><p>&copy; 2026 FreeOnlineTools. All tools run in your browser.</p></div></footer>
+
+  <script>
+    function showToast(msg){document.getElementById('toastMsg').textContent=msg||'Done!';const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+
+    pdfjsLib.GlobalWorkerOptions.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    let extractedText='',fileName='document';
+
+    const dropZone=document.getElementById('dropZone');
+    dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('dragover')});
+    dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop',e=>{e.preventDefault();dropZone.classList.remove('dragover');if(e.dataTransfer.files.length)handleFileObj(e.dataTransfer.files[0])});
+    document.getElementById('fileInput').addEventListener('click',e=>e.stopPropagation());
+    dropZone.addEventListener('click',()=>document.getElementById('fileInput').click());
+
+    function handleFile(input){if(input.files.length)handleFileObj(input.files[0])}
+
+    async function handleFileObj(file){
+      if(!file.name.toLowerCase().endsWith('.pdf')){showToast('Please select a PDF file');return}
+      if(file.size>50*1024*1024){showToast('File too large (max 50MB)');return}
+      fileName=file.name.replace(/\.pdf$/i,'');
+      document.getElementById('uploadSection').style.display='none';
+      document.getElementById('progressSection').style.display='block';
+      const fill=document.getElementById('progressFill');
+      fill.style.width='10%';
+      const bytes=await file.arrayBuffer();
+      try{
+        const pdf=await pdfjsLib.getDocument({data:bytes}).promise;
+        const numPages=pdf.numPages;
+        let fullText='';
+        for(let i=1;i<=numPages;i++){
+          document.getElementById('progressText').textContent='Extracting text from page '+i+' of '+numPages+'...';
+          fill.style.width=(10+(i/numPages)*80)+'%';
+          const page=await pdf.getPage(i);
+          const content=await page.getTextContent();
+          const strings=content.items.map(item=>item.str);
+          fullText+=strings.join(' ')+'\n\n--- Page '+i+' ---\n\n';
+        }
+        fill.style.width='100%';
+        extractedText=fullText.trim();
+        const charCount=extractedText.length;
+        const wordCount=extractedText.split(/\s+/).filter(w=>w).length;
+        document.getElementById('statsBar').innerHTML=
+          '<div class="stat"><div class="stat-value">'+numPages+'</div><div class="stat-label">Pages</div></div>'+
+          '<div class="stat"><div class="stat-value">'+charCount.toLocaleString()+'</div><div class="stat-label">Characters</div></div>'+
+          '<div class="stat"><div class="stat-value">'+wordCount.toLocaleString()+'</div><div class="stat-label">Words</div></div>';
+        document.getElementById('textContent').textContent=extractedText;
+        setTimeout(()=>{document.getElementById('progressSection').style.display='none';document.getElementById('resultSection').style.display='block'},300);
+        showToast('Text extracted successfully!');
+      }catch(err){showToast('Error extracting text');resetTool()}
+    }
+
+    function copyText(){
+      navigator.clipboard.writeText(extractedText).then(()=>showToast('Copied to clipboard!')).catch(()=>{
+        const ta=document.createElement('textarea');ta.value=extractedText;document.body.appendChild(ta);ta.select();
+        document.execCommand('copy');document.body.removeChild(ta);showToast('Copied to clipboard!');
+      });
+    }
+
+    function downloadTxt(){
+      const blob=new Blob([extractedText],{type:'text/plain'});
+      const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fileName+'.txt';a.click();
+      URL.revokeObjectURL(a.href);
+      showToast('Download started!');
+    }
+
+    function resetTool(){
+      extractedText='';fileName='document';
+      document.getElementById('uploadSection').style.display='block';
+      document.getElementById('progressSection').style.display='none';
+      document.getElementById('resultSection').style.display='none';
+      document.getElementById('fileInput').value='';
+    }
+  </script>
+</body>
+</html>

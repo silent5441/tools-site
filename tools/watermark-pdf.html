@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Watermark to PDF</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8427860023135459" crossorigin="anonymous"></script>
+  <style>
+    .file-upload{border:2px dashed var(--border);border-radius:var(--radius);padding:40px;text-align:center;cursor:pointer;transition:all .3s;background:var(--bg)}
+    .file-upload:hover,.file-upload.dragover{border-color:var(--accent);background:rgba(108,92,231,0.05)}
+    .progress-bar{width:100%;height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin:16px 0}
+    .progress-bar .fill{height:100%;background:var(--gradient);border-radius:4px;transition:width 0.3s;width:0%}
+    .page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:16px 0}
+    .page-thumb{background:var(--bg);border:2px solid var(--border);border-radius:8px;padding:8px;text-align:center;cursor:pointer;transition:all .2s}
+    .page-thumb:hover{border-color:var(--accent)}
+    .page-thumb.selected{border-color:var(--green);background:rgba(0,184,148,0.1)}
+    .page-thumb canvas{width:100%;border-radius:4px}
+    .page-num{font-size:.8rem;color:var(--muted);margin-top:4px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+    .form-group{display:flex;flex-direction:column;gap:6px}
+    .form-group label{font-size:.85rem;font-weight:600;color:var(--text)}
+    .form-group input,.form-group select{padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.9rem;font-family:inherit}
+    .form-group input:focus,.form-group select:focus{outline:none;border-color:var(--accent)}
+    .range-row{display:flex;align-items:center;gap:12px}
+    .range-row input[type=range]{flex:1;accent-color:var(--accent)}
+    .range-val{font-size:.85rem;color:var(--muted);min-width:40px;text-align:right}
+    .color-input{display:flex;align-items:center;gap:8px}
+    .color-input input[type=color]{width:40px;height:36px;border:1px solid var(--border);border-radius:6px;cursor:pointer;padding:2px}
+    .preview-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:30px;text-align:center;margin:16px 0;position:relative;overflow:hidden;min-height:150px;display:flex;align-items:center;justify-content:center}
+    .preview-watermark{font-size:24px;font-weight:700;pointer-events:none;position:absolute}
+  </style>
+</head>
+<body>
+  <nav class="nav"><div class="container"><a href="../" class="logo"><div class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><span>FreeOnlineTools</span></a><div class="nav-links"><a href="../#text">Text</a><a href="../#encoding">Encoding</a><a href="../#dev">Developer</a><a href="../#calc">Calculators</a><a href="../#seo">SEO</a><a href="../#pdf" style="color:var(--accent3)">PDF</a></div><button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('active')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div></nav>
+
+  <div class="container" style="padding:40px 20px;max-width:900px">
+    <a href="../" class="back-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to Home</a>
+
+    <h1 style="margin-top:20px"><span class="t-orange"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></span> Add Watermark to PDF</h1>
+    <p style="color:var(--muted);margin-bottom:24px">Add a text watermark to every page of your PDF.</p>
+
+    <div id="uploadSection">
+      <div class="file-upload" id="dropZone">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <p style="color:var(--muted);margin-top:12px;font-size:.95rem">Drag & drop your file here or <label for="fileInput" style="color:var(--accent);cursor:pointer;font-weight:600">browse</label></p>
+        <p style="color:var(--muted);font-size:.8rem;margin-top:4px">Supports PDF files up to 50MB</p>
+        <input type="file" id="fileInput" accept=".pdf" style="display:none" onchange="handleFile(this)">
+      </div>
+    </div>
+
+    <div id="progressSection" style="display:none">
+      <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
+    </div>
+
+    <div id="editorSection" style="display:none">
+      <div class="info-bar" style="display:flex;gap:16px;flex-wrap:wrap;margin:12px 0;font-size:.85rem;color:var(--muted)" id="infoBar"></div>
+
+      <div class="form-grid">
+        <div class="form-group" style="grid-column:1/-1">
+          <label>Watermark Text</label>
+          <input type="text" id="wmText" value="CONFIDENTIAL" placeholder="Enter watermark text" oninput="updatePreview()">
+        </div>
+        <div class="form-group">
+          <label>Font Size</label>
+          <div class="range-row">
+            <input type="range" id="wmSize" min="12" max="72" value="36" oninput="document.getElementById('wmSizeVal').textContent=this.value+'px';updatePreview()">
+            <span class="range-val" id="wmSizeVal">36px</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Rotation (degrees)</label>
+          <div class="range-row">
+            <input type="range" id="wmRotation" min="-90" max="90" value="-45" oninput="document.getElementById('wmRotVal').textContent=this.value+'°';updatePreview()">
+            <span class="range-val" id="wmRotVal">-45°</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Opacity</label>
+          <div class="range-row">
+            <input type="range" id="wmOpacity" min="10" max="100" value="30" oninput="document.getElementById('wmOpVal').textContent=(this.value/100).toFixed(2);updatePreview()">
+            <span class="range-val" id="wmOpVal">0.30</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Color</label>
+          <div class="color-input">
+            <input type="color" id="wmColor" value="#cccccc" oninput="updatePreview()">
+            <span style="font-size:.85rem;color:var(--muted)" id="wmColorVal">#cccccc</span>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin:16px 0 8px">Preview</h3>
+      <div class="preview-box" id="previewBox">
+        <span class="preview-watermark" id="previewText">CONFIDENTIAL</span>
+      </div>
+
+      <div class="btn-group" style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="processWatermark()">Add Watermark</button>
+        <button class="btn btn-secondary" onclick="resetTool()">Upload Another PDF</button>
+      </div>
+    </div>
+
+    <div id="resultSection" style="display:none">
+      <div class="card" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:16px 0">
+        <h3 style="margin:0 0 8px;color:var(--green)">Watermark Added!</h3>
+        <p style="color:var(--muted);font-size:.9rem" id="resultInfo"></p>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="downloadResult()">Download Watermarked PDF</button>
+        <button class="btn btn-secondary" onclick="resetTool()">Watermark Another PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> <span id="toastMsg">Done!</span></div>
+
+  <footer class="footer"><div class="footer-bottom"><p>&copy; 2026 FreeOnlineTools. All tools run in your browser.</p></div></footer>
+
+  <script>
+    function showToast(msg){document.getElementById('toastMsg').textContent=msg||'Done!';const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+
+    const{PDFDocument,rgb,StandardFonts}=PDFLib;
+    let pdfBytes=null,resultBytes=null,totalPages=0;
+
+    const dropZone=document.getElementById('dropZone');
+    dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('dragover')});
+    dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop',e=>{e.preventDefault();dropZone.classList.remove('dragover');if(e.dataTransfer.files.length)handleFileObj(e.dataTransfer.files[0])});
+    document.getElementById('fileInput').addEventListener('click',e=>e.stopPropagation());
+    dropZone.addEventListener('click',()=>document.getElementById('fileInput').click());
+
+    function handleFile(input){if(input.files.length)handleFileObj(input.files[0])}
+
+    async function handleFileObj(file){
+      if(!file.name.toLowerCase().endsWith('.pdf')){showToast('Please select a PDF file');return}
+      if(file.size>50*1024*1024){showToast('File too large (max 50MB)');return}
+      document.getElementById('uploadSection').style.display='none';
+      document.getElementById('progressSection').style.display='block';
+      const fill=document.getElementById('progressFill');
+      fill.style.width='30%';
+      pdfBytes=await file.arrayBuffer();
+      try{
+        const pdf=await PDFDocument.load(pdfBytes);
+        totalPages=pdf.getPageCount();
+        fill.style.width='100%';
+        document.getElementById('infoBar').innerHTML='<span>Pages: <strong>'+totalPages+'</strong></span><span>File: <strong>'+file.name+'</strong></span>';
+        updatePreview();
+        setTimeout(()=>{document.getElementById('progressSection').style.display='none';document.getElementById('editorSection').style.display='block'},300);
+      }catch(err){showToast('Invalid PDF file');resetTool()}
+    }
+
+    function hexToRgb(hex){
+      const r=parseInt(hex.slice(1,3),16)/255;
+      const g=parseInt(hex.slice(3,5),16)/255;
+      const b=parseInt(hex.slice(5,7),16)/255;
+      return{r,g,b};
+    }
+
+    function updatePreview(){
+      const text=document.getElementById('wmText').value||'WATERMARK';
+      const size=document.getElementById('wmSize').value;
+      const rotation=document.getElementById('wmRotation').value;
+      const opacity=document.getElementById('wmOpacity').value/100;
+      const color=document.getElementById('wmColor').value;
+      document.getElementById('wmColorVal').textContent=color;
+      const el=document.getElementById('previewText');
+      el.textContent=text;
+      el.style.fontSize=size+'px';
+      el.style.transform='rotate('+rotation+'deg)';
+      el.style.opacity=opacity;
+      el.style.color=color;
+    }
+
+    async function processWatermark(){
+      if(!pdfBytes){showToast('Upload a PDF first');return}
+      const text=document.getElementById('wmText').value;
+      if(!text.trim()){showToast('Enter watermark text');return}
+      const size=parseInt(document.getElementById('wmSize').value);
+      const rotation=parseInt(document.getElementById('wmRotation').value);
+      const opacity=parseInt(document.getElementById('wmOpacity').value)/100;
+      const colorHex=document.getElementById('wmColor').value;
+      const c=hexToRgb(colorHex);
+
+      document.getElementById('editorSection').style.display='none';
+      document.getElementById('progressSection').style.display='block';
+      const fill=document.getElementById('progressFill');
+      fill.style.width='20%';
+
+      const pdf=await PDFDocument.load(pdfBytes);
+      fill.style.width='50%';
+      const font=await pdf.embedFont(StandardFonts.Helvetica);
+      const pages=pdf.getPages();
+      pages.forEach(page=>{
+        const{width,height}=page.getSize();
+        const textWidth=font.widthOfTextAtSize(text,size);
+        page.drawText(text,{
+          x:(width-textWidth)/2,
+          y:height/2,
+          size:size,
+          font,
+          color:rgb(c.r,c.g,c.b),
+          rotate:{type:'degrees',angle:rotation},
+          opacity:opacity
+        });
+      });
+      fill.style.width='80%';
+      resultBytes=await pdf.save();
+      fill.style.width='100%';
+      document.getElementById('resultInfo').textContent='Watermark "'+text+'" added to '+pages.length+' page(s).';
+      setTimeout(()=>{document.getElementById('progressSection').style.display='none';document.getElementById('resultSection').style.display='block'},300);
+      showToast('Watermark added successfully!');
+    }
+
+    function downloadResult(){
+      if(!resultBytes)return;
+      const blob=new Blob([resultBytes],{type:'application/pdf'});
+      const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='watermarked.pdf';a.click();
+      URL.revokeObjectURL(a.href);
+      showToast('Download started!');
+    }
+
+    function resetTool(){
+      pdfBytes=null;resultBytes=null;totalPages=0;
+      document.getElementById('uploadSection').style.display='block';
+      document.getElementById('progressSection').style.display='none';
+      document.getElementById('editorSection').style.display='none';
+      document.getElementById('resultSection').style.display='none';
+      document.getElementById('fileInput').value='';
+    }
+  </script>
+</body>
+</html>
