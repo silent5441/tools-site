@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free SERP Preview Tool</title>
+  <meta name="description" content="Free SERP preview tool. See how your page looks in Google search results.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8427860023135459" crossorigin="anonymous"></script>
+</head>
+<body>
+  <nav class="nav"><div class="container"><a href="/" class="logo"><div class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><span>FreeOnlineTools</span></a><div class="nav-links"><a href="/#text">Text</a><a href="/#encoding">Encoding</a><a href="/#dev">Developer</a><a href="/#calc">Calculators</a><a href="/#seo">SEO</a></div><button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('active')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div></nav>
+
+  <div class="tool-page">
+    <a href="/" class="back-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to Home</a>
+
+    <h1><div class="tool-page-icon t-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div> SERP Preview</h1>
+    <p class="desc">Preview how your page looks in Google search results.</p>
+
+    <div class="tool-box">
+      <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2z"/><path d="M9 7h6"/></svg> Page Title:</label><input type="text" id="title" placeholder="Your Page Title" oninput="preview()" maxlength="70">
+      <label style="margin-top:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2z"/><path d="M9 7h6M9 12h6M9 17h4"/></svg> Meta Description:</label><textarea id="desc" placeholder="Your meta description..." oninput="preview()" maxlength="160" style="min-height:80px"></textarea>
+      <label style="margin-top:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg> URL:</label><input type="text" id="url" placeholder="https://example.com/page" oninput="preview()">
+    </div>
+
+    <div class="tool-box">
+      <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Google Preview:</label>
+      <div style="background:#fff;border-radius:12px;padding:20px;margin-top:12px;color:#000;font-family:Arial,sans-serif">
+        <div id="previewUrl" style="color:#202124;font-size:.9rem;margin-bottom:4px">https://example.com</div>
+        <div id="previewTitle" style="color:#1a0dab;font-size:1.2rem;text-decoration:underline;margin-bottom:4px;cursor:pointer">Your Page Title</div>
+        <div id="previewDesc" style="color:#4d5156;font-size:.9rem;line-height:1.4">Your meta description will appear here...</div>
+      </div>
+      <div style="margin-top:12px;font-size:.85rem;color:var(--muted)">
+        <span id="titleCount" style="color:var(--green)">Title: 0/60</span> |
+        <span id="descCount" style="color:var(--green)">Description: 0/160</span>
+      </div>
+    </div>
+
+    <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8427860023135459" data-ad-slot="3030303030" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></div>
+  </div>
+
+  <footer class="footer"><div class="footer-bottom"><p>&copy; 2026 FreeOnlineTools. All tools run in your browser.</p></div></footer>
+
+  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Copied to clipboard!</div>
+
+  <script>
+  function copyToClipboard(id){
+    const text=document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text);
+    const t=document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2000);
+  }
+  function preview(){
+    const t=document.getElementById('title').value||'Your Page Title';
+    const d=document.getElementById('desc').value||'Your meta description will appear here...';
+    const u=document.getElementById('url').value||'https://example.com';
+    document.getElementById('previewTitle').textContent=t.substring(0,60);
+    document.getElementById('previewDesc').textContent=d.substring(0,160);
+    document.getElementById('previewUrl').textContent=u;
+    const tl=t.length,dl=d.length;
+    document.getElementById('titleCount').textContent=`Title: ${tl}/60`;
+    document.getElementById('titleCount').style.color=tl<=60?'var(--green)':'var(--red)';
+    document.getElementById('descCount').textContent=`Description: ${dl}/160`;
+    document.getElementById('descCount').style.color=dl<=160?'var(--green)':'var(--red)';
+  }
+  preview();
+  </script>
+</body>
+</html>

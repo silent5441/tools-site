@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Readability Checker</title>
+  <meta name="description" content="Free readability checker. Check Flesch reading ease score of your text.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8427860023135459" crossorigin="anonymous"></script>
+</head>
+<body>
+  <nav class="nav"><div class="container"><a href="/" class="logo"><div class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><span>FreeOnlineTools</span></a><div class="nav-links"><a href="/#text">Text</a><a href="/#encoding">Encoding</a><a href="/#dev">Developer</a><a href="/#calc">Calculators</a><a href="/#seo">SEO</a></div><button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('active')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div></nav>
+
+  <div class="tool-page">
+    <a href="/" class="back-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to Home</a>
+
+    <h1><div class="tool-page-icon t-pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div> Readability Checker</h1>
+    <p class="desc">Check the Flesch Reading Ease score of your content.</p>
+
+    <div class="tool-box"><label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2z"/><path d="M9 7h6M9 12h6M9 17h4"/></svg> Paste your text:</label><textarea id="input" placeholder="Paste your article here..." oninput="checkReadability()"></textarea></div>
+
+    <div class="stat-grid" id="resultArea" style="display:none">
+      <div class="stat-box" style="grid-column:span 2"><div class="num" id="score" style="font-size:2.5rem">--</div><div class="label">Flesch Reading Ease</div></div>
+      <div class="stat-box"><div class="num" id="grade" style="font-size:1rem">--</div><div class="label">Grade Level</div></div>
+      <div class="stat-box"><div class="num" id="level" style="font-size:1rem">--</div><div class="label">Reading Level</div></div>
+    </div>
+
+    <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8427860023135459" data-ad-slot="2929292929" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></div>
+  </div>
+
+  <footer class="footer"><div class="footer-bottom"><p>&copy; 2026 FreeOnlineTools. All tools run in your browser.</p></div></footer>
+
+  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Copied to clipboard!</div>
+
+  <script>
+  function copyToClipboard(id){
+    const text=document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text);
+    const t=document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2000);
+  }
+  function checkReadability(){
+    const text=document.getElementById('input').value.trim();
+    if(!text)return;
+    const sentences=text.split(/[.!?]+/).filter(s=>s.trim()).length;
+    const words=text.split(/\s+/).filter(w=>w).length;
+    const syllables=text.split(/\s+/).reduce((c,w)=>{const m=w.toLowerCase().match(/[aeiouy]+/g);return c+(m?m.length:1)},0);
+    const score=206.835-1.015*(words/sentences)-84.6*(syllables/words);
+    let grade,level;
+    if(score>=90){grade='5th grade';level='Very Easy'}
+    else if(score>=80){grade='6th grade';level='Easy'}
+    else if(score>=70){grade='7th grade';level='Fairly Easy'}
+    else if(score>=60){grade='8th-9th grade';level='Standard'}
+    else if(score>=50){grade='10th-12th grade';level='Fairly Difficult'}
+    else if(score>=30){grade='College level';level='Difficult'}
+    else{grade='College graduate';level='Very Difficult'}
+    document.getElementById('resultArea').style.display='grid';
+    document.getElementById('score').textContent=Math.max(0,Math.min(100,score)).toFixed(1);
+    document.getElementById('score').style.color=score>=60?'var(--green)':score>=40?'var(--orange)':'var(--red)';
+    document.getElementById('grade').textContent=grade;
+    document.getElementById('level').textContent=level;
+  }
+  </script>
+</body>
+</html>

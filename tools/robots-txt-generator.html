@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Robots.txt Generator</title>
+  <meta name="description" content="Free robots.txt generator. Create a robots.txt file for your website.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8427860023135459" crossorigin="anonymous"></script>
+</head>
+<body>
+  <nav class="nav"><div class="container"><a href="/" class="logo"><div class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><span>FreeOnlineTools</span></a><div class="nav-links"><a href="/#text">Text</a><a href="/#encoding">Encoding</a><a href="/#dev">Developer</a><a href="/#calc">Calculators</a><a href="/#seo">SEO</a></div><button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('active')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div></nav>
+
+  <div class="tool-page">
+    <a href="/" class="back-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to Home</a>
+
+    <h1><div class="tool-page-icon t-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div> Robots.txt Generator</h1>
+    <p class="desc">Generate a robots.txt file for your website.</p>
+
+    <div class="tool-box">
+      <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg> Website URL:</label><input type="url" id="url" placeholder="https://example.com" oninput="generateRobots()">
+      <label style="margin-top:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Allow all crawlers?</label>
+      <select id="allowAll" onchange="generateRobots()">
+        <option value="yes">Yes - Allow all</option><option value="no">No - Block some paths</option>
+      </select>
+      <div id="blockPaths" style="display:none;margin-top:12px">
+        <label style="margin-top:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg> Paths to block (one per line):</label>
+        <textarea id="paths" placeholder="/admin/\n/private/\n/cgi-bin/" oninput="generateRobots()" style="min-height:80px"></textarea>
+      </div>
+    </div>
+
+    <div class="tool-box"><label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Generated robots.txt:</label><div class="result-box" id="result" style="min-height:100px"></div><button class="btn btn-secondary" onclick="copyToClipboard('result')" style="margin-top:10px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button></div>
+
+    <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8427860023135459" data-ad-slot="2727272727" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></div>
+  </div>
+
+  <footer class="footer"><div class="footer-bottom"><p>&copy; 2026 FreeOnlineTools. All tools run in your browser.</p></div></footer>
+
+  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Copied to clipboard!</div>
+
+  <script>
+  function copyToClipboard(id){
+    const text=document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text);
+    const t=document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2000);
+  }
+  document.getElementById('allowAll').addEventListener('change',function(){document.getElementById('blockPaths').style.display=this.value==='no'?'block':'none'});
+  function generateRobots(){
+    const url=document.getElementById('url').value||'https://example.com';
+    const allowAll=document.getElementById('allowAll').value==='yes';
+    let r=`User-agent: *\n${allowAll?'Allow: /':'Disallow: /'}\n\n`;
+    if(!allowAll){const paths=document.getElementById('paths').value.split('\n').filter(p=>p.trim());paths.forEach(p=>{r+=`User-agent: *\nDisallow: ${p.trim()}\n\n`})}
+    r+=`Sitemap: ${url}/sitemap.xml\n`;
+    document.getElementById('result').textContent=r;
+  }
+  generateRobots();
+  </script>
+</body>
+</html>
