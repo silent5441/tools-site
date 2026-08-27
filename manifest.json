@@ -1,0 +1,25 @@
+{
+  "name": "FreeOnlineTools - 60+ Free Tools",
+  "short_name": "FreeTools",
+  "description": "60+ free online tools - PDF editor, resume builder, text tools, developer tools, calculators. No signup required.",
+  "start_url": "/tools-site/",
+  "display": "standalone",
+  "background_color": "#f8f9fc",
+  "theme_color": "#6c5ce7",
+  "orientation": "any",
+  "categories": ["utilities", "productivity", "developer tools"],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
