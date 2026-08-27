@@ -2,15 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FreeOnlineTools.dev - 60+ Free Online Tools, PDF Editor & Resume Builder</title>
-  <meta name="description" content="60+ free online tools - PDF editor, resume builder, text tools, developer tools, calculators, SEO tools. No signup required.">
-  <meta name="keywords" content="free online tools, pdf tools, merge pdf, split pdf, resume builder, resume templates, word counter, JSON formatter, BMI calculator, base64 encode">
+  <title>I❤Tools.pro - Free QR Scanner, File Cleaner, PDF Editor, Resume Builder & 60+ Tools</title>
+  <meta name="description" content="Free QR code scanner, file cleaner, document scanner, PDF editor, resume builder, converters, calculators & 60+ tools. No signup. Works in your browser.">
+  <meta name="keywords" content="QR code scanner, file cleaner, document scanner, PDF editor, resume builder, free online tools, word counter, JSON formatter, BMI calculator, base64 encode, convert PDF, merge PDF, compress PDF, image converter, text to PDF">
+  <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://ilovetools.pro/">
+  <meta property="og:title" content="I❤Tools.pro - Free QR Scanner, File Cleaner, PDF Editor & 60+ Tools">
+  <meta property="og:description" content="Free QR code scanner, file cleaner, document scanner, PDF editor, resume builder, converters, calculators & 60+ tools. No signup required.">
+  <meta property="og:url" content="https://ilovetools.pro/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://ilovetools.pro/icon-512.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="I❤Tools.pro - Free QR Scanner, File Cleaner & 60+ Tools">
+  <meta name="twitter:description" content="Free QR code scanner, file cleaner, document scanner, PDF editor, resume builder & 60+ tools.">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#6c5ce7">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="FreeTools">
+  <meta name="apple-mobile-web-app-title" content="I❤Tools">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -18,10 +29,14 @@
 </head>
 <body>
   <nav class="nav"><div class="container">
-    <a href="/" class="logo"><div class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><span>FreeOnlineTools</span></a>
+    <a href="/" class="logo"><div class="logo-icon" style="background:linear-gradient(135deg,#6c5ce7,#e84393)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><span style="color:var(--text)">I</span><span style="color:var(--accent3)">❤</span><span>Tools</span></a>
     <div class="nav-right">
       <div class="nav-links">
         <a href="#pdf" style="color:var(--accent3)">PDF</a><a href="#resume" style="color:var(--green)">Resume</a><a href="#text">Text</a><a href="#encoding">Encoding</a><a href="#dev">Developer</a><a href="#calc">Calculators</a><a href="#seo">SEO</a>
+      </div>
+      <div class="visitor-badge" id="visitorBadge" title="Visitors" style="background:var(--bg2);border:1px solid var(--border);border-radius:50px;padding:6px 12px;font-size:.75rem;color:var(--muted);display:flex;align-items:center;gap:4px;white-space:nowrap">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span id="visitorCount">0</span>
       </div>
       <div class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
@@ -37,7 +52,7 @@
 
   <section class="hero">
     <h1>60+ <span>Free Online Tools</span></h1>
-    <p>No signup required. Fast, free, and private tools that work in your browser.</p>
+    <p>QR scanner, file cleaner, document scanner, PDF editor, resume builder, converters, calculators & more. No signup required.</p>
     <div class="search-box">
       <div class="search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
       <input type="text" placeholder="Search tools..." id="searchInput" oninput="filterTools()">
@@ -49,8 +64,6 @@
       <div class="stat"><div class="stat-num">0</div><div class="stat-label">Signup</div></div>
     </div>
   </section>
-
-  <div class="ad-slot-header"><div class="container"><div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8427860023135459" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></div></div></div>
 
   <div class="container">
 
@@ -71,10 +84,10 @@
     </section>
 
     <section class="categories" id="resume">
-      <h2 class="cat-title"><div class="cat-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg></div><div class="cat-title-text">Resume &amp; CV Tools</div></h2>
+      <h2 class="cat-title"><div class="cat-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><div class="cat-title-text">Resume &amp; CV Tools</div></h2>
       <div class="tool-grid">
         <a href="tools/resume-builder.html" class="tool-card" style="border:1px solid rgba(0,184,148,0.3);background:linear-gradient(135deg,rgba(0,184,148,0.05),rgba(108,92,231,0.05))"><div class="tool-icon t-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><h3>Resume Builder</h3><p>Build a professional resume step-by-step. Live preview, 6 templates, download as PDF/DOCX/JPG.</p><span class="tool-tag hot">Hot</span><span class="tool-tag popular">New</span></a>
-        <a href="tools/resume-templates.html" class="tool-card" style="border:1px solid rgba(108,92,231,0.3);background:linear-gradient(135deg,rgba(108,92,231,0.05),rgba(253,121,168,0.05))"><div class="tool-icon t-purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><h3>Resume Templates</h3><p>22+ professional resume templates. Pick one, fill your details, download instantly.</p><span class="tool-tag hot">Hot</span><span class="tool-tag popular">New</span></a>
+        <a href="tools/resume-templates.html" class="tool-card" style="border:1px solid rgba(108,92,231,0.3);background:linear-gradient(135deg,rgba(108,92,231,0.05),rgba(232,67,147,0.05))"><div class="tool-icon t-purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><h3>Resume Templates</h3><p>22+ professional resume templates. Pick one, fill your details, download instantly.</p><span class="tool-tag hot">Hot</span><span class="tool-tag popular">New</span></a>
       </div>
     </section>
 
@@ -136,54 +149,58 @@
       </div>
     </section>
 
+    <section style="padding:40px 0;border-top:1px solid var(--border);margin-top:20px">
+      <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:16px">Why I❤Tools.pro?</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px">
+        <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius)">
+          <h3 style="font-size:1rem;margin-bottom:8px">🔒 100% Private</h3>
+          <p style="color:var(--muted);font-size:.85rem">All tools run in your browser. Your files never leave your device. No uploads, no servers, no data collection.</p>
+        </div>
+        <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius)">
+          <h3 style="font-size:1rem;margin-bottom:8px">⚡ Instant Results</h3>
+          <p style="color:var(--muted);font-size:.85rem">No waiting, no loading screens. Get results instantly with our client-side processing tools.</p>
+        </div>
+        <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius)">
+          <h3 style="font-size:1rem;margin-bottom:8px">📱 Works Everywhere</h3>
+          <p style="color:var(--muted);font-size:.85rem">Use on any device - phone, tablet, or computer. All tools are mobile-friendly and responsive.</p>
+        </div>
+        <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius)">
+          <h3 style="font-size:1rem;margin-bottom:8px">💰 Completely Free</h3>
+          <p style="color:var(--muted);font-size:.85rem">No hidden fees, no premium plans, no signup required. Every tool is 100% free to use.</p>
+        </div>
+      </div>
+    </section>
   </div>
-
-  <div class="ad-slot-footer"><div class="container"><div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8427860023135459" data-ad-slot="2222222222" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></div></div></div>
 
   <footer class="footer"><div class="footer-grid">
     <div>
-      <div class="footer-brand"><div class="logo-icon" style="width:32px;height:32px;font-size:.9rem"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>FreeOnlineTools</div>
+      <div class="footer-brand"><div class="logo-icon" style="width:32px;height:32px;font-size:.9rem;background:linear-gradient(135deg,#6c5ce7,#e84393)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>I❤Tools.pro</div>
       <p>60+ free online tools for developers, writers, job seekers, and everyone. No signup required. All tools run in your browser - your data never leaves your device.</p>
     </div>
     <div><h4>Categories</h4><ul><li><a href="#pdf" style="color:var(--accent3)">PDF Tools</a></li><li><a href="#resume" style="color:var(--green)">Resume Tools</a></li><li><a href="#text">Text Tools</a></li><li><a href="#encoding">Encoding Tools</a></li><li><a href="#dev">Developer Tools</a></li><li><a href="#calc">Calculators</a></li><li><a href="#seo">SEO Tools</a></li></ul></div>
     <div><h4>Legal</h4><ul><li><a href="pages/privacy.html">Privacy Policy</a></li><li><a href="pages/terms.html">Terms of Service</a></li></ul></div>
-  </div><div class="footer-bottom"><p>&copy; 2026 FreeOnlineTools. All tools are free and run in your browser.</p></div></footer>
+  </div><div class="footer-bottom"><p>&copy; 2026 I❤Tools.pro. All tools are free and run in your browser.</p></div></footer>
 
-  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Copied to clipboard!</div>
+  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> <span id="toastMsg">Copied to clipboard!</span></div>
 
   <script>
   // Theme
+  (function(){var s=localStorage.getItem('theme');if(s==='dark')document.documentElement.setAttribute('data-theme','dark');else if(!s)document.documentElement.removeAttribute('data-theme')})();
+  function toggleTheme(){var isDark=document.documentElement.getAttribute('data-theme')==='dark';if(isDark){document.documentElement.removeAttribute('data-theme');localStorage.setItem('theme','light')}else{document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('theme','dark')}}
+  // Visitor Counter
   (function(){
-    const saved=localStorage.getItem('theme');
-    if(saved==='dark'){document.documentElement.setAttribute('data-theme','dark')}
-    else if(!saved){document.documentElement.removeAttribute('data-theme')}
+    var count=parseInt(localStorage.getItem('ilovetools_visits')||'0')+1;
+    localStorage.setItem('ilovetools_visits',count);
+    document.getElementById('visitorCount').textContent=count.toLocaleString();
   })();
-  function toggleTheme(){
-    const isDark=document.documentElement.getAttribute('data-theme')==='dark';
-    if(isDark){document.documentElement.removeAttribute('data-theme');localStorage.setItem('theme','light')}
-    else{document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('theme','dark')}
-  }
-  // PWA Install
-  let deferredPrompt=null;
-  window.addEventListener('beforeinstallprompt',e=>{
-    e.preventDefault();
-    deferredPrompt=e;
-    document.getElementById('installBtn').style.display='flex';
-  });
-  window.addEventListener('appinstalled',()=>{deferredPrompt=null;document.getElementById('installBtn').style.display='none'});
-  function installApp(){
-    if(!deferredPrompt)return;
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(r=>{if(r.outcome==='accepted')showToast('App installed!');deferredPrompt=null;document.getElementById('installBtn').style.display='none'});
-  }
-  if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
-  function filterTools(){
-    const q=document.getElementById('searchInput').value.toLowerCase();
-    document.querySelectorAll('.tool-card').forEach(c=>{
-      const text=c.textContent.toLowerCase();
-      c.style.display=text.includes(q)?'':'none';
-    });
-  }
+  // PWA
+  var deferredPrompt=null;
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredPrompt=e;document.getElementById('installBtn').style.display='flex'});
+  window.addEventListener('appinstalled',function(){deferredPrompt=null;document.getElementById('installBtn').style.display='none'});
+  function installApp(){if(!deferredPrompt)return;deferredPrompt.prompt();deferredPrompt.userChoice.then(function(r){if(r.outcome==='accepted')showToast('App installed!');deferredPrompt=null;document.getElementById('installBtn').style.display='none'})}
+  if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
+  function filterTools(){var q=document.getElementById('searchInput').value.toLowerCase();document.querySelectorAll('.tool-card').forEach(function(c){var text=c.textContent.toLowerCase();c.style.display=text.includes(q)?'':'none'})}
+  function showToast(msg){document.getElementById('toastMsg').textContent=msg||'Done!';var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2000)}
   </script>
 </body>
 </html>

@@ -1,13 +1,12 @@
 {
-  "name": "FreeOnlineTools - 60+ Free Tools",
-  "short_name": "FreeTools",
-  "description": "60+ free online tools - PDF editor, resume builder, text tools, developer tools, calculators. No signup required.",
+  "name": "I Love Tools",
+  "short_name": "I❤Tools",
+  "description": "60+ free online tools - QR scanner, file cleaner, PDF editor, resume builder, converters, calculators",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f8f9fc",
+  "background_color": "#0f0f23",
   "theme_color": "#6c5ce7",
   "orientation": "any",
-  "categories": ["utilities", "productivity", "developer tools"],
   "icons": [
     {
       "src": "icon-192.png",
