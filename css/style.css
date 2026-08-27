@@ -149,10 +149,9 @@ a:hover{color:#0984e3}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .toast svg{width:18px;height:18px}
 
-/* AdSense */
-.ad-slot{background:var(--card);border:1px dashed var(--border);border-radius:var(--radius);padding:20px;text-align:center;margin:24px 0;color:var(--muted);font-size:.8rem}
-.ad-slot-header{margin:30px 0}
-.ad-slot-footer{margin:30px 0}
+/* AdSense - hidden until real ads load */
+.ad-slot{display:none}
+.ad-slot-header,.ad-slot-footer{margin:0;padding:0;border:none;background:none}
 
 /* Footer */
 .footer{background:var(--card);border-top:1px solid var(--border);padding:60px 20px 24px;margin-top:60px;transition:background 0.3s}
