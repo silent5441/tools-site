@@ -1,4 +1,4 @@
-const CACHE_NAME='freeonlinetools-v3';
+const CACHE_NAME='freeonlinetools-v4';
 const ASSETS=['/','/index.html','/css/style.css','/manifest.json'];
 
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()))});

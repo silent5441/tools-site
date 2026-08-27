@@ -108,9 +108,9 @@ async function handleFileObj(file){
   pdfBytes=await file.arrayBuffer();
   fill.style.width='30%';
   try{
-    var pdfDocTmp=await pdfjsLib.getDocument({data:new Uint8Array(pdfBytes)}).promise;
+    var pdfDocTmp=await pdfjsLib.getDocument({data:new Uint8Array(pdfBytes.slice(0))}).promise;
     totalPages=pdfDocTmp.numPages;
-    try{var chk=await PDFDocument.load(pdfBytes,{ignoreEncryption:true});}catch(e){}
+    try{var chk=await PDFDocument.load(pdfBytes.slice(0),{ignoreEncryption:true});}catch(e){}
     fill.style.width='70%';
     selectedForDelete.clear();
     document.getElementById('beforeCount').textContent='Pages: '+totalPages;
@@ -126,7 +126,7 @@ async function handleFileObj(file){
 async function renderThumbnails(preloadedDoc){
   var grid=document.getElementById('pageGrid');
   grid.innerHTML='';
-  var pdfDoc=preloadedDoc||await pdfjsLib.getDocument({data:new Uint8Array(pdfBytes)}).promise;
+  var pdfDoc=preloadedDoc||await pdfjsLib.getDocument({data:new Uint8Array(pdfBytes.slice(0))}).promise;
   if(!preloadedDoc)totalPages=pdfDoc.numPages;
   for(var i=1;i<=totalPages;i++){
     var div=document.createElement('div');
@@ -175,7 +175,7 @@ async function processDelete(){
   document.getElementById('progressText').textContent='Deleting pages...';
   fill.style.width='30%';
   try{
-    var srcPdf=await PDFDocument.load(pdfBytes,{ignoreEncryption:true});
+    var srcPdf=await PDFDocument.load(pdfBytes.slice(0),{ignoreEncryption:true});
     fill.style.width='50%';
     document.getElementById('progressText').textContent='Copying pages...';
     var keepIndices=[];
@@ -192,7 +192,7 @@ async function processDelete(){
   }catch(err){
     console.warn('copyPages failed, trying removePage',err);
     try{
-      var pdf2=await PDFDocument.load(pdfBytes,{ignoreEncryption:true});
+      var pdf2=await PDFDocument.load(pdfBytes.slice(0),{ignoreEncryption:true});
       var indices=Array.from(selectedForDelete).map(function(n){return n-1}).sort(function(a,b){return b-a});
       indices.forEach(function(i){pdf2.removePage(i)});
       resultBytes=await pdf2.save();
@@ -221,7 +221,7 @@ async function processDelete(){
 }
 
 async function rebuildViaRendering(){
-  var pdfDoc=await pdfjsLib.getDocument({data:new Uint8Array(pdfBytes)}).promise;
+  var pdfDoc=await pdfjsLib.getDocument({data:new Uint8Array(pdfBytes.slice(0))}).promise;
   var newDoc=await PDFDocument.create();
   var total=pdfDoc.numPages;
   var pagesToKeep=[];
