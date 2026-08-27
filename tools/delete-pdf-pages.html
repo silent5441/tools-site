@@ -106,26 +106,28 @@ async function handleFileObj(file){
   var fill=document.getElementById('progressFill');
   fill.style.width='10%';
   pdfBytes=await file.arrayBuffer();
-  fill.style.width='40%';
+  fill.style.width='30%';
   try{
-    var pdf=await PDFDocument.load(pdfBytes);
-    totalPages=pdf.getPageCount();
+    var pdfDocTmp=await pdfjsLib.getDocument({data:new Uint8Array(pdfBytes)}).promise;
+    totalPages=pdfDocTmp.numPages;
+    try{var chk=await PDFDocument.load(pdfBytes,{ignoreEncryption:true});}catch(e){}
     fill.style.width='70%';
     selectedForDelete.clear();
     document.getElementById('beforeCount').textContent='Pages: '+totalPages;
     document.getElementById('afterCount').style.display='none';
     document.getElementById('deleteInfo').textContent='0 pages selected for deletion';
-    await renderThumbnails();
+    await renderThumbnails(pdfDocTmp);
     fill.style.width='100%';
     document.getElementById('progressText').textContent='PDF loaded!';
     setTimeout(function(){document.getElementById('progressSection').style.display='none';document.getElementById('editorSection').style.display='block'},300);
-  }catch(err){showToast('Invalid PDF file');resetTool()}
+  }catch(err){console.error(err);showToast('Invalid PDF file');resetTool()}
 }
 
-async function renderThumbnails(){
+async function renderThumbnails(preloadedDoc){
   var grid=document.getElementById('pageGrid');
   grid.innerHTML='';
-  var pdfDoc=await pdfjsLib.getDocument({data:new Uint8Array(pdfBytes)}).promise;
+  var pdfDoc=preloadedDoc||await pdfjsLib.getDocument({data:new Uint8Array(pdfBytes)}).promise;
+  if(!preloadedDoc)totalPages=pdfDoc.numPages;
   for(var i=1;i<=totalPages;i++){
     var div=document.createElement('div');
     div.className='page-thumb';
@@ -137,7 +139,7 @@ async function renderThumbnails(){
       var vp=page.getViewport({scale:0.3});
       canvas.width=vp.width;canvas.height=vp.height;
       await page.render({canvasContext:canvas.getContext('2d'),viewport:vp}).promise;
-    }catch(e){}
+    }catch(e){console.warn('thumb render failed',i,e)}
     var num=document.createElement('div');
     num.className='page-num';
     num.textContent='Page '+i;
@@ -173,30 +175,47 @@ async function processDelete(){
   document.getElementById('progressText').textContent='Deleting pages...';
   fill.style.width='30%';
   try{
-    var pdf=await PDFDocument.load(pdfBytes);
-    fill.style.width='60%';
-    var indices=Array.from(selectedForDelete).map(function(n){return n-1}).sort(function(a,b){return b-a});
-    indices.forEach(function(i){pdf.removePage(i)});
-    resultBytes=await pdf.save();
+    var srcPdf=await PDFDocument.load(pdfBytes,{ignoreEncryption:true});
+    fill.style.width='50%';
+    document.getElementById('progressText').textContent='Copying pages...';
+    var keepIndices=[];
+    for(var n=1;n<=totalPages;n++){if(!selectedForDelete.has(n))keepIndices.push(n-1)}
+    var newPdf=await PDFDocument.create();
+    var copied=await newPdf.copyPages(srcPdf,keepIndices);
+    copied.forEach(function(p){newPdf.addPage(p)});
+    fill.style.width='80%';
+    resultBytes=await newPdf.save();
     fill.style.width='100%';
-    var remaining=pdf.getPageCount();
-    document.getElementById('resultInfo').textContent='Deleted '+indices.length+' page(s). '+remaining+' page(s) remaining.';
+    document.getElementById('resultInfo').textContent='Deleted '+selectedForDelete.size+' page(s). '+(newPdf.getPageCount())+' page(s) remaining.';
     setTimeout(function(){document.getElementById('progressSection').style.display='none';document.getElementById('resultSection').style.display='block'},300);
     showToast('Pages deleted!');
   }catch(err){
+    console.warn('copyPages failed, trying removePage',err);
     try{
-      document.getElementById('progressText').textContent='Repairing PDF (fallback method)...';
+      var pdf2=await PDFDocument.load(pdfBytes,{ignoreEncryption:true});
+      var indices=Array.from(selectedForDelete).map(function(n){return n-1}).sort(function(a,b){return b-a});
+      indices.forEach(function(i){pdf2.removePage(i)});
+      resultBytes=await pdf2.save();
+      fill.style.width='100%';
+      document.getElementById('resultInfo').textContent='Deleted '+selectedForDelete.size+' page(s). '+pdf2.getPageCount()+' page(s) remaining.';
+      setTimeout(function(){document.getElementById('progressSection').style.display='none';document.getElementById('resultSection').style.display='block'},300);
+      showToast('Pages deleted!');
+      return;
+    }catch(err2){console.warn('removePage also failed',err2)}
+    try{
+      document.getElementById('progressText').textContent='Repairing PDF (fallback - may reduce quality)...';
+      fill.style.width='60%';
       resultBytes=await rebuildViaRendering();
       fill.style.width='100%';
       var remaining2=totalPages-selectedForDelete.size;
-      document.getElementById('resultInfo').textContent='Deleted '+selectedForDelete.size+' page(s). '+remaining2+' page(s) remaining (fallback mode).';
+      document.getElementById('resultInfo').textContent='Deleted '+selectedForDelete.size+' page(s). '+remaining2+' page(s) remaining (compatibility mode - text may be images).';
       setTimeout(function(){document.getElementById('progressSection').style.display='none';document.getElementById('resultSection').style.display='block'},300);
-      showToast('Pages deleted!');
-    }catch(err2){
+      showToast('Pages deleted (compatibility mode)!');
+    }catch(err3){
       document.getElementById('progressSection').style.display='none';
       document.getElementById('editorSection').style.display='block';
-      console.error(err2);
-      showToast('Could not process this PDF. Try a different file.');
+      console.error(err3);
+      showToast('Could not process this PDF: '+(err3.message||'unknown error').slice(0,80));
     }
   }
 }
@@ -204,22 +223,26 @@ async function processDelete(){
 async function rebuildViaRendering(){
   var pdfDoc=await pdfjsLib.getDocument({data:new Uint8Array(pdfBytes)}).promise;
   var newDoc=await PDFDocument.create();
+  var total=pdfDoc.numPages;
   var pagesToKeep=[];
-  for(var n=1;n<=totalPages;n++){
-    if(selectedForDelete.has(n))continue;
-    pagesToKeep.push(n);
-  }
+  for(var n=1;n<=total;n++){if(!selectedForDelete.has(n))pagesToKeep.push(n)}
   for(var k=0;k<pagesToKeep.length;k++){
+    document.getElementById('progressText').textContent='Rendering page '+pagesToKeep[k]+' ('+(k+1)+'/'+pagesToKeep.length+')...';
     var page=await pdfDoc.getPage(pagesToKeep[k]);
     var base=page.getViewport({scale:1});
-    var vp=page.getViewport({scale:2});
+    var vp=page.getViewport({scale:1.8});
     var canvas=document.createElement('canvas');
     canvas.width=Math.ceil(vp.width);
     canvas.height=Math.ceil(vp.height);
-    await page.render({canvasContext:canvas.getContext('2d'),viewport:vp}).promise;
-    var blob=await new Promise(function(res){canvas.toBlob(function(b){res(b)},'image/png')});
+    var ctx=canvas.getContext('2d');
+    await page.render({canvasContext:ctx,viewport:vp}).promise;
+    var blob=await new Promise(function(res,rej){
+      canvas.toBlob(function(b){
+        if(b)res(b);else rej(new Error('canvas.toBlob returned null'));
+      },'image/png');
+    });
     var buf=await blob.arrayBuffer();
-    var img=await newDoc.embedPng(buf);
+    var img=await newDoc.embedPng(new Uint8Array(buf));
     var np=newDoc.addPage([base.width,base.height]);
     np.drawImage(img,{x:0,y:0,width:base.width,height:base.height});
   }
