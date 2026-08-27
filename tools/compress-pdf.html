@@ -19,7 +19,6 @@
 .size-box{flex:1;min-width:180px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center}
 .size-box .label{font-size:.8rem;color:var(--muted);text-transform:uppercase;font-weight:600;letter-spacing:.5px}
 .size-box .value{font-size:2rem;font-weight:800;margin:8px 0}
-.size-box .sub{font-size:.85rem;color:var(--muted)}
 .size-box.original .value{color:var(--accent)}
 .size-box.compressed .value{color:var(--green)}
 .savings-badge{display:inline-block;background:rgba(0,184,148,0.15);color:var(--green);padding:8px 24px;border-radius:var(--radius);font-size:1.5rem;font-weight:800;margin:16px 0}
@@ -37,6 +36,7 @@
 .quality-btn.active{border-color:var(--accent);background:rgba(108,92,231,0.1);color:var(--accent)}
 .quality-btn:hover{border-color:var(--accent)}
 .quality-desc{font-size:.8rem;color:var(--muted);margin-top:8px}
+.progress-text{font-size:.85rem;color:var(--muted);margin:8px 0}
 </style>
 </head>
 <body>
@@ -65,15 +65,15 @@
 <div style="margin:16px 0">
 <label style="font-weight:600;font-size:.9rem;display:block;margin-bottom:8px">Compression Level:</label>
 <div class="quality-options">
-<button class="quality-btn active" data-quality="low" onclick="setQuality('low',this)">Low (Fast)</button>
-<button class="quality-btn" data-quality="medium" onclick="setQuality('medium',this)">Medium (Balanced)</button>
-<button class="quality-btn" data-quality="high" onclick="setQuality('high',this)">High (Smallest)</button>
+<button class="quality-btn active" onclick="setQuality(1.0,0.7,this)">Low</button>
+<button class="quality-btn" onclick="setQuality(1.5,0.5,this)">Medium</button>
+<button class="quality-btn" onclick="setQuality(2.0,0.3,this)">High</button>
 </div>
-<div class="quality-desc" id="qualityDesc">Low: 1x scale, 0.6 JPEG quality — fastest, moderate reduction</div>
+<div class="quality-desc" id="qualityDesc">Low: Standard resolution, good quality — fastest</div>
 </div>
 
 <div class="progress-bar" id="progressBar" style="display:none"><div class="fill" id="progressFill"></div></div>
-<div id="progressText" style="font-size:.85rem;color:var(--muted);margin:8px 0;display:none"></div>
+<div class="progress-text" id="progressText" style="display:none"></div>
 
 <div id="resultSection" style="display:none">
 <div class="size-comparison" id="sizeComparison"></div>
@@ -97,159 +97,162 @@ function toggleTheme(){var isDark=document.documentElement.getAttribute('data-th
 var deferredPrompt=null;window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredPrompt=e;document.getElementById('installBtn').style.display='flex'});window.addEventListener('appinstalled',function(){deferredPrompt=null;document.getElementById('installBtn').style.display='none'});function installApp(){if(!deferredPrompt)return;deferredPrompt.prompt();deferredPrompt.userChoice.then(function(r){if(r.outcome==='accepted')showToast('App installed!');deferredPrompt=null;document.getElementById('installBtn').style.display='none'})}if('serviceWorker' in navigator){navigator.serviceWorker.register('../sw.js').catch(function(){})}
 function showToast(msg){document.getElementById('toastMsg').textContent=msg||'Done!';var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2500)}
 
-const{PDFDocument}=PDFLib;
+var PDFDocument=PDFLib.PDFDocument;
 pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-let pdfFileName='';
-let originalBytes=null;
-let compressedBytes=null;
-let pdfjsDoc=null;
-let qualityPreset={scale:1,jpegQuality:0.6};
+var pdfFileName='';
+var originalBytes=null;
+var compressedBytes=null;
+var pdfjsDoc=null;
+var renderScale=1.0;
+var jpegQuality=0.7;
 
-const qualityPresets={
-low:{scale:1,jpegQuality:0.6,desc:'Low: 1x scale, 0.6 JPEG quality — fastest, moderate reduction'},
-medium:{scale:1.5,jpegQuality:0.5,desc:'Medium: 1.5x scale, 0.5 JPEG quality — balanced speed and size'},
-high:{scale:2,jpegQuality:0.35,desc:'High: 2x scale, 0.35 JPEG quality — slowest, maximum reduction'}
-};
-
-function setQuality(level,btn){
-document.querySelectorAll('.quality-btn').forEach(function(b){b.classList.remove('active')});
-btn.classList.add('active');
-qualityPreset=qualityPresets[level];
-document.getElementById('qualityDesc').textContent=qualityPreset.desc;
+function setQuality(scale,quality,btn){
+  document.querySelectorAll('.quality-btn').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+  renderScale=scale;
+  jpegQuality=quality;
+  var descs={1.0:'Low: Standard resolution, good quality — fastest',1.5:'Medium: Higher resolution, smaller file — balanced',2.0:'High: Ultra resolution, smallest file — slowest'};
+  document.getElementById('qualityDesc').textContent=descs[scale]||'';
 }
 
-const dropZone=document.getElementById('dropZone');
-dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('dragover')});
-dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('dragover'));
-dropZone.addEventListener('drop',e=>{e.preventDefault();dropZone.classList.remove('dragover');if(e.dataTransfer.files.length)handleFileObj(e.dataTransfer.files[0])});
-dropZone.addEventListener('click',e=>{if(e.target.tagName!=='LABEL')document.getElementById('fileInput').click()});
+var dropZone=document.getElementById('dropZone');
+dropZone.addEventListener('dragover',function(e){e.preventDefault();dropZone.classList.add('dragover')});
+dropZone.addEventListener('dragleave',function(){dropZone.classList.remove('dragover')});
+dropZone.addEventListener('drop',function(e){e.preventDefault();dropZone.classList.remove('dragover');if(e.dataTransfer.files.length)handleFileObj(e.dataTransfer.files[0])});
+dropZone.addEventListener('click',function(e){if(e.target.tagName!=='LABEL')document.getElementById('fileInput').click()});
 
 function handleFile(el){if(el.files.length)handleFileObj(el.files[0])}
 
 async function handleFileObj(file){
-if(!file.name.toLowerCase().endsWith('.pdf')){showToast('Please select a PDF file');return}
-if(file.size>50*1024*1024){showToast('File too large (max 50MB)');return}
-pdfFileName=file.name.replace(/\.pdf$/i,'');
-originalBytes=await file.arrayBuffer();
+  if(!file.name.toLowerCase().endsWith('.pdf')){showToast('Please select a PDF file');return}
+  if(file.size>50*1024*1024){showToast('File too large (max 50MB)');return}
+  pdfFileName=file.name.replace(/\.pdf$/i,'');
+  originalBytes=await file.arrayBuffer();
 
-pdfjsDoc=await pdfjsLib.getDocument({data:new Uint8Array(originalBytes)}).promise;
+  var loadingTask=pdfjsLib.getDocument({data:new Uint8Array(originalBytes)});
+  pdfjsDoc=await loadingTask.promise;
 
-document.getElementById('optionsSection').style.display='block';
-document.getElementById('resultSection').style.display='none';
-document.getElementById('downloadBtn').style.display='none';
-document.getElementById('compressBtn').disabled=false;
+  document.getElementById('optionsSection').style.display='block';
+  document.getElementById('resultSection').style.display='none';
+  document.getElementById('downloadBtn').style.display='none';
+  document.getElementById('compressBtn').disabled=false;
 
-document.getElementById('fileInfo').innerHTML=
-'<div class="file-info-item"><strong>'+file.name+'</strong></div>'+
-'<div class="file-info-item">'+pdfjsDoc.numPages+' page'+(pdfjsDoc.numPages!==1?'s':'')+'</div>'+
-'<div class="file-info-item">Original: <strong>'+formatSize(originalBytes.byteLength)+'</strong></div>';
-
-showToast('PDF loaded');
+  document.getElementById('fileInfo').innerHTML=
+    '<div class="file-info-item"><strong>'+file.name+'</strong></div>'+
+    '<div class="file-info-item">'+pdfjsDoc.numPages+' page'+(pdfjsDoc.numPages!==1?'s':'')+'</div>'+
+    '<div class="file-info-item">Original: <strong>'+formatSize(originalBytes.byteLength)+'</strong></div>';
+  showToast('PDF loaded');
 }
 
 function formatSize(bytes){
-if(bytes<1024)return bytes+' B';
-if(bytes<1048576)return (bytes/1024).toFixed(1)+' KB';
-return (bytes/1048576).toFixed(2)+' MB';
+  if(bytes<1024)return bytes+' B';
+  if(bytes<1048576)return (bytes/1024).toFixed(1)+' KB';
+  return (bytes/1048576).toFixed(2)+' MB';
+}
+
+function canvasToJpegBytes(canvas,quality){
+  return new Promise(function(resolve,reject){
+    canvas.toBlob(function(blob){
+      if(!blob){reject(new Error('Canvas toBlob failed'));return}
+      blob.arrayBuffer().then(resolve).catch(reject);
+    },'image/jpeg',quality);
+  });
 }
 
 async function compressPDF(){
-if(!originalBytes||!pdfjsDoc)return;
-var progressBar=document.getElementById('progressBar');
-var progressFill=document.getElementById('progressFill');
-var progressText=document.getElementById('progressText');
-progressBar.style.display='block';
-progressText.style.display='block';
-progressFill.style.width='0%';
-document.getElementById('compressBtn').disabled=true;
-document.getElementById('resultSection').style.display='none';
+  if(!originalBytes||!pdfjsDoc){showToast('Upload a PDF first');return}
+  var progressBar=document.getElementById('progressBar');
+  var progressFill=document.getElementById('progressFill');
+  var progressText=document.getElementById('progressText');
+  progressBar.style.display='block';
+  progressText.style.display='block';
+  progressFill.style.width='0%';
+  document.getElementById('compressBtn').disabled=true;
+  document.getElementById('resultSection').style.display='none';
 
-try{
-var numPages=pdfjsDoc.numPages;
-var newPdf=await PDFDocument.create();
+  try{
+    var numPages=pdfjsDoc.numPages;
+    var newPdf=await PDFDocument.create();
 
-for(var i=1;i<=numPages;i++){
-progressText.textContent='Rendering page '+i+' of '+numPages+'...';
-progressFill.style.width=((i-1)/numPages*60)+'%';
+    for(var i=1;i<=numPages;i++){
+      progressText.textContent='Rendering page '+i+' of '+numPages+'...';
+      progressFill.style.width=((i-1)/numPages*60)+'%';
 
-var page=await pdfjsDoc.getPage(i);
-var viewport=page.getViewport({scale:qualityPreset.scale});
+      var page=await pdfjsDoc.getPage(i);
+      var vp=page.getViewport({scale:renderScale});
 
-var canvas=document.createElement('canvas');
-canvas.width=viewport.width;
-canvas.height=viewport.height;
-await page.render({canvasContext:canvas.getContext('2d'),viewport:viewport}).promise;
+      var canvas=document.createElement('canvas');
+      canvas.width=vp.width;
+      canvas.height=vp.height;
+      var ctx=canvas.getContext('2d');
+      await page.render({canvasContext:ctx,viewport:vp}).promise;
 
-var jpegDataUrl=canvas.toDataURL('image/jpeg',qualityPreset.jpegQuality);
-var jpegBytes=Uint8Array.from(atob(jpegDataUrl.split(',')[1]),function(c){return c.charCodeAt(0)});
+      var jpegBytes=await canvasToJpegBytes(canvas,jpegQuality);
+      var img=await newPdf.embedJpg(new Uint8Array(jpegBytes));
 
-var img=await newPdf.embedJpg(jpegBytes);
-var pageWidth=page.getViewport({scale:1}).width;
-var pageHeight=page.getViewport({scale:1}).height;
+      var origVp=page.getViewport({scale:1});
+      var p=newPdf.addPage([origVp.width,origVp.height]);
+      p.drawImage(img,{x:0,y:0,width:origVp.width,height:origVp.height});
+    }
 
-newPdf.addPage([pageWidth,pageHeight]);
-newPdf.getPage(newPdf.getPageCount()-1()).drawImage(img,{x:0,y:0,width:pageWidth,height:pageHeight});
-}
+    progressText.textContent='Saving compressed PDF...';
+    progressFill.style.width='80%';
+    compressedBytes=await newPdf.save();
+    progressFill.style.width='100%';
 
-progressText.textContent='Saving compressed PDF...';
-progressFill.style.width='80%';
-compressedBytes=await newPdf.save();
-progressFill.style.width='100%';
+    var origSize=originalBytes.byteLength;
+    var compSize=compressedBytes.byteLength;
+    var saved=origSize-compSize;
+    var pct=origSize>0?((saved/origSize)*100).toFixed(1):0;
 
-var origSize=originalBytes.byteLength;
-var compSize=compressedBytes.byteLength;
-var saved=origSize-compSize;
-var pct=origSize>0?((saved/origSize)*100).toFixed(1):0;
+    document.getElementById('resultSection').style.display='block';
+    document.getElementById('sizeComparison').innerHTML=
+      '<div class="size-box original"><div class="label">Original Size</div><div class="value">'+formatSize(origSize)+'</div></div>'+
+      '<div class="size-box compressed"><div class="label">Compressed Size</div><div class="value">'+formatSize(compSize)+'</div></div>';
 
-document.getElementById('resultSection').style.display='block';
-document.getElementById('sizeComparison').innerHTML=
-'<div class="size-box original"><div class="label">Original Size</div><div class="value">'+formatSize(origSize)+'</div></div>'+
-'<div class="size-box compressed"><div class="label">Compressed Size</div><div class="value">'+formatSize(compSize)+'</div></div>';
+    var maxW=Math.max(origSize,compSize);
+    var origPct=maxW>0?(origSize/maxW)*100:0;
+    var compPct=maxW>0?(compSize/maxW)*100:0;
+    document.getElementById('visualBar').innerHTML=
+      '<div class="track"><div class="bar-original" style="width:'+origPct+'%"></div><div class="bar-compressed" style="width:'+compPct+'%"></div></div>'+
+      '<div class="labels"><span>Original: '+formatSize(origSize)+'</span><span>Compressed: '+formatSize(compSize)+'</span></div>';
 
-var maxW=Math.max(origSize,compSize);
-var origPct=maxW>0?(origSize/maxW)*100:0;
-var compPct=maxW>0?(compSize/maxW)*100:0;
+    if(saved>0){
+      document.getElementById('savingsBadge').style.display='inline-block';
+      document.getElementById('savingsBadge').textContent=pct+'% smaller';
+      document.getElementById('noChangeMsg').style.display='none';
+    }else{
+      document.getElementById('savingsBadge').style.display='none';
+      document.getElementById('noChangeMsg').style.display='block';
+      document.getElementById('noChangeMsg').textContent='File is already well-optimized.';
+    }
 
-document.getElementById('visualBar').innerHTML=
-'<div class="track"><div class="bar-original" style="width:'+origPct+'%"></div><div class="bar-compressed" style="width:'+compPct+'%"></div></div>'+
-'<div class="labels"><span>Original: '+formatSize(origSize)+'</span><span>Compressed: '+formatSize(compSize)+'</span></div>';
-
-if(saved>0){
-document.getElementById('savingsBadge').style.display='inline-block';
-document.getElementById('savingsBadge').textContent=pct+'% smaller';
-document.getElementById('noChangeMsg').style.display='none';
-}else{
-document.getElementById('savingsBadge').style.display='none';
-document.getElementById('noChangeMsg').style.display='block';
-document.getElementById('noChangeMsg').textContent='File is already well-optimized. The compressed version may be slightly larger.';
-}
-
-document.getElementById('downloadBtn').style.display='inline-block';
-progressBar.style.display='none';
-progressText.style.display='none';
-document.getElementById('compressBtn').disabled=false;
-showToast('Compression complete! Saved '+pct+'%');
-}catch(err){
-progressBar.style.display='none';
-progressText.style.display='none';
-document.getElementById('compressBtn').disabled=false;
-showToast('Error compressing PDF');
-console.error(err);
-}
+    document.getElementById('downloadBtn').style.display='inline-block';
+    progressBar.style.display='none';
+    progressText.style.display='none';
+    document.getElementById('compressBtn').disabled=false;
+    showToast('Compression complete! Saved '+pct+'%');
+  }catch(err){
+    console.error('Compress error:',err);
+    progressBar.style.display='none';
+    progressText.style.display='none';
+    document.getElementById('compressBtn').disabled=false;
+    showToast('Error: '+err.message);
+  }
 }
 
 function downloadCompressed(){
-if(!compressedBytes)return;
-var blob=new Blob([compressedBytes],{type:'application/pdf'});
-var url=URL.createObjectURL(blob);
-var a=document.createElement('a');
-a.href=url;a.download=pdfFileName+'_compressed.pdf';
-document.body.appendChild(a);
-a.click();
-document.body.removeChild(a);
-URL.revokeObjectURL(url);
-showToast('Downloaded!');
+  if(!compressedBytes)return;
+  var blob=new Blob([compressedBytes],{type:'application/pdf'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.download=pdfFileName+'_compressed.pdf';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('Downloaded!');
 }
 </script>
 </body>
