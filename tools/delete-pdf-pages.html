@@ -184,10 +184,46 @@ async function processDelete(){
     setTimeout(function(){document.getElementById('progressSection').style.display='none';document.getElementById('resultSection').style.display='block'},300);
     showToast('Pages deleted!');
   }catch(err){
-    document.getElementById('progressSection').style.display='none';
-    document.getElementById('editorSection').style.display='block';
-    showToast('Error deleting pages. Please try again.');
+    try{
+      document.getElementById('progressText').textContent='Repairing PDF (fallback method)...';
+      resultBytes=await rebuildViaRendering();
+      fill.style.width='100%';
+      var remaining2=totalPages-selectedForDelete.size;
+      document.getElementById('resultInfo').textContent='Deleted '+selectedForDelete.size+' page(s). '+remaining2+' page(s) remaining (fallback mode).';
+      setTimeout(function(){document.getElementById('progressSection').style.display='none';document.getElementById('resultSection').style.display='block'},300);
+      showToast('Pages deleted!');
+    }catch(err2){
+      document.getElementById('progressSection').style.display='none';
+      document.getElementById('editorSection').style.display='block';
+      console.error(err2);
+      showToast('Could not process this PDF. Try a different file.');
+    }
   }
+}
+
+async function rebuildViaRendering(){
+  var pdfDoc=await pdfjsLib.getDocument({data:new Uint8Array(pdfBytes)}).promise;
+  var newDoc=await PDFDocument.create();
+  var pagesToKeep=[];
+  for(var n=1;n<=totalPages;n++){
+    if(selectedForDelete.has(n))continue;
+    pagesToKeep.push(n);
+  }
+  for(var k=0;k<pagesToKeep.length;k++){
+    var page=await pdfDoc.getPage(pagesToKeep[k]);
+    var base=page.getViewport({scale:1});
+    var vp=page.getViewport({scale:2});
+    var canvas=document.createElement('canvas');
+    canvas.width=Math.ceil(vp.width);
+    canvas.height=Math.ceil(vp.height);
+    await page.render({canvasContext:canvas.getContext('2d'),viewport:vp}).promise;
+    var blob=await new Promise(function(res){canvas.toBlob(function(b){res(b)},'image/png')});
+    var buf=await blob.arrayBuffer();
+    var img=await newDoc.embedPng(buf);
+    var np=newDoc.addPage([base.width,base.height]);
+    np.drawImage(img,{x:0,y:0,width:base.width,height:base.height});
+  }
+  return newDoc.save();
 }
 
 function downloadResult(){
