@@ -2,7 +2,7 @@
   "name": "FreeOnlineTools - 60+ Free Tools",
   "short_name": "FreeTools",
   "description": "60+ free online tools - PDF editor, resume builder, text tools, developer tools, calculators. No signup required.",
-  "start_url": "/tools-site/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#f8f9fc",
   "theme_color": "#6c5ce7",

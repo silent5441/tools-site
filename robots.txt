@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://silent5441.github.io/tools-site/sitemap.xml
+Sitemap: https://ilovetools.pro/sitemap.xml
