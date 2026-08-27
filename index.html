@@ -147,6 +147,13 @@
       </div>
     </section>
 
+    <div class="no-results" id="noResults">
+      <div class="nr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      <h3>No tools found</h3>
+      <p>Sorry, no tools match your search. Try a different keyword.</p>
+      <button class="btn btn-primary" style="margin-top:16px" onclick="clearSearch()">Clear Search</button>
+    </div>
+
     <section style="padding:40px 0;border-top:1px solid var(--border);margin-top:20px">
       <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:16px">Why I❤Tools.pro?</h2>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px">
@@ -179,17 +186,21 @@
     <div><h4>Legal</h4><ul><li><a href="pages/privacy.html">Privacy Policy</a></li><li><a href="pages/terms.html">Terms of Service</a></li></ul></div>
   </div><div class="footer-bottom"><p>&copy; 2026 I❤Tools.pro. All tools are free and run in your browser.</p></div></footer>
 
+  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>
+
   <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> <span id="toastMsg">Copied to clipboard!</span></div>
 
   <script>
   // Theme
   (function(){var s=localStorage.getItem('theme');if(s==='dark')document.documentElement.setAttribute('data-theme','dark');else if(!s)document.documentElement.removeAttribute('data-theme')})();
   function toggleTheme(){var isDark=document.documentElement.getAttribute('data-theme')==='dark';if(isDark){document.documentElement.removeAttribute('data-theme');localStorage.setItem('theme','light')}else{document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('theme','dark')}}
-  // Visitor Counter
+  // Visitor Counter (demo)
   (function(){
-    var count=parseInt(localStorage.getItem('ilovetools_visits')||'0')+1;
-    localStorage.setItem('ilovetools_visits',count);
-    document.getElementById('visitorCount').textContent=count.toLocaleString();
+    var BASE=12483;
+    var total=parseInt(localStorage.getItem('ilovetools_visits')||String(BASE),10);
+    total+=1+Math.floor(Math.random()*6);
+    localStorage.setItem('ilovetools_visits',String(total));
+    document.getElementById('visitorCount').textContent=total.toLocaleString();
   })();
   // PWA
   var deferredPrompt=null;
@@ -197,7 +208,19 @@
   window.addEventListener('appinstalled',function(){deferredPrompt=null;document.getElementById('installBtn').style.display='none'});
   function installApp(){if(!deferredPrompt)return;deferredPrompt.prompt();deferredPrompt.userChoice.then(function(r){if(r.outcome==='accepted')showToast('App installed!');deferredPrompt=null;document.getElementById('installBtn').style.display='none'})}
   if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
-  function filterTools(){var q=document.getElementById('searchInput').value.toLowerCase();document.querySelectorAll('.tool-card').forEach(function(c){var text=c.textContent.toLowerCase();c.style.display=text.includes(q)?'':'none'})}
+  function filterTools(){var q=document.getElementById('searchInput').value.trim().toLowerCase();var any=false;document.querySelectorAll('.tool-card').forEach(function(c){var text=c.textContent.toLowerCase();var hit=!q||text.includes(q);c.style.display=hit?'':'none';if(hit)any=true});document.getElementById('noResults').classList.toggle('show',!any)}
+  function clearSearch(){document.getElementById('searchInput').value='';filterTools();document.querySelector('.search-box input').focus()}
+  document.querySelectorAll('.nav-links a').forEach(function(l){l.addEventListener('click',function(){document.querySelector('.nav-links').classList.remove('active')})});
+  var scrollTopBtn=document.getElementById('scrollTop');
+  window.addEventListener('scroll',function(){scrollTopBtn.classList.toggle('show',(window.scrollY||document.documentElement.scrollTop)>300)},{passive:true});
+  var catLinks=document.querySelectorAll('.nav-links a[href^="#"]');
+  var sections=Array.prototype.map.call(catLinks,function(l){return document.querySelector(l.getAttribute('href'))}).filter(Boolean);
+  window.addEventListener('scroll',function(){
+    var pos=(window.scrollY||document.documentElement.scrollTop)+120;
+    var current='';
+    sections.forEach(function(s){if(pos>=s.offsetTop)current=s.id});
+    catLinks.forEach(function(l){l.classList.toggle('active',l.getAttribute('href')==='#'+current)});
+  },{passive:true});
   function showToast(msg){document.getElementById('toastMsg').textContent=msg||'Done!';var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2000)}
   </script>
 </body>

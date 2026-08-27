@@ -166,21 +166,28 @@ function updateCount(){
 
 async function processDelete(){
   if(!pdfBytes||selectedForDelete.size===0){showToast('Select pages to delete');return}
+  if(selectedForDelete.size>=totalPages){showToast('Cannot delete all pages');return}
   var fill=document.getElementById('progressFill');
   document.getElementById('editorSection').style.display='none';
   document.getElementById('progressSection').style.display='block';
   document.getElementById('progressText').textContent='Deleting pages...';
   fill.style.width='30%';
-  var pdf=await PDFDocument.load(pdfBytes);
-  fill.style.width='60%';
-  var indices=Array.from(selectedForDelete).sort(function(a,b){return b-a});
-  indices.forEach(function(i){pdf.removePages([i])});
-  resultBytes=await pdf.save();
-  fill.style.width='100%';
-  var remaining=pdf.getPageCount();
-  document.getElementById('resultInfo').textContent='Deleted '+indices.length+' page(s). '+remaining+' page(s) remaining.';
-  setTimeout(function(){document.getElementById('progressSection').style.display='none';document.getElementById('resultSection').style.display='block'},300);
-  showToast('Pages deleted!');
+  try{
+    var pdf=await PDFDocument.load(pdfBytes);
+    fill.style.width='60%';
+    var indices=Array.from(selectedForDelete).map(function(n){return n-1}).sort(function(a,b){return b-a});
+    indices.forEach(function(i){pdf.removePage(i)});
+    resultBytes=await pdf.save();
+    fill.style.width='100%';
+    var remaining=pdf.getPageCount();
+    document.getElementById('resultInfo').textContent='Deleted '+indices.length+' page(s). '+remaining+' page(s) remaining.';
+    setTimeout(function(){document.getElementById('progressSection').style.display='none';document.getElementById('resultSection').style.display='block'},300);
+    showToast('Pages deleted!');
+  }catch(err){
+    document.getElementById('progressSection').style.display='none';
+    document.getElementById('editorSection').style.display='block';
+    showToast('Error deleting pages. Please try again.');
+  }
 }
 
 function downloadResult(){

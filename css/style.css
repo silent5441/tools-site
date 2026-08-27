@@ -3,7 +3,9 @@
 [data-theme="dark"]{--bg:#0f1117;--bg2:#161822;--card:#1a1d2e;--card-hover:#222640;--border:#2a2d3e;--text:#e8eaf0;--muted:#8b8fa3;--accent2:#00cec9;--accent3:#fd79a8;--orange:#fdcb6e;--shadow:0 8px 32px rgba(0,0,0,0.3);--shadow-sm:0 2px 8px rgba(0,0,0,0.2)}
 
 *{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;overflow-x:hidden;transition:background 0.3s,color 0.3s}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}}
 a{color:var(--accent2);text-decoration:none;transition:var(--transition)}
 a:hover{color:#0984e3}
 [data-theme="dark"] a:hover{color:#55efc4}
@@ -191,6 +193,24 @@ a:hover{color:#0984e3}
   .btn-group{flex-direction:column}
   .btn{width:100%;justify-content:center}
 }
+/* Search no-results */
+.no-results{display:none;text-align:center;padding:60px 20px;color:var(--muted)}
+.no-results.show{display:block}
+.no-results .nr-icon{width:64px;height:64px;margin:0 auto 16px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center}
+.no-results .nr-icon svg{width:30px;height:30px;color:var(--muted)}
+.no-results h3{color:var(--text);font-size:1.1rem;margin-bottom:6px;font-weight:600}
+.no-results button{background:var(--gradient);color:#fff}
+.no-results button:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(108,92,231,0.4)}
+
+/* Scroll to top */
+.scroll-top{position:fixed;right:20px;bottom:80px;width:46px;height:46px;border-radius:50%;background:var(--gradient);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(108,92,231,0.4);opacity:0;visibility:hidden;transform:translateY(10px);transition:var(--transition);z-index:99}
+.scroll-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+.scroll-top:hover{transform:translateY(-3px) scale(1.05)}
+.scroll-top svg{width:22px;height:22px}
+
+/* Active category in nav */
+.nav-links a.active{color:var(--text);background:rgba(108,92,231,0.1)}
+
 @media(max-width:480px){
   .stat-grid{grid-template-columns:1fr}
   .stats-bar{flex-wrap:wrap;gap:16px}
