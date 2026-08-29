@@ -200,8 +200,10 @@ const text=el.value||el.textContent;
   slot `8841288679` is wired into every `.ad-slot` and `.ad-slot` is shown (no longer
   `display:none` in `css/style.css`). Ads appear once Google approves the site.
 - **Monetag**: verification `<meta name="monetag" content="d5f7c3ee09cf95186274af3e54113b94">`
-  is in `index.html` `<head>`. Monetag display/banner ads can go in separate containers,
-  but do NOT add Monetag popunders/push on AdSense pages (AdSense policy violation).
+  is in `index.html` `<head>`. Monetag tag (`https://nap5k.com/tag.min.js`, zone `11682125`)
+  is injected before `</body>` on every page, kept separate from the AdSense `.ad-slot`.
+  Zone `11682125` MUST be a Banner/Display type — do NOT use Monetag popunder/push on
+  AdSense pages (AdSense policy violation).
 - **Affiliate blog**: separate project at `https://silent5441.github.io/affiliate-blog/`.
 - **Blogger blog**: `https://tazamewss.blogspot.com` (for promo/backlinks).
 
