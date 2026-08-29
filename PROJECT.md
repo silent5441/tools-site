@@ -46,7 +46,7 @@ tools-site/                  ← repo root (served at / by GitHub Pages)
 ├── favicon.ico              ← site favicon (purple bg + pink heart)
 ├── icon-192.png             ← PWA icon
 ├── icon-512.png             ← PWA icon (also used for og:image)
-├── sitemap.xml              ← 43 URLs (homepage + 40 tools + privacy/terms), uses ilovetools.pro
+├── sitemap.xml              ← 44 URLs (homepage + 40 tools + privacy/terms), uses ilovetools.pro
 ├── robots.txt               ← sitemap reference
 ├── google2c2c9782d98953a0.html ← Google Search Console verification file
 ├── pages/
@@ -93,6 +93,7 @@ tools-site/                  ← repo root (served at / by GitHub Pages)
     ├── readability-checker.html ← SEO
     └── serp-preview.html    ← SEO
     ├── brick-estimate.html   ← Construction (Home Easy hub: brick, concrete, plaster, tiles, paint, steel/TMT, plumbing, room-finish estimators)
+    └── funzone.html          ← FunZone hub: Tic-Tac-Toe, Snake, Memory Match, Rock Paper Scissors, Number Guess (games + ads)
 ```
 
 ## 🧩 Architecture
