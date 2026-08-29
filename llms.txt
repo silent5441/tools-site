@@ -1,0 +1,21 @@
+# I Love Tools
+
+A free, browser-based toolkit. All tools run client-side in the user's browser - no uploads, no servers, no signup.
+
+## What the site offers
+- 40+ utilities across Text, Encoding, Developer, Calculators, SEO, and PDF categories
+- Home Easy: construction & home material estimators (India-standard) - brick, concrete, plaster, tiles, paint, steel/TMT, plumbing, room finish
+- FunZone: free browser games (Tic-Tac-Toe, Snake, Memory Match, Rock Paper Scissors, Number Guess)
+
+## Key pages
+- Home: https://ilovetools.pro/
+- QR Code Generator: https://ilovetools.pro/tools/qr-generator.html
+- PDF Tools: https://ilovetools.pro/#pdf
+- Construction Estimators: https://ilovetools.pro/tools/brick-estimate.html
+- FunZone Games: https://ilovetools.pro/funzone.html
+- Privacy Policy: https://ilovetools.pro/pages/privacy.html
+- Terms of Service: https://ilovetools.pro/pages/terms.html
+
+## Notes for agents
+- Content is static HTML; tools are interactive client-side JavaScript.
+- No login or backend APIs are required to use any tool.
