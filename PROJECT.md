@@ -1,6 +1,6 @@
 # I❤Tools.pro — Free Online Tools Website
 
-> Monorepo for the I❤Tools.pro free online tools website — 39+ browser-based tools
+> Monorepo for the I❤Tools.pro free online tools website — 40+ browser-based tools
 > with zero backend/server dependencies. Everything runs client-side.
 
 ## 📋 Project Overview
@@ -39,20 +39,20 @@ These are non-negotiable constraints:
 
 ```
 tools-site/                  ← repo root (served at / by GitHub Pages)
-├── index.html               ← homepage: all 39+ tools, 8 categories
+├── index.html               ← homepage: all 40+ tools, 9 categories
 ├── css/style.css            ← shared styles (light/dark theme)
 ├── manifest.json            ← PWA manifest
 ├── sw.js                    ← service worker (app cache)
 ├── favicon.ico              ← site favicon (purple bg + pink heart)
 ├── icon-192.png             ← PWA icon
 ├── icon-512.png             ← PWA icon (also used for og:image)
-├── sitemap.xml              ← 42 URLs (homepage + 39 tools + privacy/terms), uses ilovetools.pro
+├── sitemap.xml              ← 43 URLs (homepage + 40 tools + privacy/terms), uses ilovetools.pro
 ├── robots.txt               ← sitemap reference
 ├── google2c2c9782d98953a0.html ← Google Search Console verification file
 ├── pages/
 │   ├── privacy.html         ← privacy policy (keep updated with all tools)
 │   └── terms.html           ← terms of service
-└── tools/                   ← 39 individual tool pages
+└── tools/                   ← 40 individual tool pages
     ├── merge-pdf.html       ← PDF
     ├── split-pdf.html       ← PDF
     ├── pdf-to-image.html    ← PDF
@@ -92,6 +92,7 @@ tools-site/                  ← repo root (served at / by GitHub Pages)
     ├── sitemap-generator.html  ← SEO
     ├── readability-checker.html ← SEO
     └── serp-preview.html    ← SEO
+    ├── brick-estimate.html   ← Construction (Home Easy: brick/cement/sand estimator)
 ```
 
 ## 🧩 Architecture
@@ -188,7 +189,7 @@ const text=el.value||el.textContent;
 - Homepage targets: "QR scanner, file cleaner, document scanner, PDF editor, resume
   builder, converters, calculators, device tools".
 - Each tool page has unique `<title>`, meta description, and `description` paragraph.
-- `sitemap.xml` lists all 39 tools + homepage + legal pages. Update it when adding
+- `sitemap.xml` lists all 40 tools + homepage + legal pages. Update it when adding
   or removing tools.
 - Google Search Console: property `ilovetools.pro` is verified (DNS TXT `_3LwEQpiICQaXsjabA9jacKKT0zdfyNeOMG8HrzH0Ak`).
 - Sitemap URL submitted: `https://ilovetools.pro/sitemap.xml`.
@@ -209,7 +210,7 @@ Tools are static files; test by opening locally or checking the live site:
 - Calculator tools: verify math correctness on known inputs.
 - Resume builder: create resume → download PDF/DOCX/JPG.
 
-Known working set (verified): all 39 tools render, PDF thumbs work, copy buttons
+Known working set (verified): all 40 tools render, PDF thumbs work, copy buttons
 work, theme toggle works, visitor counter counts.
 
 ## 📌 Future Ideas (traffic/SEO drivers)
