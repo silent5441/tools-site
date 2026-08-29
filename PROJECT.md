@@ -92,7 +92,7 @@ tools-site/                  ← repo root (served at / by GitHub Pages)
     ├── sitemap-generator.html  ← SEO
     ├── readability-checker.html ← SEO
     └── serp-preview.html    ← SEO
-    ├── brick-estimate.html   ← Construction (Home Easy: brick/cement/sand estimator)
+    ├── brick-estimate.html   ← Construction (Home Easy hub: brick, concrete, plaster, tiles, paint, steel/TMT, plumbing, room-finish estimators)
 ```
 
 ## 🧩 Architecture

@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Easy - Brick, Cement & Sand Estimator (India)</title>
-  <meta name="description" content="Free Home Easy calculator: estimate bricks, cement bags and sand needed for a brick wall. Uses standard Indian modular brick size with a live brick-wall preview.">
+  <title>Home Easy - Construction & Home Material Calculators (India)</title>
+  <meta name="description" content="Free Home Easy calculators: estimate bricks, cement, sand, concrete, plaster, tiles, paint, steel and plumbing for every room from kitchen to toilet. Live previews, India-standard sizes.">
   <link rel="icon" type="image/x-icon" href="../favicon.ico"><link rel="icon" type="image/png" sizes="192x192" href="../icon-192.png"><link rel="apple-touch-icon" href="../icon-192.png"><link rel="stylesheet" href="../css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8427860023135459" crossorigin="anonymous"></script>
@@ -14,65 +14,147 @@
   <div class="tool-page">
     <a href="../" class="back-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to Home</a>
 
-    <h1><div class="tool-page-icon t-orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"/></svg></div> Home Easy — Brick &amp; Material Estimator</h1>
-    <p class="desc">Estimate bricks, cement and sand for a brick wall. Enter the wall size in feet/inches and get an instant material list plus a live wall preview.</p>
+    <h1><div class="tool-page-icon t-orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"/></svg></div> Home Easy — Construction Calculators</h1>
+    <p class="desc">Estimate materials for your whole home — from kitchen to toilet. Brick, concrete, plaster, tiles, paint, steel and plumbing. All client-side, India-standard sizes.</p>
 
-    <div class="tool-box">
-      <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 21h18M5 21V8l7-4 7 4v13"/></svg> Wall Length:</label>
-      <div style="display:flex;gap:8px"><input type="number" id="lenFt" placeholder="ft (e.g. 10)" oninput="calc()"> <input type="number" id="lenIn" placeholder="in (opt)" oninput="calc()"></div>
-    </div>
-    <div class="tool-box">
-      <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 21h18M5 21V8l7-4 7 4v13"/></svg> Wall Height:</label>
-      <div style="display:flex;gap:8px"><input type="number" id="heiFt" placeholder="ft (e.g. 10)" oninput="calc()"> <input type="number" id="heiIn" placeholder="in (opt)" oninput="calc()"></div>
-    </div>
-    <div class="tool-box">
-      <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16v16H4z"/></svg> Wall Thickness:</label>
-      <select id="thickness" onchange="toggleThick()">
-        <option value="4.5">4.5&quot; (single brick)</option>
-        <option value="9" selected>9&quot; (one &amp; half brick)</option>
-        <option value="13.5">13.5&quot; (double brick)</option>
-        <option value="custom">Custom</option>
-      </select>
-      <input type="number" id="customThick" placeholder="thickness in inches" oninput="calc()" style="display:none;margin-top:8px">
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('brick')">Brick Wall</button>
+      <button class="tab" onclick="showTab('concrete')">Concrete (RCC)</button>
+      <button class="tab" onclick="showTab('plaster')">Plaster</button>
+      <button class="tab" onclick="showTab('tiles')">Tiles</button>
+      <button class="tab" onclick="showTab('paint')">Paint</button>
+      <button class="tab" onclick="showTab('steel')">Steel (TMT)</button>
+      <button class="tab" onclick="showTab('plumbing')">Plumbing</button>
+      <button class="tab" onclick="showTab('room')">Room Finish</button>
     </div>
 
-    <div class="tool-box">
-      <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> Brick size (mm):</label>
-      <div style="display:flex;gap:8px"><input type="number" id="brickL" value="190" oninput="calc()" title="Length"> <input type="number" id="brickW" value="90" oninput="calc()" title="Width"> <input type="number" id="brickH" value="90" oninput="calc()" title="Height"></div>
-    </div>
-    <div class="tool-box">
-      <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16v16H4z"/></svg> Mortar joint (mm):</label>
-      <input type="number" id="joint" value="10" oninput="calc()">
-    </div>
-    <div class="tool-box">
-      <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3h18v18H3z"/></svg> Mortar mix (cement:sand):</label>
-      <select id="mix" onchange="calc()">
-        <option value="6">1 : 6</option>
-        <option value="4">1 : 4</option>
-      </select>
-    </div>
-    <div class="tool-box">
-      <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3h18v18H3z"/></svg> Wastage (%):</label>
-      <input type="number" id="waste" value="5" oninput="calc()">
-    </div>
-
-    <div class="tool-box">
-      <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg> Rates (₹) — optional:</label>
-      <div style="display:flex;gap:8px;flex-wrap:wrap"><input type="number" id="rateBrick" placeholder="per brick" oninput="calc()"> <input type="number" id="rateCement" placeholder="per 50kg bag" oninput="calc()"> <input type="number" id="rateSand" placeholder="per m³ sand" oninput="calc()"></div>
+    <!-- BRICK -->
+    <div id="tab-brick" class="tab-panel">
+      <div class="tool-box"><label>Wall Length:</label><div style="display:flex;gap:8px"><input type="number" id="lenFt" placeholder="ft (e.g. 10)" oninput="calcBrick()"> <input type="number" id="lenIn" placeholder="in (opt)" oninput="calcBrick()"></div></div>
+      <div class="tool-box"><label>Wall Height:</label><div style="display:flex;gap:8px"><input type="number" id="heiFt" placeholder="ft (e.g. 10)" oninput="calcBrick()"> <input type="number" id="heiIn" placeholder="in (opt)" oninput="calcBrick()"></div></div>
+      <div class="tool-box"><label>Wall Thickness:</label><select id="thickness" onchange="toggleThick()"><option value="4.5">4.5&quot; (single)</option><option value="9" selected>9&quot; (1.5 brick)</option><option value="13.5">13.5&quot; (double)</option><option value="custom">Custom</option></select><input type="number" id="customThick" placeholder="in" oninput="calcBrick()" style="display:none;margin-top:8px"></div>
+      <div class="tool-box"><label>Brick size (mm):</label><div style="display:flex;gap:8px"><input type="number" id="brickL" value="190" oninput="calcBrick()" title="L"> <input type="number" id="brickW" value="90" oninput="calcBrick()" title="W"> <input type="number" id="brickH" value="90" oninput="calcBrick()" title="H"></div></div>
+      <div class="tool-box"><label>Mortar joint (mm):</label><input type="number" id="joint" value="10" oninput="calcBrick()"></div>
+      <div class="tool-box"><label>Mortar mix:</label><select id="mix" onchange="calcBrick()"><option value="6">1 : 6</option><option value="4">1 : 4</option></select></div>
+      <div class="tool-box"><label>Wastage %:</label><input type="number" id="waste" value="5" oninput="calcBrick()"></div>
+      <div class="tool-box"><label>Rates ₹ (opt):</label><div style="display:flex;gap:8px;flex-wrap:wrap"><input type="number" id="rateBrick" placeholder="per brick" oninput="calcBrick()"> <input type="number" id="rateCement" placeholder="per 50kg bag" oninput="calcBrick()"> <input type="number" id="rateSand" placeholder="per m³ sand" oninput="calcBrick()"></div></div>
+      <button class="btn btn-primary" onclick="calcBrick()" style="margin-top:8px">Calculate</button>
+      <div class="stat-grid" id="resultBrick" style="display:none">
+        <div class="stat-box"><div class="num" id="outBricks">--</div><div class="label">Bricks (incl. wastage)</div></div>
+        <div class="stat-box"><div class="num" id="outCement">--</div><div class="label">Cement bags (50kg)</div></div>
+        <div class="stat-box"><div class="num" id="outSand">--</div><div class="label">Sand (m³)</div></div>
+        <div class="stat-box"><div class="num" id="outVol">--</div><div class="label">Wall vol (ft³)</div></div>
+        <div class="stat-box" id="costBrickBox" style="display:none;grid-column:span 2"><div class="num" id="outCostBrick">--</div><div class="label">Est. cost (₹)</div></div>
+      </div>
+      <div id="wallPreview" class="wall-preview" style="display:none"></div>
+      <p id="wallNote" class="desc" style="font-size:.8rem"></p>
     </div>
 
-    <button class="btn btn-primary" onclick="calc()" style="margin-top:8px">Calculate</button>
-
-    <div class="stat-grid" id="resultArea" style="display:none">
-      <div class="stat-box"><div class="num" id="outBricks">--</div><div class="label">Bricks (incl. wastage)</div></div>
-      <div class="stat-box"><div class="num" id="outCement">--</div><div class="label">Cement bags (50 kg)</div></div>
-      <div class="stat-box"><div class="num" id="outSand">--</div><div class="label">Sand (m³)</div></div>
-      <div class="stat-box"><div class="num" id="outVol">--</div><div class="label">Wall volume (ft³)</div></div>
-      <div class="stat-box" id="costBox" style="display:none;grid-column:span 2"><div class="num" id="outCost">--</div><div class="label">Estimated cost (₹)</div></div>
+    <!-- CONCRETE -->
+    <div id="tab-concrete" class="tab-panel" style="display:none">
+      <div class="tool-box"><label>Slab Length (ft):</label><input type="number" id="conL" placeholder="e.g. 12" oninput="calcConcrete()"></div>
+      <div class="tool-box"><label>Slab Width (ft):</label><input type="number" id="conW" placeholder="e.g. 10" oninput="calcConcrete()"></div>
+      <div class="tool-box"><label>Thickness (in):</label><input type="number" id="conT" value="6" oninput="calcConcrete()"></div>
+      <div class="tool-box"><label>Concrete mix:</label><select id="conMix" onchange="calcConcrete()"><option value="1:1.5:3">M20 (1:1.5:3)</option><option value="1:2:4">M15 (1:2:4)</option><option value="1:3:6">M10 (1:3:6)</option></select></div>
+      <div class="tool-box"><label>Rates ₹ (opt):</label><div style="display:flex;gap:8px;flex-wrap:wrap"><input type="number" id="conRateCement" placeholder="per bag" oninput="calcConcrete()"> <input type="number" id="conRateSand" placeholder="per m³ sand" oninput="calcConcrete()"> <input type="number" id="conRateAgg" placeholder="per m³ agg" oninput="calcConcrete()"></div></div>
+      <button class="btn btn-primary" onclick="calcConcrete()" style="margin-top:8px">Calculate</button>
+      <div class="stat-grid" id="resultConcrete" style="display:none">
+        <div class="stat-box"><div class="num" id="outConWet">--</div><div class="label">Wet volume (m³)</div></div>
+        <div class="stat-box"><div class="num" id="outConCement">--</div><div class="label">Cement bags</div></div>
+        <div class="stat-box"><div class="num" id="outConSand">--</div><div class="label">Sand (m³)</div></div>
+        <div class="stat-box"><div class="num" id="outConAgg">--</div><div class="label">Aggregate (m³)</div></div>
+        <div class="stat-box" id="costConBox" style="display:none;grid-column:span 2"><div class="num" id="outCostCon">--</div><div class="label">Est. cost (₹)</div></div>
+      </div>
     </div>
 
-    <div id="wallPreview" class="wall-preview" style="display:none"></div>
-    <p id="wallNote" class="desc" style="font-size:.8rem"></p>
+    <!-- PLASTER -->
+    <div id="tab-plaster" class="tab-panel" style="display:none">
+      <div class="tool-box"><label>Wall Length (ft):</label><input type="number" id="plL" placeholder="e.g. 12" oninput="calcPlaster()"></div>
+      <div class="tool-box"><label>Wall Height (ft):</label><input type="number" id="plH" placeholder="e.g. 10" oninput="calcPlaster()"></div>
+      <div class="tool-box"><label>Plaster thick (mm):</label><input type="number" id="plThick" value="12" oninput="calcPlaster()"></div>
+      <div class="tool-box"><label>Mortar mix:</label><select id="plMix" onchange="calcPlaster()"><option value="6">1 : 6</option><option value="4">1 : 4</option></select></div>
+      <div class="tool-box"><label>Rates ₹ (opt):</label><div style="display:flex;gap:8px;flex-wrap:wrap"><input type="number" id="plRateCement" placeholder="per bag" oninput="calcPlaster()"> <input type="number" id="plRateSand" placeholder="per m³ sand" oninput="calcPlaster()"></div></div>
+      <button class="btn btn-primary" onclick="calcPlaster()" style="margin-top:8px">Calculate</button>
+      <div class="stat-grid" id="resultPlaster" style="display:none">
+        <div class="stat-box"><div class="num" id="outPlArea">--</div><div class="label">Area (m²)</div></div>
+        <div class="stat-box"><div class="num" id="outPlCement">--</div><div class="label">Cement bags</div></div>
+        <div class="stat-box"><div class="num" id="outPlSand">--</div><div class="label">Sand (m³)</div></div>
+        <div class="stat-box" id="costPlBox" style="display:none;grid-column:span 2"><div class="num" id="outCostPl">--</div><div class="label">Est. cost (₹)</div></div>
+      </div>
+    </div>
+
+    <!-- TILES -->
+    <div id="tab-tiles" class="tab-panel" style="display:none">
+      <div class="tool-box"><label>Room Length (ft):</label><input type="number" id="tlL" placeholder="e.g. 12" oninput="calcTiles()"></div>
+      <div class="tool-box"><label>Room Width (ft):</label><input type="number" id="tlW" placeholder="e.g. 10" oninput="calcTiles()"></div>
+      <div class="tool-box"><label>Tile size:</label><select id="tileSize" onchange="toggleTileSize()"><option value="300x300">300 × 300 mm</option><option value="600x600" selected>600 × 600 mm</option><option value="800x800">800 × 800 mm</option><option value="1200x600">1200 × 600 mm</option><option value="custom">Custom</option></select><div style="display:flex;gap:8px;margin-top:8px" id="tileCustom" style="display:none"><input type="number" id="tileCw" placeholder="width mm" oninput="calcTiles()"> <input type="number" id="tileCh" placeholder="height mm" oninput="calcTiles()"></div></div>
+      <div class="tool-box"><label>Wastage %:</label><input type="number" id="tlWastage" value="5" oninput="calcTiles()"></div>
+      <div class="tool-box"><label>Tiles per box:</label><input type="number" id="tlPerBox" value="4" oninput="calcTiles()"></div>
+      <div class="tool-box"><label>Rate ₹/tile (opt):</label><input type="number" id="tlRate" placeholder="per tile" oninput="calcTiles()"></div>
+      <button class="btn btn-primary" onclick="calcTiles()" style="margin-top:8px">Calculate</button>
+      <div class="stat-grid" id="resultTiles" style="display:none">
+        <div class="stat-box"><div class="num" id="outTlArea">--</div><div class="label">Area (m²)</div></div>
+        <div class="stat-box"><div class="num" id="outTlTiles">--</div><div class="label">Tiles needed</div></div>
+        <div class="stat-box"><div class="num" id="outTlBoxes">--</div><div class="label">Boxes</div></div>
+        <div class="stat-box" id="costTlBox" style="display:none;grid-column:span 2"><div class="num" id="outCostTl">--</div><div class="label">Est. cost (₹)</div></div>
+      </div>
+    </div>
+
+    <!-- PAINT -->
+    <div id="tab-paint" class="tab-panel" style="display:none">
+      <div class="tool-box"><label>Area (ft²):</label><input type="number" id="ptArea" placeholder="e.g. 120" oninput="calcPaint()"></div>
+      <div class="tool-box"><label>Coats:</label><input type="number" id="ptCoats" value="2" oninput="calcPaint()"></div>
+      <div class="tool-box"><label>Coverage (m²/L):</label><input type="number" id="ptCov" value="10" oninput="calcPaint()"></div>
+      <div class="tool-box"><label>Rate ₹/L (opt):</label><input type="number" id="ptRate" placeholder="per litre" oninput="calcPaint()"></div>
+      <button class="btn btn-primary" onclick="calcPaint()" style="margin-top:8px">Calculate</button>
+      <div class="stat-grid" id="resultPaint" style="display:none">
+        <div class="stat-box"><div class="num" id="outPtL">--</div><div class="label">Paint (L)</div></div>
+        <div class="stat-box"><div class="num" id="outPtPrimer">--</div><div class="label">Primer (L) ~½</div></div>
+        <div class="stat-box" id="costPtBox" style="display:none;grid-column:span 2"><div class="num" id="outCostPt">--</div><div class="label">Est. cost (₹)</div></div>
+      </div>
+    </div>
+
+    <!-- STEEL -->
+    <div id="tab-steel" class="tab-panel" style="display:none">
+      <div class="tool-box"><label>Bar diameter (mm):</label><input type="number" id="stDia" value="12" oninput="calcSteel()"></div>
+      <div class="tool-box"><label>Length per bar (m):</label><input type="number" id="stLen" value="12" oninput="calcSteel()"></div>
+      <div class="tool-box"><label>Number of bars:</label><input type="number" id="stQty" value="10" oninput="calcSteel()"></div>
+      <div class="tool-box"><label>Rate ₹/kg (opt):</label><input type="number" id="stRate" placeholder="per kg" oninput="calcSteel()"></div>
+      <button class="btn btn-primary" onclick="calcSteel()" style="margin-top:8px">Calculate</button>
+      <div class="stat-grid" id="resultSteel" style="display:none">
+        <div class="stat-box"><div class="num" id="outStW">--</div><div class="label">Weight (kg)</div></div>
+        <div class="stat-box" id="costStBox" style="display:none;grid-column:span 2"><div class="num" id="outCostSt">--</div><div class="label">Est. cost (₹)</div></div>
+      </div>
+    </div>
+
+    <!-- PLUMBING -->
+    <div id="tab-plumbing" class="tab-panel" style="display:none">
+      <div class="tool-box"><label>Water tank L×W×H (ft):</label><div style="display:flex;gap:8px"><input type="number" id="tkL" placeholder="L" oninput="calcPlumbing()"> <input type="number" id="tkW" placeholder="W" oninput="calcPlumbing()"> <input type="number" id="tkH" placeholder="H" oninput="calcPlumbing()"></div></div>
+      <div class="tool-box"><label>Fixtures (qty):</label><div style="display:flex;gap:8px;flex-wrap:wrap"><input type="number" id="plWC" placeholder="WC" oninput="calcPlumbing()"> <input type="number" id="plBasin" placeholder="basin" oninput="calcPlumbing()"> <input type="number" id="plTap" placeholder="taps" oninput="calcPlumbing()"> <input type="number" id="plPipe" placeholder="pipe len m" oninput="calcPlumbing()"></div></div>
+      <div class="tool-box"><label>Rates ₹ (opt):</label><div style="display:flex;gap:8px;flex-wrap:wrap"><input type="number" id="plRateWC" placeholder="per WC" oninput="calcPlumbing()"> <input type="number" id="plRateBasin" placeholder="per basin" oninput="calcPlumbing()"> <input type="number" id="plRateTap" placeholder="per tap" oninput="calcPlumbing()"> <input type="number" id="plRatePipe" placeholder="per m pipe" oninput="calcPlumbing()"></div></div>
+      <button class="btn btn-primary" onclick="calcPlumbing()" style="margin-top:8px">Calculate</button>
+      <div class="stat-grid" id="resultPlumbing" style="display:none">
+        <div class="stat-box"><div class="num" id="outTkL">--</div><div class="label">Tank capacity (L)</div></div>
+        <div class="stat-box" id="costPlBox" style="display:none;grid-column:span 2"><div class="num" id="outCostPl">--</div><div class="label">Fixtures est. cost (₹)</div></div>
+      </div>
+    </div>
+
+    <!-- ROOM FINISH -->
+    <div id="tab-room" class="tab-panel" style="display:none">
+      <div class="tool-box"><label>Room L×W×H (ft):</label><div style="display:flex;gap:8px"><input type="number" id="rmL" placeholder="L" oninput="calcRoom()"> <input type="number" id="rmW" placeholder="W" oninput="calcRoom()"> <input type="number" id="rmH" placeholder="H" oninput="calcRoom()"></div></div>
+      <div class="tool-box"><label>Tile size:</label><select id="rmTile" onchange="calcRoom()"><option value="300x300">300 × 300</option><option value="600x600" selected>600 × 600</option><option value="800x800">800 × 800</option></select></div>
+      <div class="tool-box"><label>Rates ₹ (opt):</label><div style="display:flex;gap:8px;flex-wrap:wrap"><input type="number" id="rmRateTile" placeholder="per tile" oninput="calcRoom()"> <input type="number" id="rmRateCement" placeholder="per bag" oninput="calcRoom()"> <input type="number" id="rmRateSand" placeholder="per m³ sand" oninput="calcRoom()"> <input type="number" id="rmRatePaint" placeholder="per L paint" oninput="calcRoom()"> <input type="number" id="rmRateFix" placeholder="per fixture set" oninput="calcRoom()"></div></div>
+      <button class="btn btn-primary" onclick="calcRoom()" style="margin-top:8px">Calculate</button>
+      <div class="stat-grid" id="resultRoom" style="display:none">
+        <div class="stat-box"><div class="num" id="outRmFloor">--</div><div class="label">Floor tiles</div></div>
+        <div class="stat-box"><div class="num" id="outRmWall">--</div><div class="label">Wall tiles</div></div>
+        <div class="stat-box"><div class="num" id="outRmCement">--</div><div class="label">Plaster cement bags</div></div>
+        <div class="stat-box"><div class="num" id="outRmSand">--</div><div class="label">Plaster sand (m³)</div></div>
+        <div class="stat-box"><div class="num" id="outRmPaint">--</div><div class="label">Ceiling paint (L)</div></div>
+        <div class="stat-box" id="costRmBox" style="display:none;grid-column:span 2"><div class="num" id="outCostRm">--</div><div class="label">Est. cost (₹)</div></div>
+      </div>
+      <p class="desc" style="font-size:.78rem">Room Finish covers floor + wall tiles, wall plaster, ceiling paint and a standard fixture set (WC, basin, tap, shower). Edit rates for a full quote.</p>
+    </div>
 
     <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8427860023135459" data-ad-slot="7777777777" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></div>
   </div>
@@ -82,76 +164,149 @@
   <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> <span id="toastMsg">Copied to clipboard!</span></div>
 
   <script>
-  function toggleThick(){
-    const v=document.getElementById('thickness').value;
-    document.getElementById('customThick').style.display=v==='custom'?'block':'none';
-    calc();
+  var FT=0.3048, IN=0.0254;
+  function num(id){return parseFloat(document.getElementById(id).value)||0;}
+  function fmt(n){return (isFinite(n)?n:0).toLocaleString('en-IN',{maximumFractionDigits:2});}
+  function showTab(t){
+    document.querySelectorAll('.tab-panel').forEach(function(p){p.style.display='none';});
+    document.getElementById('tab-'+t).style.display='block';
+    document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('active');});
+    event.target.classList.add('active');
   }
-  function fmt(n){return n.toLocaleString('en-IN',{maximumFractionDigits:2});}
-  function calc(){
-    const FT=0.3048, IN=0.0254;
-    const lf=parseFloat(document.getElementById('lenFt').value)||0;
-    const li=parseFloat(document.getElementById('lenIn').value)||0;
-    const hf=parseFloat(document.getElementById('heiFt').value)||0;
-    const hi=parseFloat(document.getElementById('heiIn').value)||0;
-    if(lf<=0&&li<=0&&hf<=0&&hi<=0){document.getElementById('resultArea').style.display='none';document.getElementById('wallPreview').style.display='none';return;}
-    const L=(lf+li/12)*FT;
-    const H=(hf+hi/12)*FT;
-    const tSel=document.getElementById('thickness').value;
-    const T=(tSel==='custom'?(parseFloat(document.getElementById('customThick').value)||9):parseFloat(tSel))/12*FT;
-    const bL=(parseFloat(document.getElementById('brickL').value)||190)/1000;
-    const bW=(parseFloat(document.getElementById('brickW').value)||90)/1000;
-    const bH=(parseFloat(document.getElementById('brickH').value)||90)/1000;
-    const j=(parseFloat(document.getElementById('joint').value)||10)/1000;
-    const ratio=parseFloat(document.getElementById('mix').value)||6;
-    const waste=(parseFloat(document.getElementById('waste').value)||5)/100;
-    if(L<=0||H<=0||T<=0) return;
-    const wallVol=L*H*T;
-    const nominalVol=(bL+j)*(bW+j)*(bH+j);
-    const brickVol=bL*bW*bH;
-    const bricksNet=wallVol/nominalVol;
-    const bricksTotal=Math.ceil(bricksNet*(1+waste));
-    const mortarVol=Math.max(0,wallVol-bricksNet*brickVol);
-    const cementM3=mortarVol*(1/(1+ratio));
-    const cementBags=cementM3*1440/50;
-    const sandM3=mortarVol*(ratio/(1+ratio));
-    const rb=parseFloat(document.getElementById('rateBrick').value)||0;
-    const rc=parseFloat(document.getElementById('rateCement').value)||0;
-    const rs=parseFloat(document.getElementById('rateSand').value)||0;
-    const hasCost=rb>0||rc>0||rs>0;
-    const cost=bricksTotal*rb+cementBags*rc+sandM3*rs;
-    document.getElementById('resultArea').style.display='grid';
+  function toggleThick(){document.getElementById('customThick').style.display=document.getElementById('thickness').value==='custom'?'block':'none';calcBrick();}
+  function toggleTileSize(){document.getElementById('tileCustom').style.display=document.getElementById('tileSize').value==='custom'?'flex':'none';calcTiles();}
+
+  function calcBrick(){
+    var lf=num('lenFt'),li=num('lenIn'),hf=num('heiFt'),hi=num('heiIn');
+    if(lf<=0&&li<=0&&hf<=0&&hi<=0){document.getElementById('resultBrick').style.display='none';document.getElementById('wallPreview').style.display='none';return;}
+    var L=(lf+li/12)*FT,H=(hf+hi/12)*FT;
+    var tSel=document.getElementById('thickness').value;
+    var T=(tSel==='custom'?num('customThick'):parseFloat(tSel))/12*FT;
+    var bL=num('brickL')/1000||0.19,bW=num('brickW')/1000||0.09,bH=num('brickH')/1000||0.09;
+    var j=num('joint')/1000||0.01, ratio=num('mix')||6, waste=num('waste')/100||0.05;
+    if(L<=0||H<=0||T<=0)return;
+    var wallVol=L*H*T, nominalVol=(bL+j)*(bW+j)*(bH+j), brickVol=bL*bW*bH;
+    var bricksNet=wallVol/nominalVol, bricksTotal=Math.ceil(bricksNet*(1+waste));
+    var mortarVol=Math.max(0,wallVol-bricksNet*brickVol);
+    var cementBags=mortarVol*(1/(1+ratio))*1440/50, sandM3=mortarVol*(ratio/(1+ratio));
+    var rb=num('rateBrick'),rc=num('rateCement'),rs=num('rateSand');
+    document.getElementById('resultBrick').style.display='grid';
     document.getElementById('outBricks').textContent=fmt(bricksTotal);
     document.getElementById('outCement').textContent=fmt(cementBags);
     document.getElementById('outSand').textContent=fmt(sandM3);
     document.getElementById('outVol').textContent=fmt(wallVol/(FT*FT*FT));
-    const costBox=document.getElementById('costBox');
-    if(hasCost){costBox.style.display='block';document.getElementById('outCost').textContent='₹ '+fmt(cost);}
-    else costBox.style.display='none';
+    var cb=document.getElementById('costBrickBox');
+    if(rb>0||rc>0||rs>0){cb.style.display='block';document.getElementById('outCostBrick').textContent='₹ '+fmt(bricksTotal*rb+cementBags*rc+sandM3*rs);}else cb.style.display='none';
     renderWall(L,H,bL,bH,j);
   }
   function renderWall(L,H,bL,bH,j){
-    const prev=document.getElementById('wallPreview');
-    prev.style.display='grid';
-    prev.innerHTML='';
-    let cols=Math.max(1,Math.floor(L/(bL+j)));
-    let rows=Math.max(1,Math.floor(H/(bH+j)));
-    const maxT=2000;let scale=1;
+    var prev=document.getElementById('wallPreview');prev.style.display='grid';prev.innerHTML='';
+    var cols=Math.max(1,Math.floor(L/(bL+j))),rows=Math.max(1,Math.floor(H/(bH+j)));
+    var maxT=2000,scale=1;
     if(cols*rows>maxT){scale=Math.sqrt(maxT/(cols*rows));cols=Math.max(1,Math.floor(cols*scale));rows=Math.max(1,Math.floor(rows*scale));}
-    const cw=prev.clientWidth||320;
-    const tileW=cw/cols;const tileH=tileW*(bH/bL);
-    for(let r=0;r<rows;r++){
-      const row=document.createElement('div');
-      row.style.display='flex';row.style.gap='3px';
-      if(r%2===1) row.style.marginLeft=(tileW/2)+'px';
-      for(let c=0;c<cols;c++){
-        const b=document.createElement('div');b.className='brick';
-        b.style.width=tileW+'px';b.style.height=tileH+'px';
-        row.appendChild(b);
-      }
-      prev.appendChild(row);
-    }
-    document.getElementById('wallNote').textContent='Wall preview (elevation): '+cols+' × '+rows+' bricks per face'+(scale<1?' — preview scaled for performance.':'');
+    var cw=prev.clientWidth||320,tileW=cw/cols,tileH=tileW*(bH/bL);
+    for(var r=0;r<rows;r++){var row=document.createElement('div');row.style.display='flex';row.style.gap='3px';if(r%2===1)row.style.marginLeft=(tileW/2)+'px';for(var c=0;c<cols;c++){var b=document.createElement('div');b.className='brick';b.style.width=tileW+'px';b.style.height=tileH+'px';row.appendChild(b);}prev.appendChild(row);}
+    document.getElementById('wallNote').textContent='Wall preview (elevation): '+cols+' × '+rows+' bricks per face'+(scale<1?' — preview scaled.':'');
+  }
+  function calcConcrete(){
+    var L=num('conL')*FT,W=num('conW')*FT,T=num('conT')/12*FT;
+    if(L<=0||W<=0||T<=0){document.getElementById('resultConcrete').style.display='none';return;}
+    var wet=L*W*T,dry=wet*1.54,parts=document.getElementById('conMix').value.split(':');
+    var r1=parseFloat(parts[1]),r2=parseFloat(parts[2]),sum=1+r1+r2;
+    var cementM3=dry/sum,sandM3=dry*r1/sum,aggM3=dry*r2/sum;
+    var bags=cementM3*1440/50;
+    var rc=num('conRateCement'),rs=num('conRateSand'),ra=num('conRateAgg');
+    document.getElementById('resultConcrete').style.display='grid';
+    document.getElementById('outConWet').textContent=fmt(wet);
+    document.getElementById('outConCement').textContent=fmt(bags);
+    document.getElementById('outConSand').textContent=fmt(sandM3);
+    document.getElementById('outConAgg').textContent=fmt(aggM3);
+    var cb=document.getElementById('costConBox');
+    if(rc>0||rs>0||ra>0){cb.style.display='block';document.getElementById('outCostCon').textContent='₹ '+fmt(bags*rc+sandM3*rs+aggM3*ra);}else cb.style.display='none';
+  }
+  function calcPlaster(){
+    var L=num('plL')*FT,H=num('plH')*FT;
+    if(L<=0||H<=0){document.getElementById('resultPlaster').style.display='none';return;}
+    var area=L*H,thick=num('plThick')/1000||0.012,ratio=num('plMix')||6;
+    var vol=area*thick,cementBags=vol*(1/(1+ratio))*1440/50,sandM3=vol*(ratio/(1+ratio));
+    var rc=num('plRateCement'),rs=num('plRateSand');
+    document.getElementById('resultPlaster').style.display='grid';
+    document.getElementById('outPlArea').textContent=fmt(area);
+    document.getElementById('outPlCement').textContent=fmt(cementBags);
+    document.getElementById('outPlSand').textContent=fmt(sandM3);
+    var cb=document.getElementById('costPlBox');
+    if(rc>0||rs>0){cb.style.display='block';document.getElementById('outCostPl').textContent='₹ '+fmt(cementBags*rc+sandM3*rs);}else cb.style.display='none';
+  }
+  function calcTiles(){
+    var L=num('tlL')*FT,W=num('tlW')*FT;
+    if(L<=0||W<=0){document.getElementById('resultTiles').style.display='none';return;}
+    var sz=document.getElementById('tileSize').value;
+    var tw,th;
+    if(sz==='custom'){tw=num('tileCw')/1000;th=num('tileCh')/1000;}else{var p=sz.split('x');tw=parseFloat(p[0])/1000;th=parseFloat(p[1])/1000;}
+    if(!tw||!th)return;
+    var area=L*W,tileArea=tw*th,waste=num('tlWastage')/100||0.05;
+    var tiles=Math.ceil(area/tileArea*(1+waste)),boxes=Math.ceil(tiles/(num('tlPerBox')||4));
+    var rate=num('tlRate');
+    document.getElementById('resultTiles').style.display='grid';
+    document.getElementById('outTlArea').textContent=fmt(area);
+    document.getElementById('outTlTiles').textContent=fmt(tiles);
+    document.getElementById('outTlBoxes').textContent=fmt(boxes);
+    var cb=document.getElementById('costTlBox');
+    if(rate>0){cb.style.display='block';document.getElementById('outCostTl').textContent='₹ '+fmt(tiles*rate);}else cb.style.display='none';
+  }
+  function calcPaint(){
+    var areaFt2=num('ptArea');if(areaFt2<=0){document.getElementById('resultPaint').style.display='none';return;}
+    var area=areaFt2*FT*FT,coats=num('ptCoats')||2,cov=num('ptCov')||10;
+    var liters=area*coats/cov,primer=liters/2;
+    var rate=num('ptRate');
+    document.getElementById('resultPaint').style.display='grid';
+    document.getElementById('outPtL').textContent=fmt(liters);
+    document.getElementById('outPtPrimer').textContent=fmt(primer);
+    var cb=document.getElementById('costPtBox');
+    if(rate>0){cb.style.display='block';document.getElementById('outCostPt').textContent='₹ '+fmt(liters*rate);}else cb.style.display='none';
+  }
+  function calcSteel(){
+    var d=num('stDia'),L=num('stLen'),q=num('stQty');
+    if(d<=0||L<=0||q<=0){document.getElementById('resultSteel').style.display='none';return;}
+    var w=d*d/162*L*q;
+    var rate=num('stRate');
+    document.getElementById('resultSteel').style.display='grid';
+    document.getElementById('outStW').textContent=fmt(w);
+    var cb=document.getElementById('costStBox');
+    if(rate>0){cb.style.display='block';document.getElementById('outCostSt').textContent='₹ '+fmt(w*rate);}else cb.style.display='none';
+  }
+  function calcPlumbing(){
+    var L=num('tkL')*FT,W=num('tkW')*FT,H=num('tkH')*FT;
+    var tank=L>0&&W>0&&H>0?L*W*H*1000:0;
+    var wc=num('plWC'),basin=num('plBasin'),tap=num('plTap'),pipe=num('plPipe');
+    var rwc=num('plRateWC'),rb=num('plRateBasin'),rt=num('plRateTap'),rp=num('plRatePipe');
+    var cost=wc*rwc+basin*rb+tap*rt+pipe*rp;
+    document.getElementById('resultPlumbing').style.display='grid';
+    document.getElementById('outTkL').textContent=fmt(tank);
+    var cb=document.getElementById('costPlBox');
+    if(rwc>0||rb>0||rt>0||rp>0){cb.style.display='block';document.getElementById('outCostPl').textContent='₹ '+fmt(cost);}else cb.style.display='none';
+  }
+  function calcRoom(){
+    var L=num('rmL')*FT,W=num('rmW')*FT,H=num('rmH')*FT;
+    if(L<=0||W<=0||H<=0){document.getElementById('resultRoom').style.display='none';return;}
+    var sz=document.getElementById('rmTile').value.split('x'),tw=parseFloat(sz[0])/1000,th=parseFloat(sz[1])/1000,tileArea=tw*th;
+    var floorArea=L*W,wallGross=2*(L+W)*H,wallNet=wallGross*0.85;
+    var floorTiles=Math.ceil(floorArea/tileArea*1.05),wallTiles=Math.ceil(wallNet/tileArea*1.05);
+    var plasterVol=wallNet*0.012,cementBags=plasterVol*(1/7)*1440/50,sandM3=plasterVol*(6/7);
+    var paintL=floorArea*2/10;
+    var rt=num('rmRateTile'),rc=num('rmRateCement'),rs=num('rmRateSand'),rp=num('rmRatePaint'),rf=num('rmRateFix');
+    document.getElementById('resultRoom').style.display='grid';
+    document.getElementById('outRmFloor').textContent=fmt(floorTiles);
+    document.getElementById('outRmWall').textContent=fmt(wallTiles);
+    document.getElementById('outRmCement').textContent=fmt(cementBags);
+    document.getElementById('outRmSand').textContent=fmt(sandM3);
+    document.getElementById('outRmPaint').textContent=fmt(paintL);
+    var cb=document.getElementById('costRmBox');
+    if(rt>0||rc>0||rs>0||rp>0||rf>0){
+      cb.style.display='block';
+      var cost=floorTiles*rt+wallTiles*rt+cementBags*rc+sandM3*rs+paintL*rp+(rf>0?rf:0);
+      document.getElementById('outCostRm').textContent='₹ '+fmt(cost);
+    }else cb.style.display='none';
   }
   (function(){var s=localStorage.getItem("theme");if(s==="dark")document.documentElement.setAttribute("data-theme","dark")})();function toggleTheme(){var d=document.documentElement.getAttribute("data-theme")==="dark";if(d){document.documentElement.removeAttribute("data-theme");localStorage.setItem("theme","light")}else{document.documentElement.setAttribute("data-theme","dark");localStorage.setItem("theme","dark")}}var deferredPrompt=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredPrompt=e;var b=document.getElementById("installBtn");if(b)b.style.display="flex"});window.addEventListener("appinstalled",function(){deferredPrompt=null;var b=document.getElementById("installBtn");if(b)b.style.display="none"});function installApp(){if(!deferredPrompt)return;deferredPrompt.prompt();deferredPrompt.userChoice.then(function(r){if(r.outcome==="accepted")showToast("App installed!");deferredPrompt=null;var b=document.getElementById("installBtn");if(b)b.style.display="none"})}if("serviceWorker" in navigator){navigator.serviceWorker.register("../sw.js").catch(function(){})}
   ;function showToast(msg){document.getElementById('toastMsg').textContent=msg||'Done!';var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2500)}</script>
