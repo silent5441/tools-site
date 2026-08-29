@@ -196,9 +196,9 @@ const text=el.value||el.textContent;
 
 ## 📈 Monetization
 
-- **AdSense**: account has publisher ID `ca-pub-8427860023135459`. Ad units not yet
-  created — slot IDs in placeholder (`1111111111`, `2222222222`) and hidden by CSS.
-  When real ad units are created, replace placeholders and un-hide `.ad-slot`.
+- **AdSense**: account has publisher ID `ca-pub-8427860023135459`. Display ad unit
+  slot `8841288679` is wired into every `.ad-slot` and `.ad-slot` is shown (no longer
+  `display:none` in `css/style.css`). Ads appear once Google approves the site.
 - **Affiliate blog**: separate project at `https://silent5441.github.io/affiliate-blog/`.
 - **Blogger blog**: `https://tazamewss.blogspot.com` (for promo/backlinks).
 

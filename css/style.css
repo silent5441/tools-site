@@ -152,7 +152,7 @@ a:hover{color:#0984e3}
 .toast svg{width:18px;height:18px}
 
 /* AdSense - hidden until real ads load */
-.ad-slot{display:none}
+.ad-slot{display:block;margin:24px 0;text-align:center}
 .ad-slot-header,.ad-slot-footer{margin:0;padding:0;border:none;background:none}
 
 /* Footer */
