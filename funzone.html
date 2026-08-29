@@ -52,7 +52,24 @@
 .sp-foot{margin-top:14px;text-align:center}
 .sp-foot .status{margin:6px 0 10px}
 .soon{text-align:center;padding:60px 16px;background:var(--bg);border:1px dashed var(--border);border-radius:var(--radius);color:var(--muted);font-weight:600}
-#spFull.fullscreen{background:var(--bg);padding:16px;border-radius:0;display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;box-sizing:border-box;overflow:auto}
+.launch-card{text-align:center;padding:44px 22px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);margin:6px 0 22px;cursor:pointer;transition:border-color .2s;user-select:none}
+.launch-card:hover{border-color:var(--accent)}
+.lc-orb{width:76px;height:76px;border-radius:50%;margin:0 auto 14px;background:conic-gradient(#e6194b 0 36deg,#3cb44b 36deg 72deg,#ffe119 72deg 108deg,#4363d8 108deg 144deg,#f58231 144deg 180deg,#911eb4 180deg 216deg,#42d4f4 216deg 252deg,#f032e6 252deg 288deg,#469990 288deg 324deg,#9a6324 324deg 360deg);box-shadow:0 6px 18px rgba(0,0,0,.25);position:relative}
+.lc-orb::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(0,0,0,.08)}
+.lc-title{font-size:1.4rem;font-weight:800;margin-bottom:6px}
+.launch-card p{color:var(--muted);font-size:.95rem;max-width:460px;margin:0 auto 12px}
+.lc-steps{list-style:none;text-align:left;max-width:400px;margin:0 auto 18px;padding:0;color:var(--text)}
+.lc-steps li{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;padding:6px 0;border-top:1px dashed var(--border)}
+.lc-steps li:first-child{border-top:none}
+.lc-steps b{flex:none;width:20px;height:20px;border-radius:50%;background:var(--bg-soft);border:1px solid var(--border);display:inline-flex;align-items:center;justify-content:center;font-size:.8rem;color:var(--accent)}
+.lc-btn{margin-top:2px}
+#spApp{position:fixed;inset:0;z-index:2000;background:var(--bg);display:none;flex-direction:column}
+#spApp.open{display:flex}
+.sp-topbar{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--border);min-height:56px}
+.sp-back{background:var(--bg-soft);border:1px solid var(--border);border-radius:50px;padding:8px 16px;font-weight:700;cursor:pointer;color:var(--text);font-size:.9rem;touch-action:manipulation}
+.sp-back:hover{border-color:var(--accent)}
+.sp-topbar-title{font-weight:800;font-size:1.05rem}
+.sp-body{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:10px 16px 22px;overflow:auto}
 </style>
 </head>
 <body>
@@ -77,10 +94,33 @@
 </div>
 
 <div class="tab-panel active" id="m1">
-<div class="game-wrap" id="spFull">
-<div class="game-title">Name Spinner</div>
-<div class="game-sub">Type a name and tap Add. Add up to 10 names, then hit the Play button in the middle to spin. The name the pointer (top red arrow) stops on is the winner.</div>
+<div class="launch-card" id="spLaunchCard" role="button" tabindex="0" aria-label="Launch Name Spinner">
+<div class="lc-orb"></div>
+<div class="lc-title">Name Spinner</div>
+<p>Add up to 10 names, spin the wheel and let luck pick your winner. Runs full screen with sound on mobile and PC.</p>
+<ul class="lc-steps">
+<li><b>1</b><span>Type a name (e.g. Rohit) and tap <b>Add</b> - repeat for up to 10 names.</span></li>
+<li><b>2</b><span>Tap the center <b>Play</b> button to spin the wheel.</span></li>
+<li><b>3</b><span>The name under the red pointer is your winner. Press <b>Back</b> to exit.</span></li>
+</ul>
+<button class="btn lc-btn">Launch Name Spinner</button>
+</div>
+</div>
 
+<div class="tab-panel" id="m2"><div class="soon">Mode 2 is on its way</div></div>
+<div class="tab-panel" id="m3"><div class="soon">Mode 3 is on its way</div></div>
+<div class="tab-panel" id="m4"><div class="soon">Mode 4 is on its way</div></div>
+<div class="tab-panel" id="m5"><div class="soon">Mode 5 is on its way</div></div>
+
+<div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8427860023135459" data-ad-slot="8841288679" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></div>
+
+<div id="spApp" aria-label="Name Spinner full screen mode">
+<div class="sp-topbar">
+<button class="sp-back" onclick="spClose()" aria-label="Back to FunZone">&#8592; Back</button>
+<div class="sp-topbar-title">Name Spinner</div>
+</div>
+<div class="sp-body">
+<div class="game-sub" style="text-align:center;margin-bottom:14px">Add names, then hit the center Play button to spin. The name under the red pointer wins.</div>
 <div class="spinner-top">
 <input class="sp-input" id="spName" type="text" maxlength="16" placeholder="Type a name e.g. Rohit" autocomplete="off" enterkeyhint="done">
 <button class="btn" id="spAddBtn">Add</button>
@@ -98,18 +138,10 @@
 <div class="status" id="spStatus">Add at least 2 names, then spin</div>
 <div class="row">
 <button class="btn ghost" onclick="spClear()">Clear All</button>
-<button class="btn ghost" id="spFsBtn" onclick="spFullscreen()">Fullscreen</button>
 </div>
 </div>
 </div>
 </div>
-
-<div class="tab-panel" id="m2"><div class="soon">Mode 2 is on its way</div></div>
-<div class="tab-panel" id="m3"><div class="soon">Mode 3 is on its way</div></div>
-<div class="tab-panel" id="m4"><div class="soon">Mode 4 is on its way</div></div>
-<div class="tab-panel" id="m5"><div class="soon">Mode 5 is on its way</div></div>
-
-<div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8427860023135459" data-ad-slot="8841288679" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></div>
 
 </div>
 
@@ -288,18 +320,45 @@ function spFit(){
   btn.style.width=b+'px';btn.style.height=b+'px';
   spDraw();
 }
-function spFullscreen(){
-  var el=document.getElementById('spFull');
+function spOpen(){
+  ia();
+  var app=document.getElementById('spApp');
+  if(app.classList.contains('open'))return;
+  app.classList.add('open');
+  document.body.style.overflow='hidden';
+  spRender();
+  spFit();
+  setTimeout(function(){
+    var d=document;
+    var rfs=d.documentElement.requestFullscreen||d.documentElement.webkitRequestFullscreen;
+    if(rfs){var p=rfs.call(d.documentElement);if(p&&p.catch)p.catch(function(){});}
+  },150);
+}
+function spClose(){
+  var app=document.getElementById('spApp');
+  app.classList.remove('open');
+  document.body.style.overflow='';
   var d=document;
-  var rfs=el.requestFullscreen||el.webkitRequestFullscreen;
-  if(!rfs){showToast('Fullscreen not supported');return;}
   if(d.fullscreenElement||d.webkitFullscreenElement){
     var ex=d.exitFullscreen||d.webkitExitFullscreen;
     if(ex)ex.call(d);
-  }else{rfs.call(el);}
+  }
+  spFit();
 }
-document.addEventListener('fullscreenchange',spFit);
-document.addEventListener('webkitfullscreenchange',spFit);
+document.addEventListener('fullscreenchange',function(){
+  var d=document;var app=document.getElementById('spApp');
+  if(!(d.fullscreenElement||d.webkitFullscreenElement)&&app.classList.contains('open')){
+    app.classList.remove('open');
+    document.body.style.overflow='';
+  }
+});
+document.addEventListener('webkitfullscreenchange',function(){
+  var d=document;var app=document.getElementById('spApp');
+  if(!(d.webkitFullscreenElement)&&app.classList.contains('open')){
+    app.classList.remove('open');
+    document.body.style.overflow='';
+  }
+});
 
 document.getElementById('spAddBtn').addEventListener('click',spAdd);
 document.getElementById('spName').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();spAdd();}});
@@ -311,9 +370,14 @@ document.querySelectorAll('#modeTabs .tab').forEach(function(t){
     document.querySelectorAll('#modeTabs .tab').forEach(function(x){x.classList.remove('active')});
     document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});
     t.classList.add('active');
-    document.getElementById(t.getAttribute('data-tab')).classList.add('active');
+    var id=t.getAttribute('data-tab');
+    document.getElementById(id).classList.add('active');
+    if(id==='m1'){spOpen();}
   });
 });
+var spLaunch=document.getElementById('spLaunchCard');
+spLaunch.addEventListener('click',function(e){if(e.target.classList.contains('lc-btn')){e.preventDefault();}spOpen();});
+spLaunch.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();spOpen();}});
 spRender();
 </script>
 <script>(function(){function m(){(function(s){s.dataset.zone='11682125',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))}if('requestIdleCallback' in window)requestIdleCallback(m);else if(document.readyState!=='loading')m();else window.addEventListener('load',m)})()</script>
