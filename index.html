@@ -42,10 +42,7 @@ https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=J
       <div class="nav-links">
         <a href="#pdf" style="color:var(--accent3)">PDF</a><a href="#utility" style="color:var(--accent)">QR</a><a href="#resume" style="color:var(--green)">Resume</a><a href="#text">Text</a><a href="#encoding">Encoding</a><a href="#dev">Developer</a><a href="#calc">Calculators</a><a href="#seo">SEO</a><a href="#construction">Construction</a><a href="funzone.html" style="color:var(--accent3)">FunZone</a>
       </div>
-      <div class="visitor-badge" id="visitorBadge" title="Visitors" style="background:var(--bg2);border:1px solid var(--border);border-radius:50px;padding:6px 12px;font-size:.75rem;color:var(--muted);display:flex;align-items:center;gap:4px;white-space:nowrap">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-        <span id="visitorCount">0</span>
-      </div>
+
       <div class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode" role="button" aria-label="Toggle dark or light theme">
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -223,14 +220,6 @@ https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=J
   // Theme
   (function(){var s=localStorage.getItem('theme');if(s==='dark')document.documentElement.setAttribute('data-theme','dark');else if(!s)document.documentElement.removeAttribute('data-theme')})();
   function toggleTheme(){var isDark=document.documentElement.getAttribute('data-theme')==='dark';if(isDark){document.documentElement.removeAttribute('data-theme');localStorage.setItem('theme','light')}else{document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('theme','dark')}}
-  // Visitor Counter (demo)
-  (function(){
-    var BASE=12483;
-    var total=parseInt(localStorage.getItem('ilovetools_visits')||String(BASE),10);
-    total+=1+Math.floor(Math.random()*6);
-    localStorage.setItem('ilovetools_visits',String(total));
-    document.getElementById('visitorCount').textContent=total.toLocaleString();
-  })();
   // PWA
   var deferredPrompt=null;
   window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredPrompt=e;document.getElementById('installBtn').style.display='flex'});
