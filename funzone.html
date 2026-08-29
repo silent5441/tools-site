@@ -66,8 +66,8 @@
 .lc-steps li:first-child{border-top:none}
 .lc-steps b{flex:none;width:22px;height:22px;border-radius:50%;background:var(--gradient);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:.8rem}
 .lc-btn{margin-top:2px;font-size:1rem;padding:12px 30px;border-radius:50px;box-shadow:0 8px 20px rgba(0,0,0,.22)}
-#spApp,#dcApp{position:fixed;inset:0;z-index:2000;background:radial-gradient(1200px 600px at 50% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg);display:none;flex-direction:column}
-#spApp.open,#dcApp.open{display:flex}
+#spApp,#dcApp,#cnApp,#nmApp,#fgApp{position:fixed;inset:0;z-index:2000;background:radial-gradient(1200px 600px at 50% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg);display:none;flex-direction:column}
+#spApp.open,#dcApp.open,#cnApp.open,#nmApp.open,#fgApp.open{display:flex}
 .sp-topbar{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--border);min-height:52px;background:var(--bg);position:relative;z-index:5}
 .sp-back{display:inline-flex;align-items:center;gap:6px;background:var(--bg-soft);border:1px solid var(--border);border-radius:50px;padding:8px 16px;font-weight:700;cursor:pointer;color:var(--text);font-size:.9rem;touch-action:manipulation;transition:.15s}
 .sp-back:hover{border-color:var(--accent);color:var(--accent)}
@@ -85,10 +85,46 @@
 .die-face{position:absolute;inset:0;display:grid;background:#f7f0e3;border:1px solid rgba(0,0,0,.13);border-radius:calc(var(--ds)*0.16);box-shadow:inset 0 0 14px rgba(139,90,43,.25);backface-visibility:hidden;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:calc(var(--ds)*0.1)}
 .die-face i{width:calc(var(--ds)*0.16);height:calc(var(--ds)*0.16);border-radius:50%;background:radial-gradient(circle at 35% 30%,#666,#111 70%);margin:auto;display:block}
 .dc-throw-btn{font-size:1.15rem;padding:14px 56px;margin-top:8px;border-radius:50px;box-shadow:0 8px 20px rgba(0,0,0,.22)}
+.cn-throw-btn,.nm-throw-btn{font-size:1.15rem;padding:14px 48px;margin-top:8px;border-radius:50px;box-shadow:0 8px 20px rgba(0,0,0,.22)}
 .dc-result{font-size:clamp(1.05rem,3vw,1.3rem);font-weight:800}
 .dc-orb{width:92px;height:92px;border-radius:18px;background:#f7f0e3;box-shadow:inset 0 -4px 0 rgba(0,0,0,.08),0 10px 24px rgba(0,0,0,.22);margin:0 auto 16px;position:relative}
 .dc-orb i{position:absolute;width:17px;height:17px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#666,#111 70%)}
 .dc-orb i.n1{left:12px;top:12px}.dc-orb i.n2{left:63px;top:12px}.dc-orb i.n3{left:37px;top:37px}.dc-orb i.n4{left:12px;top:63px}.dc-orb i.n5{left:63px;top:63px}
+.coin-orb{width:92px;height:92px;border-radius:50%;margin:0 auto 16px;position:relative;background:radial-gradient(circle at 35% 30%,#ffd86e,#e8a83a 55%,#b97c1f);border:4px solid rgba(255,255,255,.4);box-shadow:0 10px 24px rgba(0,0,0,.25),inset 0 -6px 12px rgba(0,0,0,.18)}
+.coin-orb::after{content:'H';font-weight:800;color:#5a3d0e;font-size:2.4rem;display:flex;align-items:center;justify-content:center;height:100%;font-family:'Times New Roman',serif}
+.cn-stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;width:100%}
+.cn-persp{perspective:900px;width:var(--cs,min(56vw,240px));height:var(--cs,min(56vw,240px))}
+.coin{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 1.2s cubic-bezier(.3,.55,.3,1)}
+.coin-face{position:absolute;inset:0;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;backface-visibility:hidden;border:4px solid rgba(255,255,255,.5);box-shadow:inset 0 -8px 16px rgba(0,0,0,.18);font-weight:800}
+.coin-front{background:radial-gradient(circle at 35% 30%,#ffd86e,#e8a83a 60%,#b97c1f);color:#5a3d0e;transform:translateZ(calc(var(--cs,240px)*0.05))}
+.coin-back{background:radial-gradient(circle at 35% 30%,#cfe3f7,#9db8dd 60%,#6f8fc0);color:#22324c;transform:rotateY(180deg) translateZ(calc(var(--cs,240px)*0.05))}
+.coin-sym{font-size:calc(var(--cs,240px)*0.22);line-height:1}
+.coin-txt{font-size:calc(var(--cs,240px)*0.1);letter-spacing:2px}
+.cn-stats{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.cn-stat{background:var(--bg-soft);border:1px solid var(--border);border-radius:50px;padding:8px 16px;font-weight:700;font-size:.9rem}
+.cn-stat b{color:var(--accent)}
+.num-orb{width:92px;height:92px;border-radius:18px;margin:0 auto 16px;position:relative;background:var(--gradient);box-shadow:0 10px 24px rgba(0,0,0,.22);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:2rem;color:#fff;font-family:'JetBrains Mono',monospace}
+.nm-stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;width:100%}
+.nm-range-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+.nm-range-row span{font-weight:700;color:var(--muted)}
+.nm-input{width:88px;padding:11px 8px;border-radius:12px;border:1px solid var(--border);background:var(--bg-soft);color:var(--text);font-size:1.15rem;font-weight:700;text-align:center;font-family:'JetBrains Mono',monospace}
+.nm-input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.nm-display{font-size:clamp(2.8rem,13vw,5.6rem);font-weight:800;text-align:center;color:var(--accent);background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius);padding:26px;width:100%;max-width:420px;font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums;box-shadow:inset 0 2px 10px rgba(0,0,0,.06)}
+.nm-chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.nm-chip{background:var(--bg-soft);border:1px solid var(--border);border-radius:50px;padding:8px 18px;font-weight:700;font-size:.88rem;cursor:pointer;color:var(--text);touch-action:manipulation;transition:.15s}
+.nm-chip:hover{border-color:var(--accent)}
+.fg-orb{width:92px;height:92px;border-radius:50%;margin:0 auto 16px;position:relative;background:radial-gradient(circle at 30% 30%,var(--accent),transparent 60%),var(--bg-soft);border:1px solid var(--border);box-shadow:0 10px 24px rgba(0,0,0,.22)}
+.fg-orb i{position:absolute;border:3px solid var(--accent);border-radius:50%;top:50%;left:50%;width:34px;height:34px;margin:-17px 0 0 -17px;animation:fgPulse 1.6s ease-out infinite}
+.fg-orb i.i2{animation-delay:.4s}
+.fg-orb i.i3{animation-delay:.8s}
+@keyframes fgPulse{0%{transform:scale(.6);opacity:1}100%{transform:scale(1.5);opacity:0}}
+.fg-body{flex:1;position:relative;overflow:hidden;width:100%}
+.fg-body canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.fg-hud{position:absolute;top:12px;left:50%;transform:translateX(-50%);text-align:center;z-index:2;width:92%;pointer-events:none}
+.fg-hint{font-size:.92rem;font-weight:700;color:var(--muted)}
+.fg-count{font-size:.8rem;font-weight:600;color:var(--muted);margin-top:4px}
+.fg-actions{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;width:94%}
+.fg-actions .btn{padding:12px 22px;border-radius:50px;box-shadow:0 8px 20px rgba(0,0,0,.22)}
 </style>
 </head>
 <body>
@@ -99,7 +135,7 @@
 
 <div class="fun-hero">
 <h1>FunZone</h1>
-<p>Party modes with sound. Name Spinner (pick a random winner) and Dice Throw (roll 1-2 real-style dice) - more modes on the way.</p>
+<p>Party modes with sound. Name Spinner, Dice Throw, Coin Toss, Pick a Number and Finger Draw - all full screen, for parties and games.</p>
 </div>
 
 <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8427860023135459" data-ad-slot="8841288679" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></div>
@@ -107,9 +143,9 @@
 <div class="tabs" id="modeTabs">
 <button class="tab active" data-tab="m1">1. Name Spinner</button>
 <button class="tab" data-tab="m2">2. Dice Throw</button>
-<button class="tab" data-tab="m3">3. <span class="gm-error">Coming Soon</span></button>
-<button class="tab" data-tab="m4">4. <span class="gm-error">Coming Soon</span></button>
-<button class="tab" data-tab="m5">5. <span class="gm-error">Coming Soon</span></button>
+<button class="tab" data-tab="m3">3. Coin Toss</button>
+<button class="tab" data-tab="m4">4. Pick a Number</button>
+<button class="tab" data-tab="m5">5. Finger Draw</button>
 </div>
 
 <div class="tab-panel active" id="m1">
@@ -139,9 +175,47 @@
 <button class="btn lc-btn">Launch Dice Throw</button>
 </div>
 </div>
-<div class="tab-panel" id="m3"><div class="soon">Mode 3 is on its way</div></div>
-<div class="tab-panel" id="m4"><div class="soon">Mode 4 is on its way</div></div>
-<div class="tab-panel" id="m5"><div class="soon">Mode 5 is on its way</div></div>
+<div class="tab-panel" id="m3">
+<div class="launch-card" id="cnLaunchCard" role="button" tabindex="0" aria-label="Launch Coin Toss">
+<div class="coin-orb"></div>
+<div class="lc-title">Coin Toss</div>
+<p>A 3D coin that flips for real. Call heads or tails and settle anything the fair way.</p>
+<ul class="lc-steps">
+<li><b>1</b><span>Tap <b>Flip</b> to toss the 3D coin.</span></li>
+<li><b>2</b><span>Watch it spin through the air and land.</span></li>
+<li><b>3</b><span>Heads or Tails is shown with a running tally. Press <b>Back</b> to exit.</span></li>
+</ul>
+<button class="btn lc-btn">Launch Coin Toss</button>
+</div>
+</div>
+
+<div class="tab-panel" id="m4">
+<div class="launch-card" id="nmLaunchCard" role="button" tabindex="0" aria-label="Launch Pick a Number">
+<div class="num-orb">42</div>
+<div class="lc-title">Pick a Number</div>
+<p>Set any range - like 1 to 10 or 1 to 100 - and let the machine pick a random winner for you.</p>
+<ul class="lc-steps">
+<li><b>1</b><span>Enter any range (or tap a quick preset).</span></li>
+<li><b>2</b><span>Tap <b>Start</b> - the number spins like a slot machine.</span></li>
+<li><b>3</b><span>It decelerates and lands on your random number. Press <b>Back</b> to exit.</span></li>
+</ul>
+<button class="btn lc-btn">Launch Pick a Number</button>
+</div>
+</div>
+
+<div class="tab-panel" id="m5">
+<div class="launch-card" id="fgLaunchCard" role="button" tabindex="0" aria-label="Launch Finger Draw">
+<div class="fg-orb"><i></i><i class="i2"></i><i class="i3"></i></div>
+<div class="lc-title">Finger Draw</div>
+<p>Everyone holds one finger on the screen. Ripples travel around every finger, then all vanish except one lucky winner.</p>
+<ul class="lc-steps">
+<li><b>1</b><span>Each player puts <b>one finger</b> on the screen.</span></li>
+<li><b>2</b><span>Tap <b>Start Draw</b> - ripples pulse and a 5-second countdown begins.</span></li>
+<li><b>3</b><span>All fingers vanish except one - that player wins!</span></li>
+</ul>
+<button class="btn lc-btn">Launch Finger Draw</button>
+</div>
+</div>
 
 <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8427860023135459" data-ad-slot="8841288679" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></div>
 
@@ -197,6 +271,75 @@
 </div>
 <div class="status dc-result" id="dcResult">Choose dice count, then tap Throw</div>
 <button class="btn dc-throw-btn" id="dcThrowBtn">Throw</button>
+</div>
+</div>
+
+<div id="cnApp" aria-label="Coin Toss full screen mode">
+<div class="sp-topbar">
+<button class="sp-back" onclick="cnClose()" aria-label="Back to FunZone">&#8592; Back</button>
+<div class="sp-topbar-title">Coin Toss</div>
+</div>
+<div class="sp-body">
+<div class="cn-stage">
+<div class="game-sub" style="text-align:center;margin-bottom:6px">Tap Flip to toss the coin. Heads or Tails - no reload needed.</div>
+<div class="cn-persp">
+<div class="coin" id="coin">
+<div class="coin-face coin-front"><span class="coin-sym">&#9812;</span><span class="coin-txt">HEADS</span></div>
+<div class="coin-face coin-back"><span class="coin-sym">&#9822;</span><span class="coin-txt">TAILS</span></div>
+</div>
+</div>
+<div class="status" id="cnResult">Tap Flip to toss</div>
+<div class="row"><button class="btn cn-throw-btn" id="cnFlipBtn">Flip Coin</button></div>
+<div class="cn-stats" id="cnStats">
+<span class="cn-stat">Heads: <b id="cnHeads">0</b></span>
+<span class="cn-stat">Tails: <b id="cnTails">0</b></span>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nmApp" aria-label="Pick a Number full screen mode">
+<div class="sp-topbar">
+<button class="sp-back" onclick="nmClose()" aria-label="Back to FunZone">&#8592; Back</button>
+<div class="sp-topbar-title">Pick a Number</div>
+</div>
+<div class="sp-body">
+<div class="nm-stage">
+<div class="game-sub" style="text-align:center;margin-bottom:6px">Set your range - the machine picks a random number for you.</div>
+<div class="nm-range-row">
+<input class="nm-input" id="nmMin" type="number" inputmode="numeric" value="1" min="0" aria-label="Minimum number">
+<span>to</span>
+<input class="nm-input" id="nmMax" type="number" inputmode="numeric" value="10" min="1" aria-label="Maximum number">
+</div>
+<div class="nm-chips">
+<button class="nm-chip" onclick="nmSet(1,10)">1 - 10</button>
+<button class="nm-chip" onclick="nmSet(1,100)">1 - 100</button>
+<button class="nm-chip" onclick="nmSet(1,1000)">1 - 1000</button>
+</div>
+<div class="nm-display" id="nmDisp">-</div>
+<div class="status" id="nmStatus">Tap Start</div>
+<button class="btn nm-throw-btn" id="nmStartBtn">Start</button>
+</div>
+</div>
+</div>
+
+<div id="fgApp" aria-label="Finger Draw full screen mode">
+<div class="sp-topbar">
+<button class="sp-back" onclick="fgClose()" aria-label="Back to FunZone">&#8592; Back</button>
+<div class="sp-topbar-title">Finger Draw</div>
+</div>
+<div class="fg-body">
+<canvas id="fgCanvas"></canvas>
+<div class="fg-hud">
+<div class="fg-hint" id="fgHint">Each player holds ONE finger on the screen</div>
+<div class="fg-count" id="fgCount">0 fingers</div>
+</div>
+<div class="status" id="fgStatus" style="position:absolute;top:92px;left:0;right:0;text-align:center;z-index:2">Place 2+ fingers, then Start Draw</div>
+<div class="fg-actions">
+<button class="btn" id="fgStartBtn" style="display:none">Start Draw</button>
+<button class="btn ghost" onclick="fgVirtual()">+ Virtual Finger</button>
+<button class="btn ghost" onclick="fgNew()">Reset</button>
+</div>
 </div>
 </div>
 
@@ -421,6 +564,9 @@ function __fsExit(){
   var closed=false;
   var sp=document.getElementById('spApp');if(sp.classList.contains('open')){sp.classList.remove('open');closed=true;}
   var dc=document.getElementById('dcApp');if(dc.classList.contains('open')){dc.classList.remove('open');closed=true;}
+  var cn=document.getElementById('cnApp');if(cn.classList.contains('open')){cn.classList.remove('open');closed=true;}
+  var nm=document.getElementById('nmApp');if(nm.classList.contains('open')){nm.classList.remove('open');closed=true;}
+  var fg=document.getElementById('fgApp');if(fg.classList.contains('open')){fg.classList.remove('open');fgStop=true;if(fgRaf){cancelAnimationFrame(fgRaf);fgRaf=null;}closed=true;}
   if(closed)document.body.style.overflow='';
   return true;
 }
@@ -547,6 +693,290 @@ function dcFit(){
 }
 window.addEventListener('resize',dcFit);
 
+function appOpen(id){
+  var el=document.getElementById(id);
+  if(el.classList.contains('open'))return;
+  el.classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(function(){
+    var d=document;
+    var rfs=d.documentElement.requestFullscreen||d.documentElement.webkitRequestFullscreen;
+    if(rfs){var p=rfs.call(d.documentElement);if(p&&p.catch)p.catch(function(){});}
+  },150);
+}
+function appClose(id){
+  var el=document.getElementById(id);
+  el.classList.remove('open');
+  document.body.style.overflow='';
+  var d=document;
+  if(d.fullscreenElement||d.webkitFullscreenElement){
+    var ex=d.exitFullscreen||d.webkitExitFullscreen;
+    if(ex)ex.call(d);
+  }
+}
+function sndPopUp(){snd(520,0.05,'sine',0.08);setTimeout(function(){snd(760,0.04,'sine',0.06)},55)}
+
+/* Coin Toss */
+var cnBusy=false,cnHeads=0,cnTails=0;
+function sndCoinSwoosh(){sndSweep(260,800,0.45,0.08);setTimeout(function(){sndSweep(800,320,0.45,0.06)},160)}
+function sndClink(){snd(1800,0.055,'square',0.05);setTimeout(function(){snd(1240,0.045,'square',0.045)},55);setTimeout(function(){snd(880,0.07,'sine',0.06)},110)}
+function cnFlip(){
+  if(cnBusy)return;
+  ia();
+  cnBusy=true;
+  var heads=Math.random()<0.5;
+  var spins=2*(2+Math.floor(Math.random()*3));
+  var coin=document.getElementById('coin');
+  coin.style.transition='none';
+  coin.style.transform='rotateX(0deg)';
+  void coin.offsetWidth;
+  coin.style.transition='transform 1.15s cubic-bezier(.28,.6,.28,1)';
+  sndCoinSwoosh();
+  var rumble=0;
+  var r=setInterval(function(){rumble++;if(rumble>5){clearInterval(r);return;}snd(110+Math.random()*70,0.03,'square',0.04);},70);
+  coin.style.transform='rotateX('+(spins*180+(heads?0:180))+'deg)';
+  coin.addEventListener('transitionend',function h(){
+    coin.removeEventListener('transitionend',h);
+    cnBusy=false;
+    clearInterval(r);
+    sndClink();
+    setTimeout(sndStop,90);
+    setTimeout(sndWin,260);
+    if(heads){cnHeads++;document.getElementById('cnHeads').textContent=cnHeads;}
+    else{cnTails++;document.getElementById('cnTails').textContent=cnTails;}
+    var res=document.getElementById('cnResult');
+    res.textContent=heads?'Coin lands HEADS!':'Coin lands TAILS!';
+    res.classList.remove('gm-error');
+  });
+}
+function cnOpen(){ia();appOpen('cnApp');document.getElementById('cnResult').textContent='Tap Flip to toss';}
+function cnClose(){appClose('cnApp');}
+document.getElementById('cnFlipBtn').addEventListener('click',cnFlip);
+
+/* Pick a Number */
+var nmTimer=null,nmTicks=0;
+function sndNumTick(){snd(600+Math.random()*500,0.02,'square',0.045)}
+function nmSet(mn,mx){
+  ia();sndClick();
+  document.getElementById('nmMin').value=mn;
+  document.getElementById('nmMax').value=mx;
+  document.getElementById('nmDisp').textContent='-';
+  document.getElementById('nmStatus').textContent='Range '+mn+' - '+mx+'  ready';
+}
+function nmErr(msg){
+  document.getElementById('nmStatus').classList.add('gm-error');
+  document.getElementById('nmStatus').textContent=msg;
+  sndRemove();
+}
+function nmStart(){
+  if(nmTimer)return;
+  ia();
+  var minIn=document.getElementById('nmMin'),maxIn=document.getElementById('nmMax');
+  var minS=String(minIn.value).trim(),maxS=String(maxIn.value).trim();
+  var mn=parseInt(minS,10),mx=parseInt(maxS,10);
+  if(minS===''||isNaN(mn)){nmErr('Enter a minimum number');return;}
+  if(maxS===''||isNaN(mx)){nmErr('Enter a maximum number');return;}
+  if(mn<0||mx<0){nmErr('Use numbers 0 or higher');return;}
+  if(mn>=mx){nmErr('Max must be bigger than Min');return;}
+  if(mx-mn>200000){nmErr('Range too big (max 200000)');return;}
+  var span=mx-mn+1;
+  var target=mn+Math.floor(Math.random()*span);
+  var disp=document.getElementById('nmDisp');
+  var st=document.getElementById('nmStatus');
+  st.classList.remove('gm-error');
+  st.textContent='Spinning...';
+  sndSweep(150,640,0.5,0.08);
+  var t0=Date.now(),dur=2000;
+  nmTicks=0;
+  function nmStep(){
+    var p=Math.min(1,(Date.now()-t0)/dur);
+    if(p<0.9){
+      disp.textContent=mn+Math.floor(Math.random()*span);
+      nmTicks++;
+      if(nmTicks%4===0)sndNumTick();
+      nmTimer=setTimeout(nmStep,16+p*170);
+    }else{
+      disp.textContent=target;
+      nmTimer=null;
+      sndNumTick();setTimeout(sndNumTick,60);
+      setTimeout(sndWin,160);
+      st.textContent=target+'  in  '+mn+' - '+mx+' range';
+    }
+  }
+  nmTimer=setTimeout(nmStep,16);
+}
+function nmOpen(){
+  ia();
+  appOpen('nmApp');
+  document.getElementById('nmStatus').textContent='Tap Start';
+  document.getElementById('nmDisp').textContent='-';
+}
+function nmClose(){appClose('nmApp');}
+document.getElementById('nmStartBtn').addEventListener('click',nmStart);
+
+/* Finger Draw */
+var fgPts={},fgSeq=0,fgState=0,fgWinner=null,fgCv=null,fgRaf=null,fgT0=0,fgLastInt=-1,fgStop=false,fgBound=false,fgCtx2=null;
+function fgFit(){
+  var c=document.getElementById('fgCanvas');if(!c)return;
+  var p=c.parentElement;
+  var dpr=window.devicePixelRatio||1;
+  c.width=p.clientWidth*dpr;c.height=p.clientHeight*dpr;
+}
+function fgSyncText(){
+  var n=Object.keys(fgPts).length;
+  document.getElementById('fgCount').textContent=n===1?'1 finger':n+' fingers';
+  var sb=document.getElementById('fgStartBtn');
+  sb.style.display=(fgState===0||fgState===1)&&n>=2?'':'none';
+  var st=document.getElementById('fgStatus');
+  if(fgState===3){
+    st.classList.remove('gm-error');
+    st.textContent='Winner: Player #'+fgPts[fgWinner].label;
+  }else if(n<2){
+    st.textContent=n===1?'One more finger and you can start':'Place 2+ fingers, then Start Draw';
+  }else{
+    st.textContent='Press Start Draw to begin the countdown';
+  }
+}
+function fgNew(){
+  if(fgState===2)return;
+  ia();sndClick();
+  fgPts={};fgSeq=0;fgState=0;fgWinner=null;
+  fgSyncText();
+}
+function fgVirtual(){
+  if(fgState===2||fgState===3)return;
+  ia();sndPopUp();
+  var c=document.getElementById('fgCanvas');
+  var w=c.clientWidth,h=c.clientHeight;
+  fgSeq++;
+  var dx=(Math.random()-0.5)*0.6,dy=(Math.random()-0.5)*0.6;
+  if(!dx&&!dy)dy=0.3;
+  fgPts['v'+fgSeq]={x:40+Math.random()*(w-120),y:100+Math.random()*(h-340),label:fgSeq,dx:dx,dy:dy,v:1};
+  fgSyncText();
+}
+function fgStartNow(){
+  if(fgState===2||fgState===3)return;
+  if(Object.keys(fgPts).length<2)return;
+  ia();sndClick();
+  fgState=2;fgT0=Date.now();fgLastInt=-1;
+  document.getElementById('fgStartBtn').style.display='none';
+  document.getElementById('fgStatus').textContent='Countdown running...';
+}
+function fgFinish(){
+  var ids=Object.keys(fgPts);
+  if(!ids.length){fgState=1;fgSyncText();return;}
+  fgWinner=ids[Math.floor(Math.random()*ids.length)];
+  var keep={};keep[fgWinner]=fgPts[fgWinner];
+  fgPts=keep;
+  fgState=3;
+  sndStop();
+  setTimeout(sndWin,150);
+  fgSyncText();
+}
+function fgPoint(p,now,strong){
+  var x=p.x,y=p.y;
+  for(var k=0;k<3;k++){
+    var ph=(now/850+k*0.35)%1;
+    fgCtx2.beginPath();fgCtx2.arc(x,y,16+ph*70,0,7);
+    fgCtx2.strokeStyle=strong?'rgba(255,202,40,'+(1-ph)+')':'rgba(99,133,255,'+(1-ph)*0.8+')';
+    fgCtx2.lineWidth=strong?5:3;
+    fgCtx2.stroke();
+  }
+  fgCtx2.beginPath();fgCtx2.arc(x,y,16,0,7);
+  fgCtx2.fillStyle=strong?'#ffca28':'#6385ff';
+  fgCtx2.fill();
+  fgCtx2.lineWidth=3;fgCtx2.strokeStyle='rgba(255,255,255,.9)';fgCtx2.stroke();
+  fgCtx2.fillStyle=strong?'#3a2c00':'#fff';
+  fgCtx2.font='700 15px sans-serif';fgCtx2.textAlign='center';fgCtx2.textBaseline='middle';
+  fgCtx2.fillText(p.label,x,y+1);
+  if(strong){
+    fgCtx2.font='800 18px sans-serif';fgCtx2.fillStyle='#ffca28';
+    fgCtx2.shadowColor='rgba(0,0,0,.6)';fgCtx2.shadowBlur=8;
+    fgCtx2.fillText('WINNER',x,y-30);
+    fgCtx2.shadowBlur=0;
+  }
+}
+function fgDraw(){
+  var c=fgCv!==null?fgCv:document.getElementById('fgCanvas');
+  if(!c)return;
+  var dpr=window.devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;
+  if(!w||!h)return;
+  fgCtx2=c.getContext('2d');
+  fgCtx2.setTransform(dpr,0,0,dpr,0,0);
+  fgCtx2.clearRect(0,0,w,h);
+  var now=Date.now();
+  if(fgState===2){
+    var remain=5-Math.floor((now-fgT0)/1000);
+    if(remain!==fgLastInt){fgLastInt=remain;if(remain>0)sndTick();}
+    if(remain<=0){fgFinish();}
+    else{
+      fgCtx2.font='800 64px sans-serif';fgCtx2.textAlign='center';fgCtx2.textBaseline='top';
+      fgCtx2.fillStyle='rgba(255,255,255,.95)';
+      fgCtx2.shadowColor='rgba(0,0,0,.6)';fgCtx2.shadowBlur=12;
+      fgCtx2.fillText(remain,w/2,h>480?56:16);
+      fgCtx2.shadowBlur=0;
+    }
+  }
+  var keys=Object.keys(fgPts);
+  for(var i=0;i<keys.length;i++){
+    var p=fgPts[keys[i]];
+    if(fgState===3&&keys[i]!==fgWinner)continue;
+    if(p.v&&fgState<3){
+      p.x+=p.dx;p.y+=p.dy;
+      if(p.x<40||p.x>w-40)p.dx*=-1;
+      if(p.y<90||p.y>h-60)p.dy*=-1;
+    }
+    fgPoint(p,now,fgState===3);
+  }
+}
+function fgLoop(){if(fgStop)return;fgDraw();fgRaf=requestAnimationFrame(fgLoop);}
+function fgOpen(){
+  ia();
+  appOpen('fgApp');
+  fgFit();
+  fgStop=false;
+  if(!fgRaf){fgRaf=requestAnimationFrame(fgLoop);}
+  var c=document.getElementById('fgCanvas');
+  if(!fgBound){
+    fgBound=true;
+    c.addEventListener('pointerdown',function(e){
+      if(fgState===2||fgState===3)return;
+      ia();
+      e.preventDefault();
+      var id='p'+e.pointerId;
+      if(fgPts[id])return;
+      var r=c.getBoundingClientRect();
+      fgSeq++;
+      fgPts[id]={x:e.clientX-r.left,y:e.clientY-r.top,label:fgSeq};
+      sndPopUp();
+      fgSyncText();
+    });
+    c.addEventListener('pointermove',function(e){
+      if(fgState>1)return;
+      var id='p'+e.pointerId;
+      if(fgPts[id]){
+        var r=c.getBoundingClientRect();
+        fgPts[id].x=e.clientX-r.left;fgPts[id].y=e.clientY-r.top;
+      }
+    });
+    function fgUp(e){
+      if(fgState>1)return;
+      var id='p'+e.pointerId;
+      if(fgPts[id]){delete fgPts[id];fgSyncText();}
+    }
+    c.addEventListener('pointerup',fgUp);
+    c.addEventListener('pointercancel',fgUp);
+  }
+  fgSyncText();
+}
+function fgClose(){
+  appClose('fgApp');
+  fgStop=true;
+  if(fgRaf){cancelAnimationFrame(fgRaf);fgRaf=null;}
+}
+document.getElementById('fgStartBtn').addEventListener('click',fgStartNow);
+window.addEventListener('resize',fgFit);
+
 document.querySelectorAll('#modeTabs .tab').forEach(function(t){
   t.addEventListener('click',function(){
     document.querySelectorAll('#modeTabs .tab').forEach(function(x){x.classList.remove('active')});
@@ -556,6 +986,9 @@ document.querySelectorAll('#modeTabs .tab').forEach(function(t){
     document.getElementById(id).classList.add('active');
     if(id==='m1'){spOpen();}
     else if(id==='m2'){dcOpen();}
+    else if(id==='m3'){cnOpen();}
+    else if(id==='m4'){nmOpen();}
+    else if(id==='m5'){fgOpen();}
   });
 });
 function bindLaunch(id,fn){
@@ -565,6 +998,9 @@ function bindLaunch(id,fn){
 }
 bindLaunch('spLaunchCard',spOpen);
 bindLaunch('dcLaunchCard',dcOpen);
+bindLaunch('cnLaunchCard',cnOpen);
+bindLaunch('nmLaunchCard',nmOpen);
+bindLaunch('fgLaunchCard',fgOpen);
 spRender();
 </script>
 <script>(function(){function m(){(function(s){s.dataset.zone='11682125',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))}if('requestIdleCallback' in window)requestIdleCallback(m);else if(document.readyState!=='loading')m();else window.addEventListener('load',m)})()</script>
