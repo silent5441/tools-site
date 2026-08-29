@@ -44,6 +44,7 @@
 .card.flip{background:var(--bg);color:var(--accent)}
 .card.matched{background:rgba(46,204,113,.15);border-color:var(--accent2);color:var(--accent2);cursor:default}
 #snakeCanvas{background:var(--bg-soft);border:1px solid var(--border);border-radius:12px;display:block;margin:8px auto;touch-action:none}
+#bubbleCanvas{background:var(--bg-soft);border:1px solid var(--border);border-radius:12px;display:block;margin:8px auto;touch-action:none}
 .guess-input{padding:10px 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;width:140px;outline:none}
 .score-tags{display:flex;gap:18px;justify-content:center;margin-top:10px;color:var(--muted);font-size:.9rem}
 .score-tags b{color:var(--text)}
@@ -68,6 +69,7 @@
 <button class="tab" data-tab="mem">Memory Match</button>
 <button class="tab" data-tab="snake">Snake</button>
 <button class="tab" data-tab="guess">Number Guess</button>
+<button class="tab" data-tab="bubble">Bubble Shooter</button>
 </div>
 
 <div class="tab-panel active" id="ttt">
@@ -128,6 +130,16 @@
 </div>
 </div>
 
+<div class="tab-panel" id="bubble">
+<div class="game-wrap">
+<div class="game-title">Bubble Shooter</div>
+<div class="game-sub">Aim with your mouse or finger, click or tap to shoot. Match 3+ same-color bubbles to pop them.</div>
+<canvas id="bubbleCanvas" width="360" height="540"></canvas>
+<div class="status" id="bubbleStatus">Press Start to play.</div>
+<div class="row" style="justify-content:center"><button class="btn" onclick="bubbleStart()">Start</button><button class="btn ghost" onclick="bubbleStop()">Stop</button></div>
+</div>
+</div>
+
 <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8427860023135459" data-ad-slot="8841288679" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></div>
 
 </div>
@@ -149,6 +161,7 @@ document.querySelectorAll('.tab').forEach(function(t){
     var id=t.getAttribute('data-tab');
     document.getElementById(id).classList.add('active');
     if(id==='snake'){snakeStart();}else{snakeStop();}
+    if(id==='bubble'){bubbleStart();}else{bubbleStop();}
   });
 });
 
@@ -273,6 +286,76 @@ function guessCheck(){
   else{document.getElementById('guessStatus').textContent='Too high! Try a lower number.';}
 }
 function guessReset(){guessNum=Math.floor(Math.random()*100)+1;guessTries=0;document.getElementById('guessTries').textContent='0';document.getElementById('guessInput').value='';document.getElementById('guessStatus').textContent='Make your first guess!';}
+var BW=360,BH=540,BR=18,BD=36,BCOLS=Math.floor(BW/BD);
+var bColors=['#e74c3c','#3498db','#2ecc71','#f1c40f','#9b59b6'];
+var bGrid=[],bCur='',bNext='',bX=0,bY=0,bVX=0,bVY=0,bRun=false,bOver=false,bScore=0,bTimer=null,bFly=false,bAim=Math.PI/2;
+function bPos(row,col){var off=(row%2)?BR:0;return{x:col*BD+BR+off,y:row*BD+BR+50};}
+function bRowCols(row){return (row%2)?BCOLS-1:BCOLS;}
+function bInit(){
+  bGrid=[];
+  for(var r=0;r<6;r++){var cols=bRowCols(r);var row=[];for(var c=0;c<cols;c++){row.push(bColors[Math.floor(Math.random()*bColors.length)]);}bGrid.push(row);}
+  bScore=0;bOver=false;bFly=false;
+  document.getElementById('bubbleStatus').textContent='Score: 0';
+  bCur=bColors[Math.floor(Math.random()*bColors.length)];
+  bNext=bColors[Math.floor(Math.random()*bColors.length)];
+  bDraw();
+}
+function bubbleStart(){if(bRun)return;bInit();bRun=true;bTimer=setInterval(bStep,16);}
+function bubbleStop(){bRun=false;if(bTimer)clearInterval(bTimer);}
+function bNeighbors(r,c){var even=(r%2===0);return even?[[r,c-1],[r,c+1],[r-1,c-1],[r-1,c],[r+1,c-1],[r+1,c]]:[[r,c-1],[r,c+1],[r-1,c],[r-1,c+1],[r+1,c],[r+1,c+1]];}
+function bPlace(px,py){
+  var best=null,bd=1e9;
+  for(var r=0;r<=bGrid.length+1;r++){var cols=bRowCols(r);for(var c=0;c<cols;c++){if(bGrid[r]&&bGrid[r][c])continue;var p=bPos(r,c);var dd=(p.x-px)*(p.x-px)+(p.y-py)*(p.y-py);if(dd<bd){bd=dd;best={r:r,c:c};}}}
+  if(!best)return;
+  while(bGrid.length<=best.r)bGrid.push([]);
+  while(bGrid[best.r].length<best.c)bGrid[best.r].push(null);
+  bGrid[best.r][best.c]=bCur;
+  bMatch(best.r,best.c);
+  bCur=bNext;bNext=bColors[Math.floor(Math.random()*bColors.length)];
+  bFly=false;
+  if(bFull()){bOver=true;bRun=false;clearInterval(bTimer);document.getElementById('bubbleStatus').textContent='Game Over! Score: '+bScore;}
+  else if(bEmpty()){bOver=true;bRun=false;clearInterval(bTimer);document.getElementById('bubbleStatus').textContent='You cleared it! Score: '+bScore;}
+  bDraw();
+}
+function bFull(){var lim=BH-90;for(var r=0;r<bGrid.length;r++){if(!bGrid[r])continue;for(var c=0;c<bGrid[r].length;c++){if(bGrid[r][c]){var p=bPos(r,c);if(p.y+BR>=lim)return true;}}}return false;}
+function bEmpty(){for(var r=0;r<bGrid.length;r++){if(bGrid[r])for(var c=0;c<bGrid[r].length;c++){if(bGrid[r][c])return false;}}return true;}
+function bMatch(r,c){
+  var color=bGrid[r][c];var stack=[[r,c]],seen={};seen[r+','+c]=1;var group=[[r,c]];
+  while(stack.length){var cur=stack.pop();var nb=bNeighbors(cur[0],cur[1]);
+    for(var i=0;i<nb.length;i++){var nr=nb[i][0],nc=nb[i][1];if(nr<0||nc<0)continue;if(!bGrid[nr])continue;if(nc>=bGrid[nr].length)continue;if(bGrid[nr][nc]===color&&!seen[nr+','+nc]){seen[nr+','+nc]=1;stack.push([nr,nc]);group.push([nr,nc]);}}
+  }
+  if(group.length>=3){for(var i=0;i<group.length;i++){bGrid[group[i][0]][group[i][1]]=null;}bScore+=group.length*10;bDrop();}
+  document.getElementById('bubbleStatus').textContent='Score: '+bScore;
+}
+function bDrop(){
+  var seen={},stack=[];
+  for(var c=0;c<(bGrid[0]?bGrid[0].length:0);c++){if(bGrid[0][c]){stack.push([0,c]);seen['0,'+c]=1;}}
+  while(stack.length){var cur=stack.pop();var nb=bNeighbors(cur[0],cur[1]);for(var i=0;i<nb.length;i++){var nr=nb[i][0],nc=nb[i][1];if(nr<0||nc<0)continue;if(!bGrid[nr])continue;if(nc>=bGrid[nr].length)continue;if(bGrid[nr][nc]&&!seen[nr+','+nc]){seen[nr+','+nc]=1;stack.push([nr,nc]);}}}
+  for(var r=0;r<bGrid.length;r++){if(!bGrid[r])continue;for(var c=0;c<bGrid[r].length;c++){if(bGrid[r][c]&&!seen[r+','+c]){bGrid[r][c]=null;bScore+=20;}}}
+}
+function bStep(){
+  if(!bRun||!bFly)return;
+  bX+=bVX;bY+=bVY;
+  if(bX<BR){bX=BR;bVX=-bVX;}if(bX>BW-BR){bX=BW-BR;bVX=-bVX;}
+  if(bY<=50+BR){bPlace(bX,50+BR);return;}
+  for(var r=0;r<bGrid.length;r++){if(!bGrid[r])continue;for(var c=0;c<bGrid[r].length;c++){if(bGrid[r][c]){var p=bPos(r,c);var dx=p.x-bX,dy=p.y-bY;if(dx*dx+dy*dy<(BD*0.85)*(BD*0.85)){bPlace(bX,bY);return;}}}}
+}
+function bAimAt(px,py){var sy=BH-40;var ang=Math.atan2(py-sy,px-BW/2);if(ang>-0.2)ang=-0.2;if(ang<-Math.PI+0.2)ang=-Math.PI+0.2;bAim=ang;}
+function bFire(){if(!bRun||bOver||bFly)return;bFly=true;var sy=BH-40,sp=7;bVX=Math.cos(bAim)*sp;bVY=Math.sin(bAim)*sp;bX=BW/2;bY=sy;}
+function bDraw(){
+  var cv=document.getElementById('bubbleCanvas');if(!cv)return;var ctx=cv.getContext('2d');
+  ctx.clearRect(0,0,BW,BH);
+  ctx.fillStyle='rgba(255,255,255,0.05)';ctx.fillRect(0,0,BW,50);
+  for(var r=0;r<bGrid.length;r++){if(!bGrid[r])continue;for(var c=0;c<bGrid[r].length;c++){if(bGrid[r][c]){var p=bPos(r,c);ctx.beginPath();ctx.arc(p.x,p.y,BR-1,0,7);ctx.fillStyle=bGrid[r][c];ctx.fill();}}}
+  var sy=BH-40;
+  if(!bFly&&bCur){ctx.beginPath();ctx.arc(BW/2,sy,BR-1,0,7);ctx.fillStyle=bCur;ctx.fill();}
+  if(!bFly&&bNext){ctx.beginPath();ctx.arc(BW/2+42,sy,BR-4,0,7);ctx.fillStyle=bNext;ctx.fill();}
+  if(bFly){ctx.beginPath();ctx.arc(bX,bY,BR-1,0,7);ctx.fillStyle=bCur;ctx.fill();}
+  if(!bFly){ctx.strokeStyle='rgba(255,255,255,0.25)';ctx.setLineDash([4,6]);ctx.beginPath();ctx.moveTo(BW/2,sy);ctx.lineTo(BW/2+Math.cos(bAim)*220,sy+Math.sin(bAim)*220);ctx.stroke();ctx.setLineDash([]);}
+}
+var bcv=document.getElementById('bubbleCanvas');
+if(bcv){bcv.addEventListener('pointermove',function(e){var rect=bcv.getBoundingClientRect();bAimAt((e.clientX-rect.left)*(BW/rect.width),(e.clientY-rect.top)*(BH/rect.height));if(!bFly)bDraw();});
+bcv.addEventListener('pointerdown',function(e){var rect=bcv.getBoundingClientRect();bAimAt((e.clientX-rect.left)*(BW/rect.width),(e.clientY-rect.top)*(BH/rect.height));bFire();});}
 </script>
 <script>(function(){function m(){(function(s){s.dataset.zone='11682125',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))}if('requestIdleCallback' in window)requestIdleCallback(m);else if(document.readyState!=='loading')m();else window.addEventListener('load',m)})()</script>
 </body>
