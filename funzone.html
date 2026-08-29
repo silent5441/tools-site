@@ -328,14 +328,14 @@ function spDraw(){
   ctx.beginPath();ctx.arc(0,0,R+6,0,7);
   ctx.strokeStyle='rgba(127,127,127,0.45)';ctx.lineWidth=4;ctx.stroke();
   ctx.restore();
-  var nh=Math.min(30,Math.max(16,Math.round(size*0.055)));
+  var nh=Math.min(30,Math.max(16,Math.round(spW*0.055)));
   var nw=Math.round(nh*0.85);
   ctx.beginPath();
   ctx.moveTo(cx,cy-R+2);ctx.lineTo(cx-nw,cy-R+2-nh);ctx.lineTo(cx+nw,cy-R+2-nh);
   ctx.closePath();
   ctx.fillStyle='#ff4757';ctx.fill();
   ctx.strokeStyle='rgba(255,255,255,0.9)';ctx.lineWidth=2;ctx.stroke();
-  ctx.beginPath();ctx.arc(cx,cy,size*0.055,0,7);
+  ctx.beginPath();ctx.arc(cx,cy,Math.min(14,spW*0.05),0,7);
   ctx.fillStyle='rgba(255,255,255,0.85)';ctx.fill();
 }
 function spIdxUnderNeedle(){
