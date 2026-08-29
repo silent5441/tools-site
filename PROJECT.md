@@ -93,7 +93,7 @@ tools-site/                  ← repo root (served at / by GitHub Pages)
     ├── readability-checker.html ← SEO
     └── serp-preview.html    ← SEO
     ├── brick-estimate.html   ← Construction (Home Easy hub: brick, concrete, plaster, tiles, paint, steel/TMT, plumbing, room-finish estimators)
-    └── funzone.html          ← FunZone hub page (games placeholder; AdSense + Monetag slots present, ready for embeds)
+    └── funzone.html          ← FunZone hub: 2048, Flappy Bird, Whack-a-Mole, Tetris (Web Audio sound, touch + mobile controls, AdSense + Monetag slots)
 ```
 
 ## 🧩 Architecture
