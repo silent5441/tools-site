@@ -63,13 +63,28 @@
 .lc-steps li:first-child{border-top:none}
 .lc-steps b{flex:none;width:20px;height:20px;border-radius:50%;background:var(--bg-soft);border:1px solid var(--border);display:inline-flex;align-items:center;justify-content:center;font-size:.8rem;color:var(--accent)}
 .lc-btn{margin-top:2px}
-#spApp{position:fixed;inset:0;z-index:2000;background:var(--bg);display:none;flex-direction:column}
-#spApp.open{display:flex}
+#spApp,#dcApp{position:fixed;inset:0;z-index:2000;background:var(--bg);display:none;flex-direction:column}
+#spApp.open,#dcApp.open{display:flex}
 .sp-topbar{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--border);min-height:56px}
 .sp-back{background:var(--bg-soft);border:1px solid var(--border);border-radius:50px;padding:8px 16px;font-weight:700;cursor:pointer;color:var(--text);font-size:.9rem;touch-action:manipulation}
 .sp-back:hover{border-color:var(--accent)}
 .sp-topbar-title{font-weight:800;font-size:1.05rem}
 .sp-body{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:10px 16px 22px;overflow:auto}
+.sp-qbox{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;max-width:560px;margin:0 auto 10px}
+.sp-qlabel{font-size:.82rem;font-weight:700;color:var(--muted)}
+.sp-qshow{font-size:1rem;font-weight:700;text-align:center;color:var(--accent);background:var(--bg-soft);border:1px solid var(--border);border-radius:50px;padding:8px 16px;margin:0 auto 12px;max-width:560px}
+.dc-toolbar{display:flex;gap:8px;justify-content:center;margin-bottom:16px}
+.dc-mode-btn{background:var(--bg-soft);border:1px solid var(--border);border-radius:50px;padding:9px 22px;font-weight:700;font-size:.9rem;cursor:pointer;color:var(--text);touch-action:manipulation;transition:.15s}
+.dc-mode-btn.active{background:var(--gradient);border-color:transparent;color:#fff}
+.dc-stage{display:flex;gap:26px;justify-content:center;align-items:center;flex-wrap:wrap;margin:8px 0 10px;min-height:150px}
+.dc-persp{perspective:620px;width:104px;height:104px}
+.die{position:relative;width:100px;height:100px;transform-style:preserve-3d;transition:transform 1.15s cubic-bezier(.2,.55,.35,1)}
+.die-face{position:absolute;inset:0;display:grid;background:#f7f0e3;border:1px solid rgba(0,0,0,.13);border-radius:16px;box-shadow:inset 0 0 14px rgba(139,90,43,.25);backface-visibility:hidden;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:10px}
+.die-face i{width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#666,#111 70%);margin:auto;display:block}
+.dc-throw-btn{font-size:1.1rem;padding:14px 46px;margin-top:8px}
+.dc-orb{width:76px;height:76px;border-radius:16px;background:#f7f0e3;box-shadow:inset 0 -3px 0 rgba(0,0,0,.08),0 6px 18px rgba(0,0,0,.22);margin:0 auto 14px;position:relative}
+.dc-orb i{position:absolute;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#666,#111 70%)}
+.dc-orb i.n1{left:9px;top:9px}.dc-orb i.n2{left:52px;top:9px}.dc-orb i.n3{left:30px;top:30px}.dc-orb i.n4{left:9px;top:52px}.dc-orb i.n5{left:52px;top:52px}
 </style>
 </head>
 <body>
@@ -80,14 +95,14 @@
 
 <div class="fun-hero">
 <h1>FunZone</h1>
-<p>Party modes with sound. Mode 1: Name Spinner - add up to 10 names and spin the wheel to find your winner.</p>
+<p>Party modes with sound. Name Spinner (pick a random winner) and Dice Throw (roll 1-2 real-style dice) - more modes on the way.</p>
 </div>
 
 <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8427860023135459" data-ad-slot="8841288679" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></div>
 
 <div class="tabs" id="modeTabs">
 <button class="tab active" data-tab="m1">1. Name Spinner</button>
-<button class="tab" data-tab="m2">2. <span class="gm-error">Coming Soon</span></button>
+<button class="tab" data-tab="m2">2. Dice Throw</button>
 <button class="tab" data-tab="m3">3. <span class="gm-error">Coming Soon</span></button>
 <button class="tab" data-tab="m4">4. <span class="gm-error">Coming Soon</span></button>
 <button class="tab" data-tab="m5">5. <span class="gm-error">Coming Soon</span></button>
@@ -107,7 +122,19 @@
 </div>
 </div>
 
-<div class="tab-panel" id="m2"><div class="soon">Mode 2 is on its way</div></div>
+<div class="tab-panel" id="m2">
+<div class="launch-card" id="dcLaunchCard" role="button" tabindex="0" aria-label="Launch Dice Throw">
+<div class="dc-orb"><i class="n1"></i><i class="n2"></i><i class="n3"></i><i class="n4"></i><i class="n5"></i></div>
+<div class="lc-title">Dice Throw</div>
+<p>Roll 1 or 2 dice that tumble and land just like the real thing. Perfect for house rules, board games and settling bets.</p>
+<ul class="lc-steps">
+<li><b>1</b><span>Choose <b>1 Die</b> or <b>2 Dice</b>.</span></li>
+<li><b>2</b><span>Tap <b>Throw</b> and watch the dice roll.</span></li>
+<li><b>3</b><span>Your result appears (totals shown with 2 dice). Press <b>Back</b> to exit.</span></li>
+</ul>
+<button class="btn lc-btn">Launch Dice Throw</button>
+</div>
+</div>
 <div class="tab-panel" id="m3"><div class="soon">Mode 3 is on its way</div></div>
 <div class="tab-panel" id="m4"><div class="soon">Mode 4 is on its way</div></div>
 <div class="tab-panel" id="m5"><div class="soon">Mode 5 is on its way</div></div>
@@ -120,7 +147,11 @@
 <div class="sp-topbar-title">Name Spinner</div>
 </div>
 <div class="sp-body">
-<div class="game-sub" style="text-align:center;margin-bottom:14px">Add names, then hit the center Play button to spin. The name under the red pointer wins.</div>
+<div class="game-sub" style="text-align:center;margin-bottom:14px">Optionally add a question (e.g. Who will pay the bill?), then add names and spin. The name under the red pointer wins.</div>
+<div class="sp-qbox">
+<label class="sp-qlabel" for="spQuestion">Question (optional)</label>
+<input class="sp-input" id="spQuestion" type="text" maxlength="60" placeholder="e.g. Who will pay the bill?" autocomplete="off" enterkeyhint="done">
+</div>
 <div class="spinner-top">
 <input class="sp-input" id="spName" type="text" maxlength="16" placeholder="Type a name e.g. Rohit" autocomplete="off" enterkeyhint="done">
 <button class="btn" id="spAddBtn">Add</button>
@@ -128,6 +159,8 @@
 <div class="sp-total" id="spTotal" style="text-align:center;margin-top:8px">0 / 10 names</div>
 
 <div class="sp-chips" id="spChips"></div>
+
+<div class="sp-qshow" id="spQShow" style="display:none"></div>
 
 <div class="sp-wheelbox" id="spBox">
 <canvas id="spCanvas"></canvas>
@@ -140,6 +173,26 @@
 <button class="btn ghost" onclick="spClear()">Clear All</button>
 </div>
 </div>
+</div>
+</div>
+
+<div id="dcApp" aria-label="Dice Throw full screen mode">
+<div class="sp-topbar">
+<button class="sp-back" onclick="dcClose()" aria-label="Back to FunZone">&#8592; Back</button>
+<div class="sp-topbar-title">Dice Throw</div>
+</div>
+<div class="sp-body">
+<div class="game-sub" style="text-align:center;margin-bottom:14px">Pick 1 or 2 dice, then tap Throw. The dice roll just like the real thing.</div>
+<div class="dc-toolbar">
+<button class="dc-mode-btn active" id="dcOne">1 Die</button>
+<button class="dc-mode-btn" id="dcTwo">2 Dice</button>
+</div>
+<div class="dc-stage">
+<div class="dc-persp"><div class="die" id="die1"></div></div>
+<div class="dc-persp" id="die2wrap" style="display:none"><div class="die" id="die2"></div></div>
+</div>
+<div class="status dc-result" id="dcResult">Choose dice count, then tap Throw</div>
+<button class="btn dc-throw-btn" id="dcThrowBtn">Throw</button>
 </div>
 </div>
 
@@ -201,11 +254,16 @@ function spClear(){
   ia();
   spNames=[];spRot=0;
   sndClick();
+  var qi=document.getElementById('spQuestion');if(qi)qi.value='';
   document.getElementById('spStatus').textContent='Add at least 2 names, then spin';
   spRender();
 }
 function spRender(){
   var n=spNames.length;
+  var qin=document.getElementById('spQuestion');
+  var q=qin?qin.value.trim():'';
+  var qs=document.getElementById('spQShow');
+  if(qs){if(q){qs.style.display='block';qs.textContent=q;}else{qs.style.display='none';}}
   var chips=document.getElementById('spChips');
   chips.innerHTML='';
   for(var i=0;i<n;i++){
@@ -286,7 +344,9 @@ function spTick(){
     spDraw();
     var w=spNames[spIdxUnderNeedle()];
     sndStop();setTimeout(sndWin,120);
-    document.getElementById('spStatus').textContent='Winner: '+w+'';
+    var qin=document.getElementById('spQuestion');
+    var q=qin?qin.value.trim():'';
+    document.getElementById('spStatus').textContent=(q?q+' - Winner: ':'Winner: ')+w;
     document.getElementById('spStatus').classList.remove('gm-error');
     return;
   }
@@ -345,25 +405,127 @@ function spClose(){
   }
   spFit();
 }
-document.addEventListener('fullscreenchange',function(){
-  var d=document;var app=document.getElementById('spApp');
-  if(!(d.fullscreenElement||d.webkitFullscreenElement)&&app.classList.contains('open')){
-    app.classList.remove('open');
-    document.body.style.overflow='';
-  }
-});
-document.addEventListener('webkitfullscreenchange',function(){
-  var d=document;var app=document.getElementById('spApp');
-  if(!(d.webkitFullscreenElement)&&app.classList.contains('open')){
-    app.classList.remove('open');
-    document.body.style.overflow='';
-  }
-});
+function __fsExit(){
+  var d=document;
+  if(d.fullscreenElement||d.webkitFullscreenElement)return false;
+  var closed=false;
+  var sp=document.getElementById('spApp');if(sp.classList.contains('open')){sp.classList.remove('open');closed=true;}
+  var dc=document.getElementById('dcApp');if(dc.classList.contains('open')){dc.classList.remove('open');closed=true;}
+  if(closed)document.body.style.overflow='';
+  return true;
+}
+document.addEventListener('fullscreenchange',__fsExit);
+document.addEventListener('webkitfullscreenchange',__fsExit);
 
 document.getElementById('spAddBtn').addEventListener('click',spAdd);
 document.getElementById('spName').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();spAdd();}});
 document.getElementById('spPlay').addEventListener('click',spPlay);
 window.addEventListener('resize',spFit);
+
+/* Dice Throw */
+var dcCount2=false,dcBusy=false;
+function dcBuildDie(id){
+  var el=document.getElementById(id);
+  el.innerHTML='';
+  var faces=[
+    {v:1,t:'rotateY(0deg)'},{v:6,t:'rotateY(180deg)'},{v:2,t:'rotateY(90deg)'},
+    {v:5,t:'rotateY(-90deg)'},{v:3,t:'rotateX(90deg)'},{v:4,t:'rotateX(-90deg)'}
+  ];
+  var pipMap={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
+  faces.forEach(function(f){
+    var face=document.createElement('div');
+    face.className='die-face';
+    face.style.transform=f.t+' translateZ(50px)';
+    pipMap[f.v].forEach(function(idx){
+      var dot=document.createElement('i');
+      dot.style.gridRowStart=Math.floor(idx/3)+1;
+      dot.style.gridColumnStart=(idx%3)+1;
+      face.appendChild(dot);
+    });
+    el.appendChild(face);
+  });
+}
+dcBuildDie('die1');dcBuildDie('die2');
+function dcValRot(v){
+  switch(v){
+    case 1:return '';
+    case 2:return 'rotateY(-90deg)';
+    case 3:return 'rotateX(-90deg)';
+    case 4:return 'rotateX(90deg)';
+    case 5:return 'rotateY(90deg)';
+    case 6:return 'rotateY(180deg)';
+  }
+  return '';
+}
+function dcRattle(){
+  for(var i=0;i<10;i++){(function(k){setTimeout(function(){snd(130+Math.random()*120,0.035,'square',0.05);},k*75);})(i);}
+}
+function dcSetCount(two){
+  if(dcBusy)return;
+  ia();sndClick();
+  dcCount2=two;
+  document.getElementById('dcOne').classList.toggle('active',!two);
+  document.getElementById('dcTwo').classList.toggle('active',two);
+  document.getElementById('die2wrap').style.display=two?'':'none';
+  document.getElementById('dcResult').textContent=two?'Press Throw to roll 2 dice':'Press Throw to roll';
+}
+function dcThrow(){
+  if(dcBusy)return;
+  ia();
+  dcBusy=true;
+  var dies=dcCount2?[document.getElementById('die1'),document.getElementById('die2')]:[document.getElementById('die1')];
+  var res=[];
+  dies.forEach(function(d){res.push(1+Math.floor(Math.random()*6));});
+  sndSweep(200,520,0.35,0.08);
+  dcRattle();
+  document.getElementById('dcResult').textContent='Rolling...';
+  var remain=dies.length;
+  res.forEach(function(v,i){
+    var ry=1+Math.floor(Math.random()*4),rx=1+Math.floor(Math.random()*4);
+    var t='rotateY('+ry+'turn) rotateX('+rx+'turn) '+dcValRot(v);
+    var d=dies[i];
+    d.addEventListener('transitionend',function h(){
+      d.removeEventListener('transitionend',h);
+      remain--;
+      if(remain===0){
+        dcBusy=false;
+        sndStop();
+        setTimeout(sndWin,110);
+        var msg=dcCount2?(res[0]+' + '+res[1]+'  =  '+(res[0]+res[1])):('Die shows '+res[0]);
+        document.getElementById('dcResult').textContent=msg;
+      }
+    });
+    requestAnimationFrame(function(){d.style.transform=t;});
+  });
+}
+function dcOpen(){
+  ia();
+  var app=document.getElementById('dcApp');
+  if(app.classList.contains('open'))return;
+  app.classList.add('open');
+  document.body.style.overflow='hidden';
+  document.getElementById('die1').style.transform='';
+  document.getElementById('die2').style.transform='';
+  document.getElementById('dcResult').textContent=dcCount2?'Press Throw to roll 2 dice':'Press Throw to roll';
+  setTimeout(function(){
+    var d=document;
+    var rfs=d.documentElement.requestFullscreen||d.documentElement.webkitRequestFullscreen;
+    if(rfs){var p=rfs.call(d.documentElement);if(p&&p.catch)p.catch(function(){});}
+  },150);
+}
+function dcClose(){
+  var app=document.getElementById('dcApp');
+  app.classList.remove('open');
+  document.body.style.overflow='';
+  var d=document;
+  if(d.fullscreenElement||d.webkitFullscreenElement){
+    var ex=d.exitFullscreen||d.webkitExitFullscreen;
+    if(ex)ex.call(d);
+  }
+}
+document.getElementById('dcOne').addEventListener('click',function(){dcSetCount(false)});
+document.getElementById('dcTwo').addEventListener('click',function(){dcSetCount(true)});
+document.getElementById('dcThrowBtn').addEventListener('click',dcThrow);
 
 document.querySelectorAll('#modeTabs .tab').forEach(function(t){
   t.addEventListener('click',function(){
@@ -373,11 +535,16 @@ document.querySelectorAll('#modeTabs .tab').forEach(function(t){
     var id=t.getAttribute('data-tab');
     document.getElementById(id).classList.add('active');
     if(id==='m1'){spOpen();}
+    else if(id==='m2'){dcOpen();}
   });
 });
-var spLaunch=document.getElementById('spLaunchCard');
-spLaunch.addEventListener('click',function(e){if(e.target.classList.contains('lc-btn')){e.preventDefault();}spOpen();});
-spLaunch.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();spOpen();}});
+function bindLaunch(id,fn){
+  var el=document.getElementById(id);
+  el.addEventListener('click',function(e){if(e.target.classList.contains('lc-btn')){e.preventDefault();}fn();});
+  el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();fn();}});
+}
+bindLaunch('spLaunchCard',spOpen);
+bindLaunch('dcLaunchCard',dcOpen);
 spRender();
 </script>
 <script>(function(){function m(){(function(s){s.dataset.zone='11682125',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))}if('requestIdleCallback' in window)requestIdleCallback(m);else if(document.readyState!=='loading')m();else window.addEventListener('load',m)})()</script>
