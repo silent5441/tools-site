@@ -66,8 +66,8 @@
 .lc-steps li:first-child{border-top:none}
 .lc-steps b{flex:none;width:22px;height:22px;border-radius:50%;background:var(--gradient);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:.8rem}
 .lc-btn{margin-top:2px;font-size:1rem;padding:12px 30px;border-radius:50px;box-shadow:0 8px 20px rgba(0,0,0,.22)}
-#spApp,#dcApp,#cnApp,#nmApp,#fgApp{position:fixed;inset:0;z-index:2000;background:radial-gradient(1200px 600px at 50% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg);display:none;flex-direction:column}
-#spApp.open,#dcApp.open,#cnApp.open,#nmApp.open,#fgApp.open{display:flex}
+#spApp,#dcApp,#cnApp,#nmApp{position:fixed;inset:0;z-index:2000;background:radial-gradient(1200px 600px at 50% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg);display:none;flex-direction:column}
+#spApp.open,#dcApp.open,#cnApp.open,#nmApp.open{display:flex}
 .sp-topbar{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--border);min-height:52px;background:var(--bg);position:relative;z-index:5}
 .sp-back{display:inline-flex;align-items:center;gap:6px;background:var(--bg-soft);border:1px solid var(--border);border-radius:50px;padding:8px 16px;font-weight:700;cursor:pointer;color:var(--text);font-size:.9rem;touch-action:manipulation;transition:.15s}
 .sp-back:hover{border-color:var(--accent);color:var(--accent)}
@@ -113,18 +113,6 @@
 .nm-chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 .nm-chip{background:var(--bg-soft);border:1px solid var(--border);border-radius:50px;padding:8px 18px;font-weight:700;font-size:.88rem;cursor:pointer;color:var(--text);touch-action:manipulation;transition:.15s}
 .nm-chip:hover{border-color:var(--accent)}
-.fg-orb{width:92px;height:92px;border-radius:50%;margin:0 auto 16px;position:relative;background:radial-gradient(circle at 30% 30%,var(--accent),transparent 60%),var(--bg-soft);border:1px solid var(--border);box-shadow:0 10px 24px rgba(0,0,0,.22)}
-.fg-orb i{position:absolute;border:3px solid var(--accent);border-radius:50%;top:50%;left:50%;width:34px;height:34px;margin:-17px 0 0 -17px;animation:fgPulse 1.6s ease-out infinite}
-.fg-orb i.i2{animation-delay:.4s}
-.fg-orb i.i3{animation-delay:.8s}
-@keyframes fgPulse{0%{transform:scale(.6);opacity:1}100%{transform:scale(1.5);opacity:0}}
-.fg-body{flex:1;position:relative;overflow:hidden;width:100%}
-.fg-body canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
-.fg-hud{position:absolute;top:12px;left:50%;transform:translateX(-50%);text-align:center;z-index:2;width:92%;pointer-events:none}
-.fg-hint{font-size:.92rem;font-weight:700;color:var(--muted)}
-.fg-count{font-size:.8rem;font-weight:600;color:var(--muted);margin-top:4px}
-.fg-actions{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;width:94%}
-.fg-actions .btn{padding:12px 22px;border-radius:50px;box-shadow:0 8px 20px rgba(0,0,0,.22)}
 </style>
 </head>
 <body>
@@ -135,7 +123,7 @@
 
 <div class="fun-hero">
 <h1>FunZone</h1>
-<p>Party modes with sound. Name Spinner, Dice Throw, Coin Toss, Pick a Number and Finger Draw - all full screen, for parties and games.</p>
+<p>Party modes with sound. Name Spinner, Dice Throw, Coin Toss and Pick a Number - all full screen, for parties and games.</p>
 </div>
 
 <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8427860023135459" data-ad-slot="8841288679" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></div>
@@ -145,7 +133,7 @@
 <button class="tab" data-tab="m2">2. Dice Throw</button>
 <button class="tab" data-tab="m3">3. Coin Toss</button>
 <button class="tab" data-tab="m4">4. Pick a Number</button>
-<button class="tab" data-tab="m5">5. Finger Draw</button>
+<button class="tab" data-tab="m5">5. <span class="gm-error">Coming Soon</span></button>
 </div>
 
 <div class="tab-panel active" id="m1">
@@ -203,19 +191,7 @@
 </div>
 </div>
 
-<div class="tab-panel" id="m5">
-<div class="launch-card" id="fgLaunchCard" role="button" tabindex="0" aria-label="Launch Finger Draw">
-<div class="fg-orb"><i></i><i class="i2"></i><i class="i3"></i></div>
-<div class="lc-title">Finger Draw</div>
-<p>Everyone holds one finger on the screen. Ripples travel around every finger, then all vanish except one lucky winner.</p>
-<ul class="lc-steps">
-<li><b>1</b><span>Each player puts <b>one finger</b> on the screen.</span></li>
-<li><b>2</b><span>Tap <b>Start Draw</b> - ripples pulse and a 5-second countdown begins.</span></li>
-<li><b>3</b><span>All fingers vanish except one - that player wins!</span></li>
-</ul>
-<button class="btn lc-btn">Launch Finger Draw</button>
-</div>
-</div>
+<div class="tab-panel" id="m5"><div class="soon">Mode 5 is on its way</div></div>
 
 <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8427860023135459" data-ad-slot="8841288679" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></div>
 
@@ -319,26 +295,6 @@
 <div class="nm-display" id="nmDisp">-</div>
 <div class="status" id="nmStatus">Tap Start</div>
 <button class="btn nm-throw-btn" id="nmStartBtn">Start</button>
-</div>
-</div>
-</div>
-
-<div id="fgApp" aria-label="Finger Draw full screen mode">
-<div class="sp-topbar">
-<button class="sp-back" onclick="fgClose()" aria-label="Back to FunZone">&#8592; Back</button>
-<div class="sp-topbar-title">Finger Draw</div>
-</div>
-<div class="fg-body">
-<canvas id="fgCanvas"></canvas>
-<div class="fg-hud">
-<div class="fg-hint" id="fgHint">Each player holds ONE finger on the screen</div>
-<div class="fg-count" id="fgCount">0 fingers</div>
-</div>
-<div class="status" id="fgStatus" style="position:absolute;top:92px;left:0;right:0;text-align:center;z-index:2">Place 2+ fingers, then Start Draw</div>
-<div class="fg-actions">
-<button class="btn" id="fgStartBtn" style="display:none">Start Draw</button>
-<button class="btn ghost" onclick="fgVirtual()">+ Virtual Finger</button>
-<button class="btn ghost" onclick="fgNew()">Reset</button>
 </div>
 </div>
 </div>
@@ -566,7 +522,6 @@ function __fsExit(){
   var dc=document.getElementById('dcApp');if(dc.classList.contains('open')){dc.classList.remove('open');closed=true;}
   var cn=document.getElementById('cnApp');if(cn.classList.contains('open')){cn.classList.remove('open');closed=true;}
   var nm=document.getElementById('nmApp');if(nm.classList.contains('open')){nm.classList.remove('open');closed=true;}
-  var fg=document.getElementById('fgApp');if(fg.classList.contains('open')){fg.classList.remove('open');fgStop=true;if(fgRaf){cancelAnimationFrame(fgRaf);fgRaf=null;}closed=true;}
   if(closed)document.body.style.overflow='';
   return true;
 }
@@ -714,7 +669,6 @@ function appClose(id){
     if(ex)ex.call(d);
   }
 }
-function sndPopUp(){snd(520,0.05,'sine',0.08);setTimeout(function(){snd(760,0.04,'sine',0.06)},55)}
 
 /* Coin Toss */
 var cnBusy=false,cnHeads=0,cnTails=0;
@@ -814,169 +768,6 @@ function nmOpen(){
 function nmClose(){appClose('nmApp');}
 document.getElementById('nmStartBtn').addEventListener('click',nmStart);
 
-/* Finger Draw */
-var fgPts={},fgSeq=0,fgState=0,fgWinner=null,fgCv=null,fgRaf=null,fgT0=0,fgLastInt=-1,fgStop=false,fgBound=false,fgCtx2=null;
-function fgFit(){
-  var c=document.getElementById('fgCanvas');if(!c)return;
-  var p=c.parentElement;
-  var dpr=window.devicePixelRatio||1;
-  c.width=p.clientWidth*dpr;c.height=p.clientHeight*dpr;
-}
-function fgSyncText(){
-  var n=Object.keys(fgPts).length;
-  document.getElementById('fgCount').textContent=n===1?'1 finger':n+' fingers';
-  var sb=document.getElementById('fgStartBtn');
-  sb.style.display=(fgState===0||fgState===1)&&n>=2?'':'none';
-  var st=document.getElementById('fgStatus');
-  if(fgState===3){
-    st.classList.remove('gm-error');
-    st.textContent='Winner: Player #'+fgPts[fgWinner].label;
-  }else if(n<2){
-    st.textContent=n===1?'One more finger and you can start':'Place 2+ fingers, then Start Draw';
-  }else{
-    st.textContent='Press Start Draw to begin the countdown';
-  }
-}
-function fgNew(){
-  if(fgState===2)return;
-  ia();sndClick();
-  fgPts={};fgSeq=0;fgState=0;fgWinner=null;
-  fgSyncText();
-}
-function fgVirtual(){
-  if(fgState===2||fgState===3)return;
-  ia();sndPopUp();
-  var c=document.getElementById('fgCanvas');
-  var w=c.clientWidth,h=c.clientHeight;
-  fgSeq++;
-  var dx=(Math.random()-0.5)*0.6,dy=(Math.random()-0.5)*0.6;
-  if(!dx&&!dy)dy=0.3;
-  fgPts['v'+fgSeq]={x:40+Math.random()*(w-120),y:100+Math.random()*(h-340),label:fgSeq,dx:dx,dy:dy,v:1};
-  fgSyncText();
-}
-function fgStartNow(){
-  if(fgState===2||fgState===3)return;
-  if(Object.keys(fgPts).length<2)return;
-  ia();sndClick();
-  fgState=2;fgT0=Date.now();fgLastInt=-1;
-  document.getElementById('fgStartBtn').style.display='none';
-  document.getElementById('fgStatus').textContent='Countdown running...';
-}
-function fgFinish(){
-  var ids=Object.keys(fgPts);
-  if(!ids.length){fgState=1;fgSyncText();return;}
-  fgWinner=ids[Math.floor(Math.random()*ids.length)];
-  var keep={};keep[fgWinner]=fgPts[fgWinner];
-  fgPts=keep;
-  fgState=3;
-  sndStop();
-  setTimeout(sndWin,150);
-  fgSyncText();
-}
-function fgPoint(p,now,strong){
-  var x=p.x,y=p.y;
-  for(var k=0;k<3;k++){
-    var ph=(now/850+k*0.35)%1;
-    fgCtx2.beginPath();fgCtx2.arc(x,y,16+ph*70,0,7);
-    fgCtx2.strokeStyle=strong?'rgba(255,202,40,'+(1-ph)+')':'rgba(99,133,255,'+(1-ph)*0.8+')';
-    fgCtx2.lineWidth=strong?5:3;
-    fgCtx2.stroke();
-  }
-  fgCtx2.beginPath();fgCtx2.arc(x,y,16,0,7);
-  fgCtx2.fillStyle=strong?'#ffca28':'#6385ff';
-  fgCtx2.fill();
-  fgCtx2.lineWidth=3;fgCtx2.strokeStyle='rgba(255,255,255,.9)';fgCtx2.stroke();
-  fgCtx2.fillStyle=strong?'#3a2c00':'#fff';
-  fgCtx2.font='700 15px sans-serif';fgCtx2.textAlign='center';fgCtx2.textBaseline='middle';
-  fgCtx2.fillText(p.label,x,y+1);
-  if(strong){
-    fgCtx2.font='800 18px sans-serif';fgCtx2.fillStyle='#ffca28';
-    fgCtx2.shadowColor='rgba(0,0,0,.6)';fgCtx2.shadowBlur=8;
-    fgCtx2.fillText('WINNER',x,y-30);
-    fgCtx2.shadowBlur=0;
-  }
-}
-function fgDraw(){
-  var c=fgCv!==null?fgCv:document.getElementById('fgCanvas');
-  if(!c)return;
-  var dpr=window.devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;
-  if(!w||!h)return;
-  fgCtx2=c.getContext('2d');
-  fgCtx2.setTransform(dpr,0,0,dpr,0,0);
-  fgCtx2.clearRect(0,0,w,h);
-  var now=Date.now();
-  if(fgState===2){
-    var remain=5-Math.floor((now-fgT0)/1000);
-    if(remain!==fgLastInt){fgLastInt=remain;if(remain>0)sndTick();}
-    if(remain<=0){fgFinish();}
-    else{
-      fgCtx2.font='800 64px sans-serif';fgCtx2.textAlign='center';fgCtx2.textBaseline='top';
-      fgCtx2.fillStyle='rgba(255,255,255,.95)';
-      fgCtx2.shadowColor='rgba(0,0,0,.6)';fgCtx2.shadowBlur=12;
-      fgCtx2.fillText(remain,w/2,h>480?56:16);
-      fgCtx2.shadowBlur=0;
-    }
-  }
-  var keys=Object.keys(fgPts);
-  for(var i=0;i<keys.length;i++){
-    var p=fgPts[keys[i]];
-    if(fgState===3&&keys[i]!==fgWinner)continue;
-    if(p.v&&fgState<3){
-      p.x+=p.dx;p.y+=p.dy;
-      if(p.x<40||p.x>w-40)p.dx*=-1;
-      if(p.y<90||p.y>h-60)p.dy*=-1;
-    }
-    fgPoint(p,now,fgState===3);
-  }
-}
-function fgLoop(){if(fgStop)return;fgDraw();fgRaf=requestAnimationFrame(fgLoop);}
-function fgOpen(){
-  ia();
-  appOpen('fgApp');
-  fgFit();
-  fgStop=false;
-  if(!fgRaf){fgRaf=requestAnimationFrame(fgLoop);}
-  var c=document.getElementById('fgCanvas');
-  if(!fgBound){
-    fgBound=true;
-    c.addEventListener('pointerdown',function(e){
-      if(fgState===2||fgState===3)return;
-      ia();
-      e.preventDefault();
-      var id='p'+e.pointerId;
-      if(fgPts[id])return;
-      var r=c.getBoundingClientRect();
-      fgSeq++;
-      fgPts[id]={x:e.clientX-r.left,y:e.clientY-r.top,label:fgSeq};
-      sndPopUp();
-      fgSyncText();
-    });
-    c.addEventListener('pointermove',function(e){
-      if(fgState>1)return;
-      var id='p'+e.pointerId;
-      if(fgPts[id]){
-        var r=c.getBoundingClientRect();
-        fgPts[id].x=e.clientX-r.left;fgPts[id].y=e.clientY-r.top;
-      }
-    });
-    function fgUp(e){
-      if(fgState>1)return;
-      var id='p'+e.pointerId;
-      if(fgPts[id]){delete fgPts[id];fgSyncText();}
-    }
-    c.addEventListener('pointerup',fgUp);
-    c.addEventListener('pointercancel',fgUp);
-  }
-  fgSyncText();
-}
-function fgClose(){
-  appClose('fgApp');
-  fgStop=true;
-  if(fgRaf){cancelAnimationFrame(fgRaf);fgRaf=null;}
-}
-document.getElementById('fgStartBtn').addEventListener('click',fgStartNow);
-window.addEventListener('resize',fgFit);
-
 document.querySelectorAll('#modeTabs .tab').forEach(function(t){
   t.addEventListener('click',function(){
     document.querySelectorAll('#modeTabs .tab').forEach(function(x){x.classList.remove('active')});
@@ -988,7 +779,6 @@ document.querySelectorAll('#modeTabs .tab').forEach(function(t){
     else if(id==='m2'){dcOpen();}
     else if(id==='m3'){cnOpen();}
     else if(id==='m4'){nmOpen();}
-    else if(id==='m5'){fgOpen();}
   });
 });
 function bindLaunch(id,fn){
@@ -1000,7 +790,6 @@ bindLaunch('spLaunchCard',spOpen);
 bindLaunch('dcLaunchCard',dcOpen);
 bindLaunch('cnLaunchCard',cnOpen);
 bindLaunch('nmLaunchCard',nmOpen);
-bindLaunch('fgLaunchCard',fgOpen);
 spRender();
 </script>
 <script>(function(){function m(){(function(s){s.dataset.zone='11682125',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))}if('requestIdleCallback' in window)requestIdleCallback(m);else if(document.readyState!=='loading')m();else window.addEventListener('load',m)})()</script>

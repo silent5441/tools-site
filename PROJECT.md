@@ -93,7 +93,7 @@ tools-site/                  ← repo root (served at / by GitHub Pages)
     ├── readability-checker.html ← SEO
     └── serp-preview.html    ← SEO
     ├── brick-estimate.html   ← Construction (Home Easy hub: brick, concrete, plaster, tiles, paint, steel/TMT, plumbing, room-finish estimators)
-    └── funzone.html          ← FunZone party modes (5): Mode 1 Name Spinner (optional question + up to 10 names, CSS wheel, full-screen); Mode 2 Dice Throw (1-2 CSS-3D dice, pip faces, roll + rattle sound); Mode 3 Coin Toss (3D flip coin, heads/tails tally); Mode 4 Pick a Number (0-200000 range spinner); Mode 5 Finger Draw (multi-touch ripples, 5s countdown eliminator)
+    └── funzone.html          ← FunZone party modes (5): Mode 1 Name Spinner (optional question + up to 10 names, CSS wheel, full-screen); Mode 2 Dice Throw (1-2 CSS-3D dice, pip faces, roll + rattle sound); Mode 3 Coin Toss (3D flip coin, heads/tails tally); Mode 4 Pick a Number (0-200000 range spinner); Mode 5 placeholder
 ```
 
 ## 🧩 Architecture
