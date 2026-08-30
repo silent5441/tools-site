@@ -46,7 +46,10 @@ async def protect_pdf(pdf: UploadFile = File(...), password: str = Form(...)):
     if not password:
         raise HTTPException(status_code=400, detail="Password is required")
     data = await pdf.read()
-    out = pdf_protect.protect(data, password)
+    try:
+        out = pdf_protect.protect(data, password)
+    except pdf_protect.AlreadyEncryptedError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     return Response(
         content=out,
         media_type="application/pdf",
