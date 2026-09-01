@@ -55,22 +55,50 @@
     </div>
   </div></nav>
 
-  <section class="hero">
-    <h1>40+ <span>Free Online Tools</span></h1>
-    <p>QR generator, PDF editor, resume builder, converters, calculators & more. No signup required.</p>
-    <div class="search-box">
+  <section class="hero hero-v2">
+    <span class="badge-pill reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg> All-in-One Free Toolkit</span>
+    <h1 class="reveal">40+ <span>Free Online Tools</span></h1>
+    <p class="reveal">QR generator, PDF editor, resume builder, converters, calculators &amp; more. No signup, no downloads — everything runs right in your browser.</p>
+    <div class="search-box reveal">
       <div class="search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
       <input type="text" placeholder="Search tools..." id="searchInput" aria-label="Search tools" oninput="filterTools()">
     </div>
-    <div class="stats-bar">
+    <div class="hero-cta reveal">
+      <a href="#categories" class="btn-cta btn-cta-primary">Explore Tools <svg class="cta-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <a href="#pdf" class="btn-cta btn-cta-secondary">Start with PDF <svg class="cta-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="stats-bar-v2 reveal">
       <div class="stat"><div class="stat-num">40+</div><div class="stat-label">Tools</div></div>
-      <div class="stat"><div class="stat-num">0</div><div class="stat-label">Cost</div></div>
+      <div class="stat"><div class="stat-num">10</div><div class="stat-label">Categories</div></div>
       <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Free</div></div>
       <div class="stat"><div class="stat-num">0</div><div class="stat-label">Signup</div></div>
+      <div class="stat"><div class="stat-num">In-Browser</div><div class="stat-label">Privacy</div></div>
     </div>
   </section>
 
   <div class="container">
+
+    <section id="categories" class="categories" style="padding-top:20px">
+      <div class="sec-head reveal">
+        <span class="badge-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Browse by Category</span>
+        <h2>Powerful tools grouped <span class="grad">for every task</span></h2>
+        <p>Jump straight to the tools you need — organized across 10 hand-picked categories.</p>
+      </div>
+      <div class="cat-cards">
+        <a href="#pdf" class="cat-card reveal"><div class="cat-card-head"><div class="cc-icon" style="background:linear-gradient(135deg,#fd79a8,#f6a7b2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><span class="cc-count">10 tools</span></div><h3>PDF Tools</h3><p>Merge, split, compress, protect, and convert PDF files.</p></a>
+        <a href="#resume" class="cat-card reveal"><div class="cat-card-head"><div class="cc-icon" style="background:linear-gradient(135deg,#00b894,#55efc4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><span class="cc-count">2 tools</span></div><h3>Resume &amp; CV</h3><p>Build professional resumes with templates and live preview.</p></a>
+        <a href="#utility" class="cat-card reveal"><div class="cat-card-head"><div class="cc-icon" style="background:linear-gradient(135deg,#6c5ce7,#a29bfe)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><span class="cc-count">3 tools</span></div><h3>Utility Tools</h3><p>QR codes, image conversion, and spreadsheet converters.</p></a>
+        <a href="#text" class="cat-card reveal"><div class="cat-card-head"><div class="cc-icon" style="background:linear-gradient(135deg,#6c5ce7,#e84393)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2z"/><path d="M9 7h6M9 12h6M9 17h4"/></svg></div><span class="cc-count">6 tools</span></div><h3>Text Tools</h3><p>Count words, convert case, remove duplicates, compare text.</p></a>
+        <a href="#encoding" class="cat-card reveal"><div class="cat-card-head"><div class="cc-icon" style="background:linear-gradient(135deg,#0984e3,#74b9ff)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><span class="cc-count">4 tools</span></div><h3>Encoding &amp; Decoding</h3><p>Base64, URL, HTML entities, and hash generators.</p></a>
+        <a href="#dev" class="cat-card reveal"><div class="cat-card-head"><div class="cc-icon" style="background:linear-gradient(135deg,#00b4d8,#48cae4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><span class="cc-count">6 tools</span></div><h3>Developer Tools</h3><p>JSON, CSS, HTML, JS minifiers, color and regex helpers.</p></a>
+        <a href="#calc" class="cat-card reveal"><div class="cat-card-head"><div class="cc-icon" style="background:linear-gradient(135deg,#e17055,#fdcb6e)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/></svg></div><span class="cc-count">6 tools</span></div><h3>Calculators</h3><p>BMI, age, EMI, GST, percentage, and compound interest.</p></a>
+        <a href="#seo" class="cat-card reveal"><div class="cat-card-head"><div class="cc-icon" style="background:linear-gradient(135deg,#f39c12,#fdcb6e)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><span class="cc-count">6 tools</span></div><h3>SEO Tools</h3><p>Meta analysis, keyword density, sitemap and robots.txt.</p></a>
+        <a href="#construction" class="cat-card reveal"><div class="cat-card-head"><div class="cc-icon" style="background:linear-gradient(135deg,#e84393,#6c5ce7)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"/></svg></div><span class="cc-count">1 tool</span></div><h3>Construction</h3><p>Full home build estimator — bricks, concrete, paint &amp; more.</p></a>
+        <a href="funzone.html" class="cat-card reveal"><div class="cat-card-head"><div class="cc-icon" style="background:linear-gradient(135deg,#00b4d8,#00b894)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="4"/><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><circle cx="16" cy="10" r="1"/><circle cx="18" cy="14" r="1"/></svg></div><span class="cc-count">4 modes</span></div><h3>FunZone Games</h3><p>Name spinner, dice, coin toss, and pick-a-number games.</p></a>
+        <a href="#utility" class="cat-card reveal"><div class="cat-card-head"><div class="cc-icon" style="background:linear-gradient(135deg,#6c5ce7,#00b4d8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div><span class="cc-count">2 tools</span></div><h3>Image Converter</h3><p>Convert between JPG, PNG, and WebP with quality control.</p></a>
+        <a href="#pdf" class="cat-card reveal"><div class="cat-card-head"><div class="cc-icon" style="background:linear-gradient(135deg,#6c5ce7,#fd79a8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8v13H3V8"/><path d="M1 3h22v5H1z"/><path d="M10 12h4"/></svg></div><span class="cc-count">2 tools</span></div><h3>Spreadsheet</h3><p>Convert Excel to CSV and back, with formatting intact.</p></a>
+      </div>
+    </section>
 
     <section class="categories" id="pdf">
       <h2 class="cat-title"><div class="cat-icon pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><div class="cat-title-text">PDF Tools</div></h2>
@@ -184,28 +212,29 @@
       <button class="btn btn-primary" style="margin-top:16px" onclick="clearSearch()">Clear Search</button>
     </div>
 
-    <section style="padding:40px 0;border-top:1px solid var(--border);margin-top:20px">
-      <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:16px">Why I❤Tools.pro?</h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px">
-        <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius)">
-          <h3 style="font-size:1rem;margin-bottom:8px">100% Private</h3>
-          <p style="color:var(--muted);font-size:.85rem">All tools run in your browser. Your files never leave your device. No uploads, no servers, no data collection.</p>
-        </div>
-        <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius)">
-          <h3 style="font-size:1rem;margin-bottom:8px">Instant Results</h3>
-          <p style="color:var(--muted);font-size:.85rem">No waiting, no loading screens. Get results instantly with our client-side processing tools.</p>
-        </div>
-        <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius)">
-          <h3 style="font-size:1rem;margin-bottom:8px">Works Everywhere</h3>
-          <p style="color:var(--muted);font-size:.85rem">Use on any device - phone, tablet, or computer. All tools are mobile-friendly and responsive.</p>
-        </div>
-        <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius)">
-          <h3 style="font-size:1rem;margin-bottom:8px">Completely Free</h3>
-          <p style="color:var(--muted);font-size:.85rem">No hidden fees, no premium plans, no signup required. Every tool is 100% free to use.</p>
-        </div>
-      </div>
-    </section>
   </div>
+
+  <section class="features">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="badge-pill" style="background:rgba(0,180,216,0.08);border-color:rgba(0,180,216,0.18);color:var(--accent2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg> Why I❤Tools?</span>
+        <h2>Built for speed, privacy, <span class="grad">and simplicity</span></h2>
+        <p>Every tool is designed to give you instant, reliable results — the way tools should be.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card reveal"><div class="fc-icon" style="background:linear-gradient(135deg,#f39c12,#fdcb6e)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h3>Lightning Fast</h3><p>All tools run instantly in your browser. No waiting, no loading screens — just results.</p></div>
+        <div class="feature-card reveal"><div class="fc-icon" style="background:linear-gradient(135deg,#00b894,#55efc4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div><h3>100% Free</h3><p>Every single tool is completely free to use. No hidden paywalls, no premium tiers, no limits.</p></div>
+        <div class="feature-card reveal"><div class="fc-icon" style="background:linear-gradient(135deg,#6c5ce7,#a29bfe)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Secure &amp; Private</h3><p>Most tools run entirely in your browser. Your files never leave your device — no uploads, no servers.</p></div>
+        <div class="feature-card reveal"><div class="fc-icon" style="background:linear-gradient(135deg,#0984e3,#74b9ff)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><h3>Mobile Friendly</h3><p>Fully responsive and works perfectly on any device — phone, tablet, or desktop.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h2 class="reveal">Ready to <span class="grad">boost your productivity?</span></h2>
+    <p class="reveal">Jump right in — no sign-up, no downloads, no hassle. Start using 40+ free tools right now.</p>
+    <a href="#categories" class="btn-cta btn-cta-primary reveal">Open Toolkit <svg class="cta-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  </section>
 
   <footer class="footer"><div class="footer-grid">
     <div>
@@ -230,7 +259,7 @@
   window.addEventListener('appinstalled',function(){deferredPrompt=null;document.getElementById('installBtn').style.display='none'});
   function installApp(){if(!deferredPrompt)return;deferredPrompt.prompt();deferredPrompt.userChoice.then(function(r){if(r.outcome==='accepted')showToast('App installed!');deferredPrompt=null;document.getElementById('installBtn').style.display='none'})}
   if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
-  function filterTools(){var q=document.getElementById('searchInput').value.trim().toLowerCase();var any=false;document.querySelectorAll('.tool-card').forEach(function(c){var text=c.textContent.toLowerCase();var hit=!q||text.includes(q);c.style.display=hit?'':'none';if(hit)any=true});document.getElementById('noResults').classList.toggle('show',!any)}
+  function filterTools(){var q=document.getElementById('searchInput').value.trim().toLowerCase();var any=false;document.querySelectorAll('.tool-card').forEach(function(c){var text=c.textContent.toLowerCase();var hit=!q||text.includes(q);c.style.display=hit?'':'none';if(hit)any=true});document.getElementById('noResults').classList.toggle('show',!any);var catSec=document.getElementById('categories');if(catSec)catSec.style.display=q?'none':'block'}
   function clearSearch(){document.getElementById('searchInput').value='';filterTools();document.querySelector('.search-box input').focus()}
   document.querySelectorAll('.nav-links a').forEach(function(l){l.addEventListener('click',function(){document.querySelector('.nav-links').classList.remove('active')})});
   var scrollTopBtn=document.getElementById('scrollTop');
@@ -244,6 +273,8 @@
     catLinks.forEach(function(l){l.classList.toggle('active',l.getAttribute('href')==='#'+current)});
   },{passive:true});
   function showToast(msg){document.getElementById('toastMsg').textContent=msg||'Done!';var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2000)}
+  // Reveal on scroll
+  (function(){var els=document.querySelectorAll('.reveal');var io='IntersectionObserver' in window?new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in-view');io.unobserve(e.target)}})},{threshold:0.12}):null;if(!io){els.forEach(function(e){e.classList.add('in-view')});return}els.forEach(function(e){io.observe(e)})})();
   </script>
 <script>(function(){function m(){(function(s){s.dataset.zone='11682125',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))}if('requestIdleCallback' in window)requestIdleCallback(m);else if(document.readyState!=='loading')m();else window.addEventListener('load',m)})()</script>
 </body>
