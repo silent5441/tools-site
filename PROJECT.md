@@ -13,7 +13,7 @@
 | Owner | Aryan Verma (GitHub: `silent5441`) |
 | Purpose | Free online tools website monetized with Google AdSense |
 | Hosting | GitHub Pages (free, static-only) |
-| Backend | **None** — all tools run client-side in the browser |
+| Backend | Vercel FastAPI (`tools-site-backend.vercel.app`, repo root `/api`) |
 | Tech stack | Vanilla HTML + CSS + JavaScript, pdf-lib, pdf.js, JSZip |
 
 ## ⚠️ IMPORTANT: Site Policies
@@ -227,6 +227,31 @@ work, theme toggle works, visitor counter counts.
 - Share on Reddit (r/webdev, r/SEO, r/tools), Twitter/X, Facebook groups.
 - Apply to Amazon.in Associates (`affiliate-program.amazon.in`) for India-friendly
   affiliate revenue.
+
+## 📝 Blog System (Blogs & News)
+
+A Blogger-style CMS where posts are committed to this repo and served by GitHub Pages.
+
+- **Listing page**: `blogs.html` (`/blogs.html`) — public, linked in the nav on every page.
+- **Admin editor**: `editor.html` (`/editor.html`) — NOT linked anywhere; open directly and login.
+  Block-based editor: headings, text (markdown-lite), images, galleries, code blocks with
+  copy button, YouTube videos, lists, quotes, callouts, link buttons, dividers, raw HTML.
+  Supports upload cover/body images, per-post accent color, preview, drafts, edit & delete.
+- **Posts** live in `blogs/<slug>.html` (full SEO-friendly pages) with metadata in
+  `blogs/index.json` and images in `blogs/assets/<slug>/`. Comments are stored in
+  `blogs/comments/<slug>.json` and committed per-comment.
+- **Storage**: everything is written to this GitHub repo through the GitHub API by the
+  Vercel backend `api/blogs.py` (single commit per action). No database needed.
+
+Env vars required on Vercel:
+| var | purpose |
+|-----|---------|
+| `GH_TOKEN` | GitHub PAT (classic, `repo` scope) used to commit posts back to this repo |
+| `BLOG_ADMIN_USER` | admin username for the hidden editor |
+| `BLOG_ADMIN_PASS` | admin password (also the HMAC secret for login tokens) |
+
+API endpoints: `POST /api/admin/login`, `GET/POST /api/blogs`,
+`PUT/DELETE /api/blogs/{slug}`, `GET/POST /api/blogs/{slug}/comments`, `GET /api/blogs/{slug}`.
 
 ## 🔐 Git / Credentials Warning
 

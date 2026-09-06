@@ -16,8 +16,10 @@ from tools import (
     text_analysis,
     spreadsheet,
 )
+from blogs import router as blogs_router
 
 app = FastAPI(title="I Love Tools backend")
+app.include_router(blogs_router)
 
 ALLOWED_ORIGINS = [
     "https://ilovetools.pro",
