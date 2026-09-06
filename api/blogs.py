@@ -647,6 +647,9 @@ def post_comment(slug: str, body: CommentBody):
         raise HTTPException(status_code=400, detail="Name is required")
     if not text:
         raise HTTPException(status_code=400, detail="Comment text is required")
+    exists = any(p.get("slug") == slug for p in read_index())
+    if not exists:
+        raise HTTPException(status_code=404, detail="Blog not found")
     file_path = "blogs/comments/%s.json" % slug
     existing = read_repo_file(file_path)
     try:
@@ -689,10 +692,10 @@ def delete_comment(
     comments = [c for c in comments if int(c.get("id", 0)) != int(cid)]
     if len(comments) == before:
         raise HTTPException(status_code=404, detail="Comment not found")
-    gh_commit(
-        [{"path": file_path, "content": json.dumps(comments, indent=2)}],
-        "Delete comment from " + slug,
-    )
+    payload = [{"path": file_path, "content": None}] if not comments else [
+        {"path": file_path, "content": json.dumps(comments, indent=2)}
+    ]
+    gh_commit(payload, "Delete comment from " + slug)
     return {"ok": True, "count": len(comments)}
 
 
