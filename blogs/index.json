@@ -1,7 +1,7 @@
 [
   {
     "slug": "rt-test-post",
-    "title": "Round Trip Test EDIT",
+    "title": "Round Trip Test",
     "excerpt": "Round trip test.",
     "category": "Testing",
     "tags": [
@@ -11,12 +11,12 @@
     "author": "Tester",
     "date": "2026-09-06",
     "updated": "2026-09-06",
-    "cover": null,
+    "cover": "/blogs/assets/rt-test-post/cover.png",
     "design": {
       "accent": "#00b4d8"
     },
     "assets": [
-      "blogs/assets/rt-test-post/img1.png"
+      "blogs/assets/rt-test-post/cover.png"
     ],
     "blocks": [
       {
@@ -30,7 +30,7 @@
       },
       {
         "type": "image",
-        "src": "/blogs/assets/rt-test-post/img1.png",
+        "src": "/blogs/assets/rt-test-post/cover.png",
         "alt": "img",
         "caption": "cap"
       },
