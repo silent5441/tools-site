@@ -115,7 +115,7 @@ var API="https://tools-site-backend.vercel.app",POSTS=[],CATS=[];
 function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function nice(d){if(!d)return "";try{var p=d.split("-");var m=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];return m[+p[1]-1]+" "+(+p[2])+", "+p[0]}catch(e){return d}}
 var GRADS=["linear-gradient(135deg,#6c5ce7,#e84393)","linear-gradient(135deg,#00b4d8,#00b894)","linear-gradient(135deg,#0984e3,#a29bfe)","linear-gradient(135deg,#e17055,#fdcb6e)","linear-gradient(135deg,#e84393,#6c5ce7)"];
-function cover(p){if(p.cover&&p.cover.indexOf("data:")!==0)return '<img class="pc-cover" loading="lazy" src="https://ilovetools.pro'+p.cover+'" alt="'+esc(p.title)+'">';return '<div class="pc-cover" style="background:'+GRADS[Math.abs((p.slug||"").split("").reduce(function(a,c){return a+c.charCodeAt(0)},0))%GRADS.length]+'"></div>'}
+function cover(p){if(p.cover&&p.cover.indexOf("data:")!==0){var u=(p.cover.indexOf("/")===0?"https://ilovetools.pro":"")+p.cover;return '<img class="pc-cover" loading="lazy" src="'+u+'" alt="'+esc(p.title)+'">';}return '<div class="pc-cover" style="background:'+GRADS[Math.abs((p.slug||"").split("").reduce(function(a,c){return a+c.charCodeAt(0)},0))%GRADS.length]+'"></div>'}
 function activeCat(){var c=document.querySelector("#chips .active");return c?c.dataset.cat:""}
 function render(){
   var q=(document.getElementById("q").value||"").trim().toLowerCase();

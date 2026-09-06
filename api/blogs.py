@@ -107,10 +107,14 @@ def _gh_commit_once(api, files, message):
     for f in files:
         if f.get("content") is None:
             continue
+        if f.get("is_b64"):
+            body = {"content": f["content"], "encoding": "base64"}
+        else:
+            body = {"content": base64.b64encode(f["content"].encode()).decode(), "encoding": "base64"}
         blob, err = gh(
             "POST",
             "%s/git/blobs" % api,
-            {"content": base64.b64encode(f["content"].encode()).decode(), "encoding": "base64"},
+            body,
         )
         if err:
             raise HTTPException(status_code=500, detail="GitHub blob error: %s" % err)
@@ -251,7 +255,7 @@ def gather_assets(slug, cover, blocks):
         name = ("cover" if kind == "cover" else "img%d" % counter) + "." + ext
         path = "blogs/assets/%s/%s" % (slug, name)
         map_src[src] = "/%s" % path
-        files.append({"path": path, "content": raw_escaped(raw)})
+        files.append({"path": path, "content": b64, "is_b64": True})
     new_cover = map_src.get(cover, cover) if cover else None
     new_blocks = []
     for b in blocks:
@@ -269,10 +273,6 @@ def gather_assets(slug, cover, blocks):
         new_blocks.append(b)
     asset_paths = [f["path"] for f in files]
     return new_cover, new_blocks, asset_paths, files
-
-
-def raw_escaped(raw):
-    return raw.decode("latin-1")
 
 
 def render_post(meta, blocks, cover_url):
