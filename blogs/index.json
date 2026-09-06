@@ -1,57 +1,5 @@
 [
   {
-    "slug": "rt-test-post",
-    "title": "Round Trip Test",
-    "excerpt": "Round trip test.",
-    "category": "Testing",
-    "tags": [
-      "a",
-      "b"
-    ],
-    "author": "Tester",
-    "date": "2026-09-06",
-    "updated": "2026-09-06",
-    "cover": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
-    "design": {
-      "accent": "#00b4d8"
-    },
-    "assets": [
-      "blogs/assets/rt-test-post/cover.png",
-      "blogs/assets/rt-test-post/img2.png"
-    ],
-    "blocks": [
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "Hello"
-      },
-      {
-        "type": "text",
-        "text": "Some **bold** text with `code`"
-      },
-      {
-        "type": "image",
-        "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
-        "alt": "img",
-        "caption": "cap"
-      },
-      {
-        "type": "code",
-        "lang": "bash",
-        "code": "echo hi"
-      },
-      {
-        "type": "list",
-        "items": [
-          "x",
-          "y"
-        ],
-        "ordered": true
-      }
-    ],
-    "draft": false
-  },
-  {
     "slug": "test-post-ai-phone",
     "title": "Test Post - AI Coding on Phone",
     "excerpt": "A test post to verify the blog pipeline.",
