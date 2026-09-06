@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CI Test - I❤Tools Blog</title>
+<meta name="description" content="CI Test - I Love Tools">
+<link rel="canonical" href="https://ilovetools.pro/blogs/ct-test-1788667853179.html">
+<meta property="og:title" content="CI Test">
+<meta property="og:description" content="CI Test - I Love Tools">
+<meta property="og:url" content="https://ilovetools.pro/blogs/ct-test-1788667853179.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="I❤Tools.pro">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f8f9fc;--card:#ffffff;--border:#e2e5ec;--text:#1a1d2e;--muted:#6b7085;--accent:#6c5ce7;--accent2:#9484ff;--gradient:linear-gradient(135deg,#6c5ce7,#9484ff);--radius:16px;--shadow:0 8px 32px rgba(0,0,0,.08)}
+[data-theme=dark]{--bg:#0f1117;--card:#1a1d2e;--border:#2a2d3e;--text:#e8eaf0;--muted:#8b8fa3;--shadow:0 8px 32px rgba(0,0,0,.3)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:#6c5ce7;text-decoration:none}
+img{max-width:100%}
+.nav{position:sticky;top:0;z-index:100;background:rgba(248,249,252,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+[data-theme=dark] .nav{background:rgba(15,17,23,.85)}
+.nav-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 20px}
+.logo{font-weight:800;font-size:1.15rem;color:var(--text);display:flex;align-items:center;gap:8px}
+.logo .lg{width:32px;height:32px;border-radius:9px;background:var(--gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{font-size:.85rem;font-weight:600;padding:7px 14px;border-radius:8px;color:var(--muted)}
+.nav-links a:hover{color:var(--text);background:rgba(108,92,231,.08)}
+.theme-toggle{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;margin-left:6px}
+.thumb{max-width:1000px;margin:0 auto;padding:36px 20px 80px}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted);margin-bottom:22px;font-weight:600}
+.back:hover{color:var(--accent)}
+.cat-pill{display:inline-block;background:var(--gradient);color:#fff;font-size:.75rem;font-weight:700;padding:5px 14px;border-radius:50px;letter-spacing:.4px}
+h1.title{font-size:clamp(1.7rem,4.5vw,2.6rem);line-height:1.25;font-weight:800;margin:16px 0 12px}
+.meta{color:var(--muted);font-size:.86rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 20px}
+.tag{font-size:.72rem;font-weight:600;background:var(--card);border:1px solid var(--border);color:var(--muted);padding:4px 11px;border-radius:50px}
+.cover{width:100%;border-radius:var(--radius);box-shadow:var(--shadow);margin:18px 0 26px;display:block;object-fit:cover;max-height:520px}
+.blog-body{font-size:1.06rem}
+.blog-body .blog-h1,.blog-h2,.blog-h3,.blog-h4{font-weight:800;line-height:1.3;margin:28px 0 12px}
+.blog-body ::selection{background:rgba(108,92,231,.2)}
+.blog-p{margin:14px 0;color:var(--text)}
+.blog-inline-code,.blog-body code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--border);padding:2px 7px;border-radius:6px;opacity:.92}
+.blog-fig{margin:22px 0;text-align:center}
+.blog-fig img{border-radius:var(--radius);box-shadow:var(--shadow);max-height:520px;object-fit:contain}
+.blog-fig figcaption{font-size:.82rem;color:var(--muted);margin-top:8px}
+.blog-code{background:#0f1117;border-radius:14px;margin:20px 0;overflow:hidden;border:1px solid #1f2333}
+[data-theme=light] .blog-code{background:#1a1d2e}
+.code-head{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:rgba(255,255,255,.04);font-family:'JetBrains Mono',monospace;font-size:.78rem;color:#8b8fa3;border-bottom:1px solid rgba(255,255,255,.06)}
+.copy-btn{background:var(--gradient);border:none;color:#fff;font-size:.75rem;font-weight:700;padding:6px 14px;border-radius:50px;cursor:pointer}
+.blog-code pre{padding:16px;overflow-x:auto}
+.blog-code code{background:none;color:#d6e2ff;font-family:'JetBrains Mono',monospace;font-size:.86rem;line-height:1.65;white-space:pre}
+.video-box{position:relative;padding-bottom:56.25%;height:0;margin:24px 0;border-radius:14px;overflow:hidden;box-shadow:var(--shadow);background:#000}
+.video-box iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.blog-list{margin:14px 0 14px 24px}
+.blog-list li{margin:7px 0}
+.blog-quote{margin:22px 0;padding:18px 22px;border-left:4px solid #6c5ce7;background:var(--card);border-radius:0 12px 12px 0;font-style:italic;font-size:1.05rem;box-shadow:var(--shadow-sm,0 2px 8px rgba(0,0,0,.04))}
+.quote-cite{font-style:normal;font-size:.82rem;color:var(--muted);margin-top:8px}
+.blog-divider{border:none;border-top:1px dashed var(--border);margin:30px 0}
+.blog-link-line{margin:20px 0}
+.blog-btn{display:inline-block;font-weight:700;padding:12px 26px;border-radius:50px;font-size:.95rem}
+.blog-btn.primary{background:var(--gradient);color:#fff}
+.blog-btn.secondary{background:var(--card);color:var(--accent);border:1.5px solid var(--accent)}
+.blog-gallery{display:grid;gap:14px;margin:22px 0}
+.blog-gallery img{width:100%;height:220px;object-fit:cover;border-radius:12px;box-shadow:var(--shadow)}
+.raw-embed{margin:22px 0}
+.blog-callout{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:22px 0}
+.co-icon{font-size:1.5rem;display:inline-flex}
+.co-svg{width:26px;height:26px;color:var(--accent)}
+.blog-table-wrap{overflow-x:auto;margin:22px 0;border:1px solid var(--border);border-radius:12px}
+.blog-table{width:100%;border-collapse:collapse;font-size:.95rem;min-width:440px}
+.blog-table th,.blog-table td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+.blog-table th{background:var(--card);font-weight:700}
+.blog-table tr:last-child td{border-bottom:none}
+.blog-faqs{margin:20px 0}
+.blog-faq{border:1px solid var(--border);border-radius:12px;margin:12px 0;background:var(--card);overflow:hidden}
+.blog-faq summary{list-style:none;cursor:pointer;font-weight:700;padding:14px 16px;display:flex;align-items:center;gap:10px}
+.blog-faq summary::-webkit-details-marker{display:none}
+.blog-faq summary::before{content:'+';font-weight:700;color:var(--accent);font-size:1.1rem}
+.blog-faq[open] summary{border-bottom:1px solid var(--border);background:rgba(108,92,231,.05)}
+.blog-faq[open] summary::before{content:'-'}
+.blog-faq .faq-body{padding:4px 16px 16px;color:var(--muted);margin-top:10px}
+.blog-steps{list-style:none;counter-reset:step;margin:22px 0;padding:0}
+.blog-steps li{counter-increment:step;position:relative;padding:0 0 22px 52px}
+.blog-steps li:last-child{padding-bottom:4px}
+.blog-steps li::before{content:counter(step);position:absolute;left:0;top:-4px;width:34px;height:34px;border-radius:50%;background:var(--gradient);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.blog-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:22px 0}
+.blog-stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 12px;text-align:center}
+.blog-stat .st-ico{display:flex;justify-content:center;margin-bottom:8px}
+.blog-stat .sv{font-size:1.5rem;font-weight:800}
+.blog-stat .sl{font-size:.74rem;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+.blog-embed{position:relative;margin:22px 0;border-radius:14px;overflow:hidden;box-shadow:var(--shadow);height:0;padding-bottom:56.25%;background:#000}
+.blog-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.blog-toc{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin:22px 0}
+.blog-toc .toc-title{font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.blog-toc a{display:block;color:var(--muted);text-decoration:none;padding:5px 0;font-size:.92rem;border-bottom:1px dashed var(--border);transition:.15s}
+.blog-toc a:last-child{border-bottom:none}
+.blog-toc a:hover{color:var(--accent);padding-left:4px}
+.blog-toc .lvl1,.blog-toc .lvl2{font-weight:700;color:var(--text)}
+.blog-toc .lvl3{padding-left:18px}
+.blog-fig-natural img{height:auto}
+.blog-fig-natural img{width:auto;max-width:100%;max-height:440px;display:inline-block}
+.blog-fig-wide img{width:100%;object-fit:cover}
+.blog-fig-left img{float:left;margin:4px 18px 12px 0;max-width:55%}
+.blog-fig-right img{float:right;margin:4px 0 12px 18px;max-width:55%}
+.blog-body .blog-h2,.blog-body .blog-h3{scroll-margin-top:100px}
+@media(max-width:640px){.blog-fig-left img,.blog-fig-right img{float:none;max-width:100%;margin:0 0 12px}}
+.share{display:flex;gap:10px;align-items:center;margin:38px 0 8px;flex-wrap:wrap}
+.share .sh-label{font-size:.8rem;color:var(--muted);font-weight:700;margin-right:4px}
+.share-btn{width:42px;height:42px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff}
+.cmt-section{margin-top:46px;padding-top:26px;border-top:1px solid var(--border)}
+.cmt-head{font-size:1.2rem;font-weight:800;margin-bottom:16px}
+.cmt-grid{display:grid;grid-template-columns:1fr;gap:24px}
+.cmt-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px}
+.cmt-box input,.cmt-box textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-size:.92rem;color:var(--text);font-family:inherit;outline:none;margin-bottom:10px}
+.cmt-box input:focus,.cmt-box textarea:focus{border-color:var(--accent)}
+.cmt-btn{background:var(--gradient);color:#fff;border:none;font-weight:700;padding:11px 22px;border-radius:50px;cursor:pointer}
+.cmts-list{display:flex;flex-direction:column;gap:12px}
+.cmt-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px}
+.cmt-name{font-weight:700;font-size:.9rem;color:var(--accent)}
+.cmt-date{float:right;font-size:.72rem;color:var(--muted)}
+.cmt-text{font-size:.93rem;margin-top:4px;word-wrap:break-word}
+.cmt-empty{color:var(--muted);font-size:.9rem}
+.footer{border-top:1px solid var(--border);padding:26px 20px;text-align:center;font-size:.82rem;color:var(--muted)}
+@media(max-width:640px){.blog-gallery{grid-template-columns:1fr!important}}
+</style>
+</head>
+<body>
+<script>(function(){var s=localStorage.getItem('theme');if(s==='dark')document.documentElement.setAttribute('data-theme','dark')})()</script>
+<nav class="nav"><div class="nav-inner">
+  <a class="logo" href="/"><span class="lg">IT</span><span>I<span style="color:var(--accent)">&#10084;</span>Tools</span></a>
+  <div style="display:flex;align-items:center;gap:2px">
+    <div class="nav-links"><a href="/blogs.html">Blogs</a><a href="/#text">Tools</a></div>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Dark/Light" aria-label="Toggle theme"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></button>
+  </div>
+</div></nav>
+
+<article class="thumb">
+  <a class="back" href="/blogs.html">← Back to Blogs & News</a>
+  <div class="cat-pill">Test</div>
+  <h1 class="title">CI Test</h1>
+  <div class="meta"><span>Sep 6, 2026</span><span>•</span><span>I Love Tools</span></div>
+  
+  
+  <div class="blog-body"></div>
+
+  <div class="share">
+    <span class="sh-label">Share:</span>
+    <button class="share-btn" style="background:#25D366" onclick="shareUrl('wa')" title="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49 0 1.47 1.07 2.89 1.22 3.09.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.4 9.4 0 01-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36A9.43 9.43 0 0112.04 2.56a9.4 9.4 0 010 18.81z"/></svg></button>
+    <button class="share-btn" style="background:#1DA1F2" onclick="shareUrl('tw')" title="X / Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+    <button class="share-btn" style="background:#6c5ce7" onclick="shareUrl('link')" title="Copy link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></button>
+  </div>
+
+  <div class="cmt-section">
+    <div class="cmt-head">💬 Comments</div>
+    <div class="cmt-grid">
+      <div class="cmt-box">
+        <input id="cmtName" placeholder="Your name" maxlength="60">
+        <textarea id="cmtText" rows="3" placeholder="Write a comment..." maxlength="1000"></textarea>
+        <button class="cmt-btn" onclick="postCmt(this)">Post Comment</button>
+      </div>
+      <div class="cmts-list" id="cmts"></div>
+    </div>
+  </div>
+</article>
+
+<footer class="footer">© 2026 I❤Tools.pro · <a href="/blogs.html">Blogs & News</a> · <a href="/">Home</a></footer>
+
+<script>
+var POST_SLUG="ct-test-1788667853179";var API="https://tools-site-backend.vercel.app";
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function loadCmt(){fetch(API+"/api/blogs/"+POST_SLUG+"/comments").then(function(r){return r.json()}).then(function(c){var el=document.getElementById("cmts");if(!Array.isArray(c)||!c.length){el.innerHTML='<div class="cmt-empty">No comments yet. Be the first!</div>';return}el.innerHTML=c.map(function(x){return '<div class="cmt-card"><span class="cmt-name">'+esc(x.name)+'</span><span class="cmt-date">'+esc((x.date||"").slice(0,10))+'</span><div class="cmt-text">'+esc(x.text)+'</div></div>'}).join("")}).catch(function(){})}
+function postCmt(btn){var n=document.getElementById("cmtName").value.trim();var t=document.getElementById("cmtText").value.trim();if(!n||!t)return;btn.disabled=true;fetch(API+"/api/blogs/"+POST_SLUG+"/comments",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:n,text:t})}).then(function(r){return r.json()}).then(function(){document.getElementById("cmtText").value="";loadCmt();btn.disabled=false}).catch(function(){btn.disabled=false})}setTimeout(loadCmt,400);
+function shareUrl(k){var u=encodeURIComponent(location.href);var t=encodeURIComponent(document.title);var url = k==="wa"?"https://wa.me/?text="+t+" "+u:(k==="tw"?"https://twitter.com/intent/tweet?url="+u+"&text="+t:"")||"";if(k==="link"){navigator.clipboard&&navigator.clipboard.writeText(location.href);showToast("Link copied")}else{window.open(url,"_blank","width=600,height=500")}}
+function toggleTheme(){var d=document.documentElement.getAttribute("data-theme")==="dark";if(d){document.documentElement.removeAttribute("data-theme");localStorage.setItem("theme","light")}else{document.documentElement.setAttribute("data-theme","dark");localStorage.setItem("theme","dark")}}
+function copyCode(btn){var c=btn.parentElement.nextElementSibling.textContent;navigator.clipboard&&navigator.clipboard.writeText(c);var o=btn.textContent;btn.textContent="Copied ✓";setTimeout(function(){btn.textContent=o},1400)}
+var _t;function showToast(m){var t=document.createElement("div");t.style.cssText="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 20px;border-radius:50px;font-size:.85rem;font-weight:700;z-index:999;box-shadow:0 8px 24px rgba(0,0,0,.2)";t.textContent=m;document.body.appendChild(t);clearTimeout(_t);_t=setTimeout(function(){t.remove()},1800)}
+</script>
+</body>
+</html>

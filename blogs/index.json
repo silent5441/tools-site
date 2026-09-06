@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "slug": "ct-test-1788667853179",
+    "title": "CI Test",
+    "excerpt": "",
+    "category": "Test",
+    "tags": [],
+    "author": "I Love Tools",
+    "date": "2026-09-06",
+    "updated": "2026-09-06",
+    "cover": null,
+    "design": {},
+    "assets": [],
+    "blocks": [],
+    "draft": false
+  }
+]
