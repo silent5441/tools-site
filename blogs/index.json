@@ -23,5 +23,30 @@
       }
     ],
     "draft": false
+  },
+  {
+    "slug": "realpng-test",
+    "title": "Real PNG Test",
+    "excerpt": "serves real images",
+    "category": "Testing",
+    "tags": [],
+    "author": "Tester",
+    "date": "2026-09-06",
+    "updated": "2026-09-06",
+    "cover": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
+    "design": {},
+    "assets": [
+      "blogs/assets/realpng-test/cover.png",
+      "blogs/assets/realpng-test/img2.png"
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAG0lEQVR42mP8z8BQDzDIgDHq/xF+zP8fDgB8zQoCMr3hZQAAAABJRU5ErkJggg==",
+        "alt": "x",
+        "caption": ""
+      }
+    ],
+    "draft": false
   }
 ]
