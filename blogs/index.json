@@ -1,1 +1,132 @@
-[]
+[
+  {
+    "slug": "live-nb-1788669291669",
+    "title": "Live New Blocks",
+    "excerpt": "Live verification of new block renderers.",
+    "category": "Test",
+    "tags": [
+      "live",
+      "blocks"
+    ],
+    "author": "I Love Tools",
+    "date": "2026-09-06",
+    "updated": "2026-09-06",
+    "cover": null,
+    "design": {
+      "accent": "#111827",
+      "metaTitle": "Live Meta Title",
+      "metaDesc": "This live meta description is long enough for a valid SEO charset."
+    },
+    "assets": [],
+    "blocks": [
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Live Section",
+        "align": "left"
+      },
+      {
+        "type": "toc",
+        "title": "On this page"
+      },
+      {
+        "type": "callout",
+        "icon": "rocket",
+        "text": "Liftoff."
+      },
+      {
+        "type": "table",
+        "head": [
+          "Col",
+          "Val"
+        ],
+        "rows": [
+          [
+            "CPU",
+            "6"
+          ]
+        ]
+      },
+      {
+        "type": "faq",
+        "items": [
+          {
+            "q": "Q?",
+            "a": "A."
+          }
+        ]
+      },
+      {
+        "type": "steps",
+        "items": [
+          "One",
+          "Two"
+        ]
+      },
+      {
+        "type": "stats",
+        "items": [
+          {
+            "value": "10k",
+            "label": "Users",
+            "icon": "users"
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "items": [
+          "A",
+          "B"
+        ],
+        "ordered": true
+      },
+      {
+        "type": "quote",
+        "text": "Hi",
+        "cite": "Me"
+      },
+      {
+        "type": "link",
+        "text": "Go",
+        "url": "https://example.com",
+        "style": "secondary"
+      },
+      {
+        "type": "image",
+        "src": "https://example.com/a.png",
+        "alt": "pic",
+        "align": "right",
+        "width": "natural"
+      },
+      {
+        "type": "gallery",
+        "images": [
+          {
+            "src": "https://example.com/g1.png"
+          }
+        ],
+        "columns": 2
+      },
+      {
+        "type": "video",
+        "url": "https://www.youtube.com/watch?v=abcdefghijk"
+      },
+      {
+        "type": "embed",
+        "url": "https://example.com/widget"
+      },
+      {
+        "type": "code",
+        "lang": "bash",
+        "filename": "run.sh",
+        "code": "echo hi"
+      },
+      {
+        "type": "html",
+        "code": "<b>x</b>"
+      }
+    ],
+    "draft": false
+  }
+]
