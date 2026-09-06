@@ -1,1 +1,27 @@
-[]
+[
+  {
+    "slug": "realpng-test",
+    "title": "Real PNG Test",
+    "excerpt": "serves real images",
+    "category": "Testing",
+    "tags": [],
+    "author": "Tester",
+    "date": "2026-09-06",
+    "updated": "2026-09-06",
+    "cover": "/blogs/assets/realpng-test/cover.png",
+    "design": {},
+    "assets": [
+      "blogs/assets/realpng-test/cover.png",
+      "blogs/assets/realpng-test/img2.png"
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "src": "/blogs/assets/realpng-test/img2.png",
+        "alt": "x",
+        "caption": ""
+      }
+    ],
+    "draft": false
+  }
+]
