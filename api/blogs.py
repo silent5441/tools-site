@@ -305,9 +305,13 @@ def render_post(meta, blocks, cover_url):
         '<span class="tag">%s</span>' % html_escape(t) for t in meta.get("tags", [])
     )
 
+    design = meta.get("design", {}) or {}
+    seo_title = html_escape((design.get("metaTitle") or "").strip() or title)
+    seo_desc = html_escape((design.get("metaDesc") or "").strip() or excerpt or ("%s - I Love Tools" % title))
+
     return ARTICLE_TEMPLATE.format(
-        title=html_escape(title),
-        description=html_escape(excerpt or ("%s - I Love Tools" % title)),
+        title=seo_title,
+        description=seo_desc,
         url=url,
         site=site,
         accent=accent,
@@ -356,18 +360,108 @@ def inline_md(text):
     return text
 
 
+ICON_SVG = {
+    "info": '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>',
+    "tip": '<path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/>',
+    "success": '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/>',
+    "warning": '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+    "idea": '<path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/>',
+    "heart": '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>',
+    "star": '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+    "book": '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+    "lock": '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+    "rocket": '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>',
+    "code": '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
+    "cloud": '<path d="M17.5 19a4.5 4.5 0 1 0-2.4-8.3 6.5 6.5 0 1 0-12.05 4.4A4 4 0 0 0 6 19z"/>',
+    "zap": '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+    "download": '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',
+    "globe": '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+    "mail": '<rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/>',
+    "bell": '<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>',
+    "shield": '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+    "target": '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+    "chart": '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>',
+    "clock": '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+    "calendar": '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+    "user": '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+    "users": '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+    "eye": '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>',
+    "search": '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',
+    "message": '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+    "folder": '<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>',
+    "link": '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
+    "fire": '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3 1.072-2.143 2.5-4 2.492-6 .166 1.978 1.882 3.143 3 4.5 1.5 1.84 2.03 4.5 1.48 6.2a6.5 6.5 0 1 1-8.472.8z"/>',
+    "leaf": '<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>',
+    "palette": '<circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>',
+    "camera": '<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',
+    "mic": '<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>',
+    "gamepad": '<line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="2"/>',
+    "cart": '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>',
+    "music": '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
+    "flag": '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>',
+    "wrench": '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+    "puzzle": '<path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.61a2.404 2.404 0 0 1-1.705.707 2.402 2.402 0 0 1-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568A2.402 2.402 0 0 1 1.998 12c0-.617.236-1.234.706-1.704L4.23 8.77c.24-.24.581-.353.917-.303.515.077.877.528 1.073 1.01a2.5 2.5 0 1 0 3.259-3.259c-.482-.196-.933-.558-1.01-1.073-.05-.336.062-.676.303-.917l1.525-1.525A2.402 2.402 0 0 1 12 1.998c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.237 3.237c-.464.18-.894.527-.967 1.02z"/>',
+    "key": '<path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4"/>',
+    "settings": '<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>',
+    "snowflake": '<line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><path d="m4.93 4.93 14.14 14.14"/><path d="m19.07 4.93-14.14 14.14"/>',
+    "dollar": '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
+    "phone": '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>',
+    "gift": '<polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>',
+    "film": '<rect x="2" y="2" width="20" height="20" rx="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/>',
+    "wifi": '<path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>',
+    "cpu": '<rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>',
+    "check": '<polyline points="20 6 9 17 4 12"/>',
+    "copy": '<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
+    "x": '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
+    "external": '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>',
+}
+
+
+def collect_headings(blocks):
+    seen = {}
+    out = []
+    for b in blocks:
+        if b.get("type") != "heading":
+            out.append(None)
+            continue
+        plain = "-".join(re.findall(r"[a-z0-9]+", str(b.get("text", "")).lower()))
+        plain = (plain or "section")[:42].rstrip("-")
+        n = seen.get(plain, 0) + 1
+        seen[plain] = n
+        hid = "s-%s%s" % (plain, "" if n == 1 else "-%d" % n)
+        out.append({"id": hid, "level": min(6, max(1, int(b.get("level", 2)))), "text": b.get("text", "")})
+    return out
+
+
+def render_callout_icon(icon):
+    if not icon:
+        return ""
+    inner = ICON_SVG.get(icon)
+    if inner:
+        return (
+            '<svg class="co-svg" width="26" height="26" viewBox="0 0 24 24" fill="none" '
+            'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">%s</svg>' % inner
+        )
+    return html_escape(icon)
+
+
 def render_blocks(blocks, accent):
     html = []
+    headings = collect_headings(blocks)
+    hi = 0
     for b in blocks:
         t = b.get("type")
         try:
             if t == "heading":
                 lvl = min(6, max(1, int(b.get("level", 2))))
                 align = b.get("align", "left")
+                hinfo = headings[hi]
+                hid = ' id="%s"' % hinfo["id"] if hinfo else ""
                 txt = inline_md(b.get("text", ""))
                 html.append(
-                    '<h%d class="blog-h%d" style="text-align:%s">%s</h%d>' % (lvl, lvl, align, txt, lvl)
+                    '<h%d class="blog-h%d"%s style="text-align:%s">%s</h%d>' % (lvl, lvl, hid, align, txt, lvl)
                 )
+                hi += 1
             elif t == "text":
                 p = inline_md(b.get("text", ""))
                 if p:
@@ -376,22 +470,27 @@ def render_blocks(blocks, accent):
                 src = b.get("src", "")
                 cap = html_escape(b.get("caption", "") or "")
                 cap_html = "<figcaption>%s</figcaption>" % cap if cap else ""
+                align = b.get("align", "center")
+                width = b.get("width", "full")
+                figs = ["blog-fig"]
+                if width in ("natural", "wide"):
+                    figs.append("blog-fig-" + width)
+                if align in ("left", "right"):
+                    figs.append("blog-fig-" + align)
                 html.append(
-                    '<figure class="blog-fig"><img loading="lazy" src="%s" alt="%s">%s</figure>'
-                    % (html_escape(src), html_escape(b.get("alt", "") or ""), cap_html)
+                    '<figure class="%s" style="text-align:%s"><img loading="lazy" src="%s" alt="%s">%s</figure>'
+                    % (" ".join(figs), align, html_escape(src), html_escape(b.get("alt", "") or ""), cap_html)
                 )
             elif t == "code":
-                code = b.get("code", "")
                 lang = html_escape(b.get("lang", "")) or "code"
                 fname = html_escape(b.get("filename", "") or "")
-                fh = '<div class="code-head"><span>%s</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>' % fname
+                fh = '<span>%s</span>' % fname if fname else '<span>%s</span>' % lang
                 html.append(
-                    '<div class="blog-code"><div class="code-head"><span>%s</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div><pre><code>%s</code></pre></div>'
-                    % (lang, html_escape(code))
+                    '<div class="blog-code"><div class="code-head">%s<button class="copy-btn" onclick="copyCode(this)">Copy</button></div><pre><code>%s</code></pre></div>'
+                    % (fh, html_escape(b.get("code", "")))
                 )
             elif t == "video":
-                src = b.get("url", "")
-                vid = youtube_embed(src)
+                vid = youtube_embed(b.get("url", ""))
                 if vid:
                     html.append('<div class="video-box"><iframe src="%s" loading="lazy" allowfullscreen></iframe></div>' % vid)
             elif t == "list":
@@ -423,9 +522,65 @@ def render_blocks(blocks, accent):
             elif t == "html":
                 html.append('<div class="raw-embed">%s</div>' % b.get("code", ""))
             elif t == "callout":
-                icon = html_escape(b.get("icon", "")) or "💡"
                 txt = inline_md(b.get("text", ""))
+                icon = render_callout_icon(b.get("icon", ""))
                 html.append('<div class="blog-callout"><span class="co-icon">%s</span><div>%s</div></div>' % (icon, txt))
+            elif t == "table":
+                head = b.get("head", []) or []
+                rows = b.get("rows", []) or []
+                th = "".join("<th>%s</th>" % html_escape(str(c)) for c in head)
+                trs = "".join(
+                    "<tr>%s</tr>" % "".join("<td>%s</td>" % inline_md(str(c)) for c in r)
+                    for r in rows
+                )
+                html.append(
+                    '<div class="blog-table-wrap"><table class="blog-table"><thead><tr>%s</tr></thead>'
+                    "%s</table></div>" % (th, "<tbody>%s</tbody>" % trs if trs else "")
+                )
+            elif t == "faq":
+                items = b.get("items", []) or []
+                faqs = "".join(
+                    '<details class="blog-faq"><summary>%s</summary><div class="faq-body">%s</div></details>'
+                    % (inline_md(o.get("q", "") or "Question"), inline_md(o.get("a", "") or ""))
+                    for o in items
+                )
+                html.append('<div class="blog-faqs">%s</div>' % faqs)
+            elif t == "steps":
+                items = [str(i) for i in (b.get("items", []) or [])]
+                lis = "".join("<li>%s</li>" % inline_md(i) for i in items if i.strip())
+                html.append('<ol class="blog-steps">%s</ol>' % lis)
+            elif t == "stats":
+                items = b.get("items", []) or []
+                cards = ""
+                for it in items:
+                    icon = render_callout_icon(it.get("icon", ""))
+                    ico = '<div class="st-ico">%s</div>' % icon if icon else ""
+                    cards += '<div class="blog-stat">%s<div class="sv">%s</div><div class="sl">%s</div></div>' % (
+                        ico,
+                        inline_md(str(it.get("value", "")) or "—"),
+                        html_escape(str(it.get("label", "")) or ""),
+                    )
+                html.append('<div class="blog-stats">%s</div>' % cards)
+            elif t == "embed":
+                url = html_escape(b.get("url", "") or "")
+                if url.startswith("http"):
+                    html.append(
+                        '<div class="blog-embed"><iframe src="%s" loading="lazy" allowfullscreen referrerpolicy="no-referrer"></iframe></div>' % url
+                    )
+            elif t == "toc":
+                links = []
+                for h in headings:
+                    if not h:
+                        continue
+                    lvl = h["level"]
+                    links.append(
+                        '<a class="lvl%d" href="#%s">%s</a>' % (min(3, lvl), h["id"], inline_md(h["text"]))
+                    )
+                if links:
+                    title = html_escape(b.get("title", "") or "On this page")
+                    html.append(
+                        '<div class="blog-toc"><div class="toc-title">%s</div>%s</div>' % (title, "".join(links))
+                    )
         except Exception:
             pass
     return "".join(html), None
@@ -511,6 +666,32 @@ def post_comment(slug: str, body: CommentBody):
     gh_commit(
         [{"path": file_path, "content": json.dumps(comments, indent=2)}],
         "Add comment to " + slug,
+    )
+    return {"ok": True, "count": len(comments)}
+
+
+@router.delete("/api/blogs/{slug}/comments/{cid}")
+def delete_comment(
+    slug: str, cid: int, authorization: Optional[str] = Header(None)
+):
+    require_admin(authorization)
+    if not SLUG_RE.match(slug):
+        raise HTTPException(status_code=400, detail="Invalid slug")
+    file_path = "blogs/comments/%s.json" % slug
+    existing = read_repo_file(file_path)
+    try:
+        comments = json.loads(existing) if existing else []
+        if not isinstance(comments, list):
+            comments = []
+    except Exception:
+        comments = []
+    before = len(comments)
+    comments = [c for c in comments if int(c.get("id", 0)) != int(cid)]
+    if len(comments) == before:
+        raise HTTPException(status_code=404, detail="Comment not found")
+    gh_commit(
+        [{"path": file_path, "content": json.dumps(comments, indent=2)}],
+        "Delete comment from " + slug,
     )
     return {"ok": True, "count": len(comments)}
 
@@ -722,7 +903,46 @@ h1.title{{font-size:clamp(1.7rem,4.5vw,2.6rem);line-height:1.25;font-weight:800;
 .blog-gallery img{{width:100%;height:220px;object-fit:cover;border-radius:12px;box-shadow:var(--shadow)}}
 .raw-embed{{margin:22px 0}}
 .blog-callout{{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:22px 0}}
-.co-icon{{font-size:1.5rem}}
+.co-icon{{font-size:1.5rem;display:inline-flex}}
+.co-svg{{width:26px;height:26px;color:var(--accent)}}
+.blog-table-wrap{{overflow-x:auto;margin:22px 0;border:1px solid var(--border);border-radius:12px}}
+.blog-table{{width:100%;border-collapse:collapse;font-size:.95rem;min-width:440px}}
+.blog-table th,.blog-table td{{padding:11px 14px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}}
+.blog-table th{{background:var(--card);font-weight:700}}
+.blog-table tr:last-child td{{border-bottom:none}}
+.blog-faqs{{margin:20px 0}}
+.blog-faq{{border:1px solid var(--border);border-radius:12px;margin:12px 0;background:var(--card);overflow:hidden}}
+.blog-faq summary{{list-style:none;cursor:pointer;font-weight:700;padding:14px 16px;display:flex;align-items:center;gap:10px}}
+.blog-faq summary::-webkit-details-marker{{display:none}}
+.blog-faq summary::before{{content:'+';font-weight:700;color:var(--accent);font-size:1.1rem}}
+.blog-faq[open] summary{{border-bottom:1px solid var(--border);background:rgba(108,92,231,.05)}}
+.blog-faq[open] summary::before{{content:'-'}}
+.blog-faq .faq-body{{padding:4px 16px 16px;color:var(--muted);margin-top:10px}}
+.blog-steps{{list-style:none;counter-reset:step;margin:22px 0;padding:0}}
+.blog-steps li{{counter-increment:step;position:relative;padding:0 0 22px 52px}}
+.blog-steps li:last-child{{padding-bottom:4px}}
+.blog-steps li::before{{content:counter(step);position:absolute;left:0;top:-4px;width:34px;height:34px;border-radius:50%;background:var(--gradient);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.9rem}}
+.blog-stats{{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:22px 0}}
+.blog-stat{{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 12px;text-align:center}}
+.blog-stat .st-ico{{display:flex;justify-content:center;margin-bottom:8px}}
+.blog-stat .sv{{font-size:1.5rem;font-weight:800}}
+.blog-stat .sl{{font-size:.74rem;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}}
+.blog-embed{{position:relative;margin:22px 0;border-radius:14px;overflow:hidden;box-shadow:var(--shadow);height:0;padding-bottom:56.25%;background:#000}}
+.blog-embed iframe{{position:absolute;inset:0;width:100%;height:100%;border:0}}
+.blog-toc{{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin:22px 0}}
+.blog-toc .toc-title{{font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}}
+.blog-toc a{{display:block;color:var(--muted);text-decoration:none;padding:5px 0;font-size:.92rem;border-bottom:1px dashed var(--border);transition:.15s}}
+.blog-toc a:last-child{{border-bottom:none}}
+.blog-toc a:hover{{color:var(--accent);padding-left:4px}}
+.blog-toc .lvl1,.blog-toc .lvl2{{font-weight:700;color:var(--text)}}
+.blog-toc .lvl3{{padding-left:18px}}
+.blog-fig-natural img{{height:auto}}
+.blog-fig-natural img{{width:auto;max-width:100%;max-height:440px;display:inline-block}}
+.blog-fig-wide img{{width:100%;object-fit:cover}}
+.blog-fig-left img{{float:left;margin:4px 18px 12px 0;max-width:55%}}
+.blog-fig-right img{{float:right;margin:4px 0 12px 18px;max-width:55%}}
+.blog-body .blog-h2,.blog-body .blog-h3{{scroll-margin-top:100px}}
+@media(max-width:640px){{.blog-fig-left img,.blog-fig-right img{{float:none;max-width:100%;margin:0 0 12px}}}}
 .share{{display:flex;gap:10px;align-items:center;margin:38px 0 8px;flex-wrap:wrap}}
 .share .sh-label{{font-size:.8rem;color:var(--muted);font-weight:700;margin-right:4px}}
 .share-btn{{width:42px;height:42px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff}}
