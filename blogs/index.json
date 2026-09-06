@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "slug": "byte-integrity-test2",
+    "title": "Byte Integrity Test 2",
+    "excerpt": "checks image round-trip",
+    "category": "Testing",
+    "tags": [],
+    "author": "Tester",
+    "date": "2026-09-06",
+    "updated": "2026-09-06",
+    "cover": "/blogs/assets/byte-integrity-test2/cover.png",
+    "design": {},
+    "assets": [
+      "blogs/assets/byte-integrity-test2/cover.png"
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "src": "/blogs/assets/byte-integrity-test2/cover.png",
+        "alt": "x",
+        "caption": ""
+      }
+    ],
+    "draft": false
+  }
+]
