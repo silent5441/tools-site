@@ -1,1 +1,35 @@
-[]
+[
+  {
+    "slug": "test-blog",
+    "title": "Test Blog",
+    "excerpt": "This is Test Blog testing.",
+    "category": "Test",
+    "tags": [
+      "Test"
+    ],
+    "author": "I Love Tools",
+    "date": "2026-09-06",
+    "updated": "2026-09-06",
+    "cover": "/blogs/assets/test-blog/cover.jpg",
+    "design": {
+      "accent": "#6c5ce7",
+      "metaTitle": "Test blog",
+      "metaDesc": "Test blog"
+    },
+    "assets": [
+      "blogs/assets/test-blog/cover.jpg"
+    ],
+    "blocks": [
+      {
+        "id": "b2",
+        "type": "table",
+        "head": [
+          "helo",
+          "testing"
+        ],
+        "rows": []
+      }
+    ],
+    "draft": false
+  }
+]
