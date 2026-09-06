@@ -1,0 +1,24 @@
+[
+  {
+    "slug": "test-post-ai-phone",
+    "title": "Test Post - AI Coding on Phone",
+    "excerpt": "A test post to verify the blog pipeline.",
+    "category": "AI & Coding",
+    "tags": [
+      "opencode",
+      "termux",
+      "android"
+    ],
+    "author": "Test",
+    "date": "2026-09-06",
+    "updated": "2026-09-06",
+    "cover": "/blogs/assets/test-post-ai-phone/cover.png",
+    "design": {
+      "accent": "#e84393"
+    },
+    "assets": [
+      "blogs/assets/test-post-ai-phone/cover.png"
+    ],
+    "draft": false
+  }
+]
