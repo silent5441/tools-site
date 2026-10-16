@@ -49,6 +49,24 @@
     setTimeout(()=>t.classList.remove('show'),2000);
   }
   (function(){var s=localStorage.getItem("theme");if(s==="dark")document.documentElement.setAttribute("data-theme","dark")})();function toggleTheme(){var d=document.documentElement.getAttribute("data-theme")==="dark";if(d){document.documentElement.removeAttribute("data-theme");localStorage.setItem("theme","light")}else{document.documentElement.setAttribute("data-theme","dark");localStorage.setItem("theme","dark")}}var deferredPrompt=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredPrompt=e;var b=document.getElementById("installBtn");if(b)b.style.display="flex"});window.addEventListener("appinstalled",function(){deferredPrompt=null;var b=document.getElementById("installBtn");if(b)b.style.display="none"});function installApp(){if(!deferredPrompt)return;deferredPrompt.prompt();deferredPrompt.userChoice.then(function(r){if(r.outcome==="accepted")showToast("App installed!");deferredPrompt=null;var b=document.getElementById("installBtn");if(b)b.style.display="none"})}if("serviceWorker" in navigator){navigator.serviceWorker.register("../sw.js").catch(function(){})}
+const LOREM_WORDS="lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo consequat duis aute irure in reprehenderit voluptate velit esse cillum eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt culpa qui officia deserunt mollit anim id est laborum".split(' ');
+  function generate(){
+    const out=document.getElementById('result');
+    let n=parseInt(document.getElementById('count').value,10);
+    if(!n||n<1)n=1;
+    if(n>50)n=50;
+    document.getElementById('count').value=n;
+    const paras=[];
+    for(let p=0;p<n;p++){
+      const len=45+Math.floor(Math.random()*45);
+      const words=[];
+      for(let w=0;w<len;w++)words.push(LOREM_WORDS[Math.floor(Math.random()*LOREM_WORDS.length)]);
+      let s=words.join(' ');
+      s=s.charAt(0).toUpperCase()+s.slice(1);
+      paras.push(s+'.');
+    }
+    out.textContent=paras.join('\n\n');
+  }
 ;function showToast(msg){document.getElementById('toastMsg').textContent=msg||'Done!';var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2500)}</script>
 </body>
 </html>

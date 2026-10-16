@@ -46,7 +46,7 @@
     const kw=doc.querySelector('meta[name="keywords"]')?.getAttribute('content')||'';
     const canonical=doc.querySelector('link[rel="canonical"]')?.getAttribute('href')||'';
     let html2='';
-    const check=(label,value,recommended,actual)=>{
+    const check=(label,recommended,actual)=>{
       const len=actual.length;const ok=len>=recommended[0]&&len<=recommended[1];
       html2+=`<div class="stat-box" style="text-align:left;padding:16px;margin:8px 0"><div style="display:flex;justify-content:space-between"><strong>${label}</strong><span style="color:${ok?'var(--green)':'var(--red)'}">${ok?'&#10003;':'&#9888;'} ${len} chars</span></div><div style="color:var(--muted);font-size:.85rem;margin-top:4px">Recommended: ${recommended[0]}-${recommended[1]} chars</div><div style="margin-top:6px;font-size:.9rem">${actual||'<em style="color:var(--red)">Missing!</em>'}</div></div>`;
     };

@@ -57,6 +57,30 @@
     setTimeout(()=>t.classList.remove('show'),2000);
   }
   (function(){var s=localStorage.getItem("theme");if(s==="dark")document.documentElement.setAttribute("data-theme","dark")})();function toggleTheme(){var d=document.documentElement.getAttribute("data-theme")==="dark";if(d){document.documentElement.removeAttribute("data-theme");localStorage.setItem("theme","light")}else{document.documentElement.setAttribute("data-theme","dark");localStorage.setItem("theme","dark")}}var deferredPrompt=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredPrompt=e;var b=document.getElementById("installBtn");if(b)b.style.display="flex"});window.addEventListener("appinstalled",function(){deferredPrompt=null;var b=document.getElementById("installBtn");if(b)b.style.display="none"});function installApp(){if(!deferredPrompt)return;deferredPrompt.prompt();deferredPrompt.userChoice.then(function(r){if(r.outcome==="accepted")showToast("App installed!");deferredPrompt=null;var b=document.getElementById("installBtn");if(b)b.style.display="none"})}if("serviceWorker" in navigator){navigator.serviceWorker.register("../sw.js").catch(function(){})}
+function removeDupes(sort){
+    const input=document.getElementById('input');
+    const out=document.getElementById('result');
+    const v=input.value;
+    if(!v.trim()){out.textContent='';setCounts(0,0,0);showToast('Please enter some text first');return;}
+    const lines=v.split(/\r?\n/);
+    const seen=new Set();
+    const kept=[];
+    lines.forEach(l=>{
+      const key=l.trim();
+      if(!key&&!l.length)return;
+      if(seen.has(key))return;
+      seen.add(key);
+      kept.push(l);
+    });
+    if(sort)kept.sort((a,b)=>a.localeCompare(b,undefined,{numeric:true,sensitivity:'base'}));
+    out.textContent=kept.join('\n');
+    setCounts(lines.length,kept.length,lines.length-kept.length);
+  }
+  function setCounts(orig,after,removed){
+    const o=document.getElementById('original');if(o)o.textContent=orig;
+    const a=document.getElementById('after');if(a)a.textContent=after;
+    const r=document.getElementById('removed');if(r)r.textContent=removed;
+  }
 ;function showToast(msg){document.getElementById('toastMsg').textContent=msg||'Done!';var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2500)}</script>
 </body>
 </html>

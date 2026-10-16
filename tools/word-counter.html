@@ -50,6 +50,22 @@
     setTimeout(()=>t.classList.remove('show'),2000);
   }
   (function(){var s=localStorage.getItem("theme");if(s==="dark")document.documentElement.setAttribute("data-theme","dark")})();function toggleTheme(){var d=document.documentElement.getAttribute("data-theme")==="dark";if(d){document.documentElement.removeAttribute("data-theme");localStorage.setItem("theme","light")}else{document.documentElement.setAttribute("data-theme","dark");localStorage.setItem("theme","dark")}}var deferredPrompt=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredPrompt=e;var b=document.getElementById("installBtn");if(b)b.style.display="flex"});window.addEventListener("appinstalled",function(){deferredPrompt=null;var b=document.getElementById("installBtn");if(b)b.style.display="none"});function installApp(){if(!deferredPrompt)return;deferredPrompt.prompt();deferredPrompt.userChoice.then(function(r){if(r.outcome==="accepted")showToast("App installed!");deferredPrompt=null;var b=document.getElementById("installBtn");if(b)b.style.display="none"})}if("serviceWorker" in navigator){navigator.serviceWorker.register("../sw.js").catch(function(){})}
+function countWords(){
+    const v=document.getElementById('input').value;
+    const trimmed=v.trim();
+    const words=trimmed?(trimmed.match(/\S+/g)||[]).length:0;
+    const chars=v.length;
+    const charsNoSpace=v.replace(/\s/g,'').length;
+    const sentences=trimmed?(trimmed.match(/[^.!?…]+[.!?…]+|\S[^.!?…]*$/g)||[]).filter(s=>s.trim()).length:0;
+    const paragraphs=trimmed?trimmed.split(/\n\s*\n+/).filter(p=>p.trim()).length:0;
+    const reading=words?Math.max(1,Math.round(words/200)):0;
+    document.getElementById('words').textContent=words;
+    document.getElementById('chars').textContent=chars;
+    document.getElementById('charsNoSpace').textContent=charsNoSpace;
+    document.getElementById('sentences').textContent=sentences;
+    document.getElementById('paragraphs').textContent=paragraphs;
+    document.getElementById('reading').textContent=reading+' min';
+  }
 ;function showToast(msg){document.getElementById('toastMsg').textContent=msg||'Done!';var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2500)}</script>
 </body>
 </html>

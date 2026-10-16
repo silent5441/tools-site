@@ -55,6 +55,38 @@
     setTimeout(()=>t.classList.remove('show'),2000);
   }
   (function(){var s=localStorage.getItem("theme");if(s==="dark")document.documentElement.setAttribute("data-theme","dark")})();function toggleTheme(){var d=document.documentElement.getAttribute("data-theme")==="dark";if(d){document.documentElement.removeAttribute("data-theme");localStorage.setItem("theme","light")}else{document.documentElement.setAttribute("data-theme","dark");localStorage.setItem("theme","dark")}}var deferredPrompt=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredPrompt=e;var b=document.getElementById("installBtn");if(b)b.style.display="flex"});window.addEventListener("appinstalled",function(){deferredPrompt=null;var b=document.getElementById("installBtn");if(b)b.style.display="none"});function installApp(){if(!deferredPrompt)return;deferredPrompt.prompt();deferredPrompt.userChoice.then(function(r){if(r.outcome==="accepted")showToast("App installed!");deferredPrompt=null;var b=document.getElementById("installBtn");if(b)b.style.display="none"})}if("serviceWorker" in navigator){navigator.serviceWorker.register("../sw.js").catch(function(){})}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function compareTexts(){
+    const out=document.getElementById('result');
+    const a=document.getElementById('text1').value;
+    const b=document.getElementById('text2').value;
+    if(!a.trim()&&!b.trim()){out.textContent='';showToast('Enter text in at least one box');return;}
+    const A=a.split(/(\s+)/), B=b.split(/(\s+)/);
+    if(A.length>4000||B.length>4000){
+      const na=a.trim()?a.trim().split(/\s+/).length:0;
+      const nb=b.trim()?b.trim().split(/\s+/).length:0;
+      out.innerHTML='<strong>Too large for a detailed diff.</strong><br>Original: '+na+' words<br>Modified: '+nb+' words<br>Difference: '+(nb-na>=0?'+':'')+(nb-na)+' words';
+      return;
+    }
+    const n=A.length,m=B.length;
+    const dp=new Uint32Array((n+1)*(m+1));
+    for(let i=n-1;i>=0;i--){
+      for(let j=m-1;j>=0;j--){
+        dp[i*(m+1)+j]=A[i]===B[j]?dp[(i+1)*(m+1)+j+1]+1:Math.max(dp[(i+1)*(m+1)+j],dp[i*(m+1)+j+1]);
+      }
+    }
+    let out2='',i=0,j=0,added=0,removed=0;
+    const W=(t,s)=>'<span style="background:'+(s==='a'?'rgba(255,99,71,.28)':'rgba(46,204,113,.28)')+';border-radius:3px;padding:0 2px">'+t+'</span>';
+    while(i<n&&j<m){
+      if(A[i]===B[j]){out2+=esc(A[i]);i++;j++;}
+      else if(dp[(i+1)*(m+1)+j]>=dp[i*(m+1)+j+1]){out2+=W(esc(A[i]),'a');removed++;i++;}
+      else{out2+=W(esc(B[j]),'b');added++;j++;}
+    }
+    while(i<n){out2+=W(esc(A[i]),'a');removed++;i++;}
+    while(j<m){out2+=W(esc(B[j]),'b');added++;j++;}
+    const pct=added+removed?Math.round((Math.max(added,removed)/((a.trim()?a.trim().split(/\s+/).length:0)+(b.trim()?b.trim().split(/\s+/).length:0)||1))*100):0;
+    out.innerHTML='<div style="margin-bottom:10px;font-family:inherit"><span style="color:var(--green)">+'+added+' added</span> &nbsp; <span style="color:var(--red)">-'+removed+' removed</span> &nbsp; <span style="color:var(--muted)">('+pct+'% changed)</span></div><span>'+out2+'</span>';
+  }
 ;function showToast(msg){document.getElementById('toastMsg').textContent=msg||'Done!';var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2500)}</script>
 </body>
 </html>

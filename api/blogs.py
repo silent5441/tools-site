@@ -49,9 +49,10 @@ MIME_EXT = {
 
 
 # ---------------------------------------------------------------- github api
-def gh(method, url, data=None):
+def gh(method, url, data=None, _allow_unauth=True):
     req = urllib.request.Request(url, method=method)
-    req.add_header("Authorization", "Bearer %s" % GH_TOKEN)
+    if GH_TOKEN:
+        req.add_header("Authorization", "Bearer %s" % GH_TOKEN)
     req.add_header("Accept", "application/vnd.github+json")
     req.add_header("X-GitHub-Api-Version", "2022-11-28")
     body = None
@@ -70,6 +71,10 @@ def gh(method, url, data=None):
             detail = e.read().decode()[:400]
         except Exception:
             detail = ""
+        # The repo is public, so GET still works without credentials. This keeps
+        # read endpoints alive if GH_TOKEN is missing, expired or revoked.
+        if e.code in (401, 403) and GH_TOKEN and _allow_unauth and method == "GET":
+            return gh(method, url, data=None, _allow_unauth=False)
         return None, "HTTP %s: %s" % (e.code, detail)
 
 

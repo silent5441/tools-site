@@ -60,6 +60,25 @@
     setTimeout(()=>t.classList.remove('show'),2000);
   }
   (function(){var s=localStorage.getItem("theme");if(s==="dark")document.documentElement.setAttribute("data-theme","dark")})();function toggleTheme(){var d=document.documentElement.getAttribute("data-theme")==="dark";if(d){document.documentElement.removeAttribute("data-theme");localStorage.setItem("theme","light")}else{document.documentElement.setAttribute("data-theme","dark");localStorage.setItem("theme","dark")}}var deferredPrompt=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredPrompt=e;var b=document.getElementById("installBtn");if(b)b.style.display="flex"});window.addEventListener("appinstalled",function(){deferredPrompt=null;var b=document.getElementById("installBtn");if(b)b.style.display="none"});function installApp(){if(!deferredPrompt)return;deferredPrompt.prompt();deferredPrompt.userChoice.then(function(r){if(r.outcome==="accepted")showToast("App installed!");deferredPrompt=null;var b=document.getElementById("installBtn");if(b)b.style.display="none"})}if("serviceWorker" in navigator){navigator.serviceWorker.register("../sw.js").catch(function(){})}
+function removeType(type){
+    const input=document.getElementById('input');
+    const out=document.getElementById('result');
+    const v=input.value;
+    if(!v.trim()){out.textContent='';showToast('Please enter some text first');return;}
+    let r=v;
+    if(type==='spaces')r=v.replace(/[ \t]+/g,' ').replace(/ *\n */g,'\n').trim();
+    else if(type==='numbers')r=v.replace(/\d+/g,'');
+    else if(type==='letters')r=v.replace(/[a-z]/gi,'');
+    else if(type==='special')r=v.replace(/[^a-z0-9\s\n]/gi,'');
+    else if(type==='html')r=v.replace(/<[^>]*>/g,'');
+    else if(type==='lines')r=v.split('\n').filter(l=>l.trim()).join('\n');
+    else if(type==='custom'){
+      const needle=document.getElementById('customRemove').value;
+      if(!needle){showToast('Enter a word or character to remove');return;}
+      r=v.split(needle).join('');
+    }else{return;}
+    out.textContent=r;
+  }
 ;function showToast(msg){document.getElementById('toastMsg').textContent=msg||'Done!';var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2500)}</script>
 </body>
 </html>
